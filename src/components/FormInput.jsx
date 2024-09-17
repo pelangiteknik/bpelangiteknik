@@ -1,44 +1,40 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import styles from '../components/formInput.module.css'
 import { ContentState, convertFromHTML, convertToRaw, EditorState } from "draft-js";
+import htmlToDraft from 'html-to-draftjs';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "draft-js/dist/Draft.css";
 import draftToHtml from "draftjs-to-html";
 import { useRouter } from 'next/navigation';
+import { MdOutlineFileUpload } from "react-icons/md";
 
-export default function UploadGambar() {
+export default function FormInput({ data }) {
+
     const [selectedImages, setSelectedImages] = useState([]);
     const router = useRouter()
-
-    const [price, setPrice] = useState(null)
-    const [diskon, setDiskon] = useState(null)
-    const diskonPrice = (price * diskon) / 100
-
-
-    const [kondisiPrice, setKondisiPrice] = useState(false)
-    const [kondisiDiskon, setKondisiDiskon] = useState(false)
-    const [kondisiDiskonPrice, setDiskonPrice] = useState(false)
-
+    const [loading, setLoading] = useState(false)
+    const [draf, setDraf] = useState(null)
 
     // TEXT EDITOR
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const onEditorStateChange = (editorState) => {
+        // formik.setFieldValue('myFile', e.target.files[0]);
         setEditorState(editorState)
     };
 
-    // useEffect(() => {
-    //     const edit = () => {
-    //         const contentBlock = htmlToDraft(data?.diskripsi_barang);
-    //         const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-    //         const editorState = EditorState.createWithContent(contentState);
-    //         setEditorState(editorState)
-    //     }
-    //     kondisi && edit()
-    // }, [kondisi, data?.diskripsi_barang])
+    useEffect(() => {
+        const edit = () => {
+            const contentBlock = htmlToDraft(data?.descProduct);
+            const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            const editorState = EditorState.createWithContent(contentState);
+            setEditorState(editorState)
+        }
+        data && edit()
+    }, [data, data?.descProduct])
 
     // const ResetDeskripsi = () => {
     //     const blocksFromHTML = convertFromHTML('&nbsp;')
@@ -53,107 +49,112 @@ export default function UploadGambar() {
         productName: Yup.string()
             .max(150, 'Must be 15 characters or less')
             .required('Required'),
+        stockProduct: Yup.number()
+            .max(99999, 'Must be 15 characters or less')
+            .required('Required'),
+        tagProduct: Yup.string()
+            .max(150, 'Must be 15 characters or less')
+            .required('Required'),
         productType: Yup.string()
             .max(200, 'Must be 20 characters or less')
             .required('Required'),
-        productMerk: Yup.string()
+        subProductType: Yup.string()
             .max(200, 'Must be 20 characters or less')
             .required('Required'),
+
         productPrice: Yup.number()
             .max(9999999999, 'Must be 200 characters or less')
             .required('Required'),
         productDiscount: Yup.number()
             .max(999, 'Must be 200 characters or less')
             .required('Required'),
-        productDiscountPrice: Yup.number()
-            .max(9999999999, 'Must be 200 characters or less')
-            .required('Required'),
+        // productPriceFinal: Yup.number()
+        //     .max(9999999999, 'Must be 200 characters or less')
+        //     .required('Required'),
 
-        phase_spec: Yup.string()
-            .max(200, 'Must be 20 characters or less')
-            .required('Required'),
-        frequency_spec: Yup.string()
-            .max(200, 'Must be 20 characters or less')
-            .required('Required'),
-        gensetPower_spec: Yup.string()
-            .max(200, 'Must be 20 characters or less')
-            .required('Required'),
-        ratedPower_spec: Yup.string()
-            .max(200, 'Must be 20 characters or less')
-            .required('Required'),
-        maxPower_spec: Yup.string()
-            .max(200, 'Must be 20 characters or less')
-            .required('Required'),
-        ratedACVoltage_spec: Yup.string()
-            .max(200, 'Must be 20 characters or less')
-            .required('Required'),
-        starting_spec: Yup.string()
-            .max(200, 'Must be 20 characters or less')
-            .required('Required'),
-        fuelConsumption_spec: Yup.string()
-            .max(200, 'Must be 20 characters or less')
-            .required('Required'),
-        weight_spec: Yup.string()
-            .max(200, 'Must be 20 characters or less')
-            .required('Required'),
-        dimension_spec: Yup.string()
-            .max(200, 'Must be 20 characters or less')
-            .required('Required'),
+        // phase_spec: Yup.string()
+        //     .max(200, 'Must be 20 characters or less')
+        //     .required('Required'),
+        // frequency_spec: Yup.string()
+        //     .max(200, 'Must be 20 characters or less')
+        //     .required('Required'),
+        // gensetPower_spec: Yup.string()
+        //     .max(200, 'Must be 20 characters or less')
+        //     .required('Required'),
+        // ratedPower_spec: Yup.string()
+        //     .max(200, 'Must be 20 characters or less')
+        //     .required('Required'),
+        // maxPower_spec: Yup.string()
+        //     .max(200, 'Must be 20 characters or less')
+        //     .required('Required'),
+        // ratedACVoltage_spec: Yup.string()
+        //     .max(200, 'Must be 20 characters or less')
+        //     .required('Required'),
+        // starting_spec: Yup.string()
+        //     .max(200, 'Must be 20 characters or less')
+        //     .required('Required'),
+        // fuelConsumption_spec: Yup.string()
+        //     .max(200, 'Must be 20 characters or less')
+        //     .required('Required'),
+        // weight_spec: Yup.string()
+        //     .max(200, 'Must be 20 characters or less')
+        //     .required('Required'),
+        // dimension_spec: Yup.string()
+        //     .max(200, 'Must be 20 characters or less')
+        //     .required('Required'),
         // email: Yup.string().email('Invalid email address').required('Required'),
         myFile: Yup.mixed().required('required')
             .test('fileFormat', 'Only Image files are allowed', value => {
-                console.log(value)
 
                 if (value) {
                     const supportedFormats = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'tiff'];
-                    return supportedFormats.includes(value.name.split('.').pop());
+                    return supportedFormats.includes(value?.name?.split('.')?.pop());
                 }
                 return true;
             })
             .test('fileSize', 'File size must not be more than 3MB',
                 value => {
                     if (value) {
-                        return value.size <= 3145728;
+                        return value?.size <= 3145728;
                     }
                     return true;
                 }),
     })
+
     const formik = useFormik({
         initialValues: {
-            productName: '',
-            productType: '',
-            productMerk: '',
-            productPrice: '',
-            productDiscount: '',
-            productDiscountPrice: '',
+            productName: data ? data?.productName : '',
+            stockProduct: data ? data?.stockProduct : '',
+            productType: data ? data?.productType : '',
+            subProductType: data ? data?.subProductType : '',
+            tagProduct: data ? data?.tagProduct : '',
+            productPrice: data ? data?.productPrice : '',
+            productDiscount: data ? data?.productDiscount : '',
+            productPriceFinal: data ? data?.productPriceFinal : '',
             descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
 
-            phase_spec: '',
-            frequency_spec: '',
-            gensetPower_spec: '',
-            ratedPower_spec: '',
-            maxPower_spec: '',
-            ratedACVoltage_spec: '',
-            starting_spec: '',
-            fuelConsumption_spec: '',
-            weight_spec: '',
-            dimension_spec: '',
+            phase_spec: data ? data?.spec_product.phase_spec : '',
+            frequency_spec: data ? data?.spec_product.frequency_spec : '',
+            gensetPower_spec: data ? data?.spec_product.gensetPower_spec : '',
+            ratedPower_spec: data ? data?.spec_product.ratedPower_spec : '',
+            maxPower_spec: data ? data?.spec_product.maxPower_spec : '',
+            ratedACVoltage_spec: data ? data?.spec_product.ratedACVoltage_spec : '',
+            starting_spec: data ? data?.spec_product.starting_spec : '',
+            fuelConsumption_spec: data ? data?.spec_product.fuelConsumption_spec : '',
+            weight_spec: data ? data?.spec_product.weight_spec : '',
+            dimension_spec: data ? data?.spec_product.dimension_spec : '',
             // email: '',
             myFile: '',
         },
-        onSubmit: async (value) => {
-            console.log(value);
-            price == null ? setKondisiPrice(true) : setKondisiPrice(false)
-            diskon == null ? setKondisiDiskon(true) : setKondisiPrice(false)
-            diskonPrice == 0 ? setDiskonPrice(true) : setKondisiPrice(false)
 
-            console.log('Submitted')
+        onSubmit: async (value) => {
             if (selectedImages.length === 0) return
 
             try {
+                setLoading(true)
                 const formData = new FormData();
                 selectedImages.forEach(image => {
-                    formData.append('files', image.file); // Append each image file to formData
+                    formData.append('files', image?.file); // Append each image file to formData
                 });
 
                 const res = await fetch('http://localhost:3000/api', {
@@ -161,14 +162,62 @@ export default function UploadGambar() {
                     body: formData
                 })
                 const dataRes = await res.json()
-                console.log('dari res', dataRes)
+                const dataImage = dataRes?.results
 
+                const slug = value?.productName
+                    ?.toLowerCase() // ubah jadi huruf kecil
+                    ?.replace(/[^a-z0-9\s]/g, '') // hapus karakter selain huruf, angka, dan spasi
+                    ?.trim() // hapus spasi di awal dan akhir
+                    ?.replace(/\s+/g, '-')
+
+
+                const GabungData = {
+                    ...value,
+                    descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+                    productPriceFinal: Math.round(value?.productPrice - ((value?.productPrice * value?.productDiscount) / 100)),
+                    slugProduct: slug,
+                    IdProduct: slug,
+                    saveDraf: draf ? true : false
+                }
+
+                await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
+                    method: data ? 'PUT' : 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+                    },
+                    body: JSON.stringify(GabungData),
+                })
+
+                await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/specProduct`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+                    },
+                    body: JSON.stringify(GabungData),
+                })
+
+                // Menggunakan for...of untuk mengiterasi array dataImage
+                for (const image of dataImage) {
+                    await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/imageProduct`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+                        },
+                        body: JSON.stringify({ ...image, IdProduct: slug }),
+                    })
+                }
+                setLoading(false)
+                formik.resetForm()
                 // handle the error
                 if (!res.ok) throw new Error(await res.text())
             } catch (e) {
                 // Handle errors here
                 console.error(e)
             }
+
         },
         validationSchema: validationRules,
     })
@@ -200,32 +249,35 @@ export default function UploadGambar() {
 
     return (
         <div className={styles.container}>
-
-
             <div className={styles.dalamcontainer}>
                 <form className={styles.form} onSubmit={formik.handleSubmit}>
                     <div className={styles.atas}>
                         <div className={styles.kiri}>PelangiTeknik</div>
                         <div className={styles.kanan}>
-                            <button className={styles.draf}>Save to Draf</button>
-                            <button type='submit' className={styles.save}>Save Product</button>
+                            <button type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
+                            <button type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? 'Save Product' : loading ? 'Loading...' : 'Save Product'}</button>
                         </div>
                     </div>
                     <div className={styles.bawah}>
                         <div className={styles.productImage}>
                             <div className={styles.judul}>Product Image</div>
                             <hr />
-                            <div className={styles.isi}>
-                                <input
-                                    type='file'
-                                    name='myFile'
-                                    accept="image/*"
-                                    onChange={handleChange}
-                                    multiple
-                                />
 
-                                <div>{(formik.errors.myFile) ? <p style={{ color: 'red' }}>{formik.errors.myFile}</p> : null}</div>
-                                <br />
+                            <div className={styles.isi}>
+                                <div className={styles.tag}>
+                                    <label htmlFor="tagProduct">Tag</label>
+                                    <input
+                                        id="tagProduct"
+                                        name="tagProduct"
+                                        type="text"
+                                        placeholder='ex: genset, genset slient'
+                                        onChange={formik.handleChange}
+                                        value={formik.values.tagProduct}
+                                        style={formik.errors.tagProduct ? { border: '1px solid var(--colormain)' } : {}}
+                                    />
+                                </div>
+
+                                <div className={styles.judulsamping}>Product Image</div>
                                 <div className="image-preview">
                                     {selectedImages.map((image, index) => (
                                         <div key={index} style={{ display: 'inline-block', position: 'relative', margin: '10px' }}>
@@ -255,6 +307,22 @@ export default function UploadGambar() {
                                         </div>
                                     ))}
                                 </div>
+
+                                <label
+                                    className={styles.labeltag}
+                                    htmlFor="myFile"><MdOutlineFileUpload /> &nbsp;Upload Image</label>
+                                <input
+                                    style={{ display: 'none' }}
+                                    id='myFile'
+                                    type='file'
+                                    name='myFile'
+                                    accept="image/*"
+                                    onChange={handleChange}
+                                    multiple
+                                />
+
+                                <div>{(formik.errors.myFile) ? <p style={{ color: 'red' }}>{formik.errors.myFile}</p> : null}</div>
+
                             </div>
                         </div>
                         <div className={styles.detaildetail}>
@@ -274,6 +342,19 @@ export default function UploadGambar() {
 
                                     <div className={styles.satubaris}>
                                         <div className={styles.bariskan}>
+                                            <label htmlFor="stockProduct">Stock Product</label>
+                                            <input
+                                                id="stockProduct"
+                                                name="stockProduct"
+                                                type="number"
+                                                onChange={formik.handleChange}
+                                                value={formik.values.stockProduct}
+                                                style={formik.errors.stockProduct ? { border: '1px solid var(--colormain)' } : {}}
+
+                                            />
+                                        </div>
+
+                                        <div className={styles.bariskan}>
                                             <label htmlFor="productType">Product Type</label>
                                             <input
                                                 id="productType"
@@ -287,14 +368,14 @@ export default function UploadGambar() {
                                         </div>
 
                                         <div className={styles.bariskan}>
-                                            <label htmlFor="productMerk">Product Merk</label>
+                                            <label htmlFor="subProductType">Sub Product Type</label>
                                             <input
-                                                id="productMerk"
-                                                name="productMerk"
+                                                id="subProductType"
+                                                name="subProductType"
                                                 type="text"
                                                 onChange={formik.handleChange}
-                                                value={formik.values.productMerk}
-                                                style={formik.errors.productMerk ? { border: '1px solid var(--colormain)' } : {}}
+                                                value={formik.values.subProductType}
+                                                style={formik.errors.subProductType ? { border: '1px solid var(--colormain)' } : {}}
                                             />
                                         </div>
                                     </div>
@@ -306,9 +387,9 @@ export default function UploadGambar() {
                                                 id="productPrice"
                                                 name="productPrice"
                                                 type="number"
-                                                onChange={(e) => setPrice(e.target.value)}
-                                                value={price}
-                                                style={kondisiPrice ? { border: '1px solid var(--colormain)' } : {}}
+                                                onChange={formik.handleChange}
+                                                value={formik.values.productPrice}
+                                                style={formik.errors.productPrice ? { border: '1px solid var(--colormain)' } : {}}
                                             />
                                         </div>
 
@@ -318,22 +399,23 @@ export default function UploadGambar() {
                                                 id="productDiscount"
                                                 name="productDiscount"
                                                 type="number"
-                                                onChange={(e) => setDiskon(e.target.value)}
-                                                value={diskon}
+                                                onChange={formik.handleChange}
+                                                value={formik.values.productDiscount}
                                                 max={100}
-                                                style={kondisiDiskon ? { border: '1px solid var(--colormain)' } : {}}
+                                                style={formik.errors.productDiscount ? { border: '1px solid var(--colormain)' } : {}}
                                             />
                                         </div>
 
                                         <div className={styles.bariskan}>
-                                            <label htmlFor="productDiscountPrice">Discount Price</label>
+                                            <label htmlFor="productPriceFinal">Discount Price</label>
                                             <input
-                                                id="productDiscountPrice"
-                                                name="productDiscountPrice"
+                                                id="productPriceFinal"
+                                                name="productPriceFinal"
                                                 type="number"
-                                                value={diskonPrice == 0 ? '' : diskonPrice}
+                                                onChange={formik.handleChange}
+                                                value={Math.round(formik.values.productPrice - ((formik.values.productPrice * formik.values.productDiscount) / 100)) != 0 && Math.round(formik.values.productPrice - ((formik.values.productPrice * formik.values.productDiscount) / 100))}
                                                 disabled
-                                                style={kondisiDiskonPrice ? { border: '1px solid var(--colormain)' } : {}}
+                                                style={formik.errors.productPriceFinal ? { border: '1px solid var(--colormain)' } : {}}
                                             // disabled
                                             />
                                         </div>

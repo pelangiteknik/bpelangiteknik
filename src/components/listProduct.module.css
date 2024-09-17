@@ -1,0 +1,115 @@
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.7rem;
+}
+
+.dalamcontainer {
+    width: var(--max-width);
+    font-size: 0.7rem;
+}
+
+.atas {
+    display: flex;
+    padding: 0 30px;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    width: var(--max-width);
+    background-color: var(--colorsekunder);
+    position: sticky;
+    top: 0;
+}
+
+.atas .judul {
+    font-weight: 1000;
+}
+
+.atas .judulkanan {
+    font-weight: 700;
+}
+
+
+
+.producttable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    font-family: sans-serif;
+    text-align: left;
+}
+
+.producttable th,
+.producttable td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.producttable th {
+    background-color: #f4f4f4;
+}
+
+.producttable td:nth-child(6) {
+    text-align: center;
+}
+
+.producttable td:nth-child(1) {
+    cursor: pointer;
+}
+
+.producttable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.producttable tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Toggle Switch Styles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}

@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/d/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model listProduct {
+  start             DateTime @default(now())
+  end               DateTime @updatedAt
+  slugProduct       String   @id @unique
+  saveDraf          Boolean  @default(true)
+  descProduct       String?
+  productName       String?
+  stockProduct      Int?
+  productType       String?
+  subProductType    String?
+  tagProduct        Json?
+  productPrice      BigInt?
+  productDiscount   Int?
+  productPriceFinal BigInt?
+
+  url_image_product imageProduct[]
+  spec_product      specProduct?
+}
+
+model specProduct {
+  phase_spec           String?
+  frequency_spec       String?
+  gensetPower_spec     String?
+  ratedPower_spec      String?
+  maxPower_spec        String?
+  ratedACVoltage_spec  String?
+  starting_spec        String?
+  fuelConsumption_spec String?
+  weight_spec          String?
+  dimension_spec       String?
+
+  IdProduct String      @unique
+  user      listProduct @relation(fields: [IdProduct], references: [slugProduct])
+}
+
+model imageProduct {
+  id                Int      @id @default(autoincrement())
+  asset_id          String? // Asset ID
+  public_id         String? // Public ID
+  version           Int? // Version
+  version_id        String? // Version ID
+  signature         String? // Signature
+  width             Int? // Image width
+  height            Int? // Image height
+  format            String? // Image format (e.g., jpg, png)
+  resource_type     String? // Resource type (e.g., image, video)
+  created_at        DateTime @default(now()) // Time of creation
+  tags              Json? // Tags associated with the image
+  bytes             Int? // Size of the file in bytes
+  type              String? // Upload type
+  etag              String? // ETag for cache control
+  placeholder       Boolean? // Whether the image is a placeholder
+  url               String? // URL to access the image
+  secure_url        String? // Secure URL for access
+  asset_folder      String? // Asset folder (nullable)
+  display_name      String? // Display name of the file (nullable)
+  original_filename String? // Original filename
+  api_key           String? // API key used for upload
+
+  IdProduct String
+  user      listProduct @relation(fields: [IdProduct], references: [slugProduct])
+
+  @@index([IdProduct])
+}

@@ -33,6 +33,7 @@
     background-color: var(--colorsekunder);
     position: sticky;
     top: 0;
+    z-index: 1999;
 }
 
 .atas .kiri {
@@ -67,13 +68,38 @@
     padding: 20px
 }
 
+.bawah .labeltag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--colorbggreyutama);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    height: 70px;
+}
+
+.bawah .labeltag:hover {
+    transition: all ease 0.2s;
+    background-color: var(--colorbggreyutama);
+}
+
 .bawah .productImage {
     width: 30%;
     background-color: var(--colorsekunder);
     border-radius: var(--border-radius);
-    height: 300px !important;
+    /* height: 500px !important; */
+    height: fit-content !important;
     position: sticky;
     top: 90px;
+}
+
+.bawah .productImage .isi {
+    font-size: 0.6rem !important;
+}
+
+.bawah .judulsamping {
+    padding: 10px 0;
 }
 
 .bawah .detail {
@@ -82,6 +108,23 @@
     flex-direction: column;
     background-color: var(--colorsekunder);
     border-radius: var(--border-radius);
+}
+
+.bawah .tag {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.bawah .tag label {
+    margin-bottom: 5px;
+}
+
+.bawah .tag input {
+    padding: 10px;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--colorbggreyutama);
+    margin-bottom: 10px;
 }
 
 .satubaris {
