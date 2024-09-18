@@ -1,11 +1,18 @@
 'use client'
-import styles from '../components/listProduct.module.css'
-import { HandleDraf } from '../service/handleDraf'
+import styles from '@/components/listProduct.module.css'
+import { HandleDraf } from '@/service/handleDraf'
 import { useState } from 'react'
-import FormInput from "../components/FormInput";
+// import FormInput from "@/components/FormInput";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { MdHome } from "react-icons/md";
+import { handleDetailProduct } from '@/service/handleDetailProduct';
+
+import dynamic from 'next/dynamic';
+const FormInput = dynamic(() => import('@/components/FormInput'), {
+    loading: () => <p>Loading Form...</p>, // Optional: loading state while the component is being loaded
+    ssr: false // Disable server-side rendering for this component
+});
 
 export default function ListProduct({ dataList, query }) {
     const router = useRouter()
@@ -17,25 +24,9 @@ export default function ListProduct({ dataList, query }) {
     const GetDetailProduct = async (id) => {
         setKlik(true)
         setLoading(true)
-        try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/get/product?id=${id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
-                },
-                next: {
-                    revalidate: 0
-                }
-            })
-            const data = await res.json()
-            setData(data?.data[0])
-            setLoading(false)
-            return data
-
-        } catch (error) {
-            console.log(error);
-        }
+        const data = await handleDetailProduct(id)
+        setData(data?.data[0])
+        setLoading(false)
     }
 
     const UpdatePublish = async (slug, draf) => {
@@ -49,7 +40,6 @@ export default function ListProduct({ dataList, query }) {
         setLoading(true)
         router.push(`/s/${search}`)
     }
-
 
     return (
         <div className={styles.container}>

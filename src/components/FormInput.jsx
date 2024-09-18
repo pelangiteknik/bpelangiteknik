@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-import styles from '../components/formInput.module.css'
+import styles from '@/components/formInput.module.css'
 import { ContentState, convertFromHTML, convertToRaw, EditorState } from "draft-js";
 import htmlToDraft from 'html-to-draftjs';
 import { Editor } from "react-draft-wysiwyg";
