@@ -57,6 +57,7 @@
     margin-top: 20px;
     display: flex;
     gap: 20px;
+    padding: 0 30px;
 }
 
 .bawah .judul {

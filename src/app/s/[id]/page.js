@@ -1,9 +1,10 @@
-import FormInput from "../../../components/FormInput";
+import ListProduct from "../../../components/listProduct";
+
 export const dynamic = 'force-dynamic'
 
 export async function GetListProduct(id) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/get/product?id=${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/get/searchListProduct?query=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,11 +21,12 @@ export async function GetListProduct(id) {
     }
 }
 
-export default async function Page({ params }) {
+export default async function Home({ params }) {
     const data = await GetListProduct(params.id)
-    const dataku = await data?.data[0]
 
     return (
-        <FormInput data={dataku} />
-    )
+        <>
+            <ListProduct dataList={data?.data} query={params.id} />
+        </>
+    );
 }

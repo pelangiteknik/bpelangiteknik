@@ -10,11 +10,13 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model listProduct {
+  id                Int      @default(autoincrement())
   start             DateTime @default(now())
   end               DateTime @updatedAt
   slugProduct       String   @id @unique
@@ -42,7 +44,7 @@ model specProduct {
   ratedACVoltage_spec  String?
   starting_spec        String?
   fuelConsumption_spec String?
-  weight_spec          String?
+  weight_spec          Int?
   dimension_spec       String?
 
   IdProduct String      @unique

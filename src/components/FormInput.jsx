@@ -210,6 +210,7 @@ export default function FormInput({ data }) {
                     })
                 }
                 setLoading(false)
+                router.push('/')
                 formik.resetForm()
                 // handle the error
                 if (!res.ok) throw new Error(await res.text())
@@ -252,7 +253,7 @@ export default function FormInput({ data }) {
             <div className={styles.dalamcontainer}>
                 <form className={styles.form} onSubmit={formik.handleSubmit}>
                     <div className={styles.atas}>
-                        <div className={styles.kiri}>PelangiTeknik</div>
+                        <div className={styles.kiri}>{data ? data?.productName : 'PelangiTeknik'}</div>
                         <div className={styles.kanan}>
                             <button type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
                             <button type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? 'Save Product' : loading ? 'Loading...' : 'Save Product'}</button>

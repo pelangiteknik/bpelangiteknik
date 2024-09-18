@@ -6,6 +6,8 @@
     font-size: 0.7rem;
 }
 
+
+
 .dalamcontainer {
     width: var(--max-width);
     font-size: 0.7rem;
@@ -25,9 +27,40 @@
 
 .atas .judul {
     font-weight: 1000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.atas .judul:hover {
+    opacity: 0.9;
 }
 
 .atas .judulkanan {
+    font-weight: 700;
+}
+
+.atas .search {
+    border: 1px solid var(--colorthrid);
+    border-radius: var(--border-radius);
+    padding: 1px;
+}
+
+.atas .search input {
+    padding: 10px;
+}
+
+.atas .search input:focus {
+    border: transparent;
+    outline: 0;
+}
+
+.atas .search button {
+    height: 100%;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
     font-weight: 700;
 }
 
@@ -112,4 +145,53 @@ input:checked+.slider {
 
 input:checked+.slider:before {
     transform: translateX(26px);
+}
+
+
+/* UPDATE */
+.bghitam {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100dvh;
+    background-color: var(--colorthrid);
+    opacity: 0.3;
+}
+
+
+.containerupdate {
+    position: absolute;
+    top: 50px;
+    width: var(--max-width);
+    height: 80vh;
+    background-color: var(--colorsekunder);
+    z-index: 1000;
+    border-radius: var(--border-radius);
+    padding: 0 50px 50px 50px;
+    overflow: hidden;
+}
+
+.containerupdate:hover {
+    overflow-y: scroll;
+}
+
+
+/* LOADING */
+
+.loading {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.loading .kotak {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: var(--colorsekunder); */
+    font-size: 2rem;
+    font-weight: 1000;
 }
