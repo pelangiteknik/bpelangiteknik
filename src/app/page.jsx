@@ -1,4 +1,4 @@
-import ListProduct from "../components/listProduct";
+import ListProduct from "@/components/listProduct";
 
 export const dynamic = 'force-dynamic'
 
@@ -25,8 +25,6 @@ export default async function Home() {
   const data = await GetListProduct()
 
   return (
-    <>
-      <ListProduct dataList={data?.data} />
-    </>
+    <ListProduct dataList={data?.data} />
   );
 }

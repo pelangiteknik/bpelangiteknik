@@ -1,4 +1,4 @@
-import ListProduct from "../../../components/listProduct";
+import ListProduct from "@/components/listProduct";
 
 export const dynamic = 'force-dynamic'
 

@@ -1,5 +1,5 @@
-import { prisma } from "../../../../controllers/prisma";
-import { ResponseData } from '../../../../components/api/ResponseData'
+import { prisma } from "@/controllers/prisma";
+import { ResponseData } from '@/components/api/ResponseData'
 
 export async function POST(req) {
     const authorization = req.headers.get('authorization')
