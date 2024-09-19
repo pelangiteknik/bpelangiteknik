@@ -16,7 +16,7 @@ import { HandleDeleteImageC } from '@/service/handleDeleteImageC';
 import { useCon } from '@/zustand/useCon';
 import toast from 'react-hot-toast';
 
-export default function FormInput({ data }) {
+export default function FormInput({ data, text }) {
     const setLayang = useCon((state) => state.setLayang)
 
     const [selectedImages, setSelectedImages] = useState([]);
@@ -312,7 +312,7 @@ export default function FormInput({ data }) {
                         <div className={styles.kiri}>{data ? data?.productName : 'PelangiTeknik'}</div>
                         <div className={styles.kanan}>
                             <button type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
-                            <button type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? 'Save Product' : loading ? 'Loading...' : 'Save Product'}</button>
+                            <button type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? text ? text : 'Save Product' : loading ? 'Loading...' : text ? text : 'Save Product'}</button>
                         </div>
                     </div>
                     <div className={styles.bawah}>

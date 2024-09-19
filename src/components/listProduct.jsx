@@ -115,7 +115,7 @@ export default function ListProduct({ dataList, query }) {
                     <>
                         <div className={styles.bghitam} onClick={() => setLayang()}></div>
                         <div className={styles.containerupdate}>
-                            <FormInput data={data} />
+                            <FormInput data={data} text={'Update Product'} />
                         </div>
                     </>
             }
