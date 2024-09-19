@@ -2,11 +2,12 @@
 import styles from '@/components/listProduct.module.css'
 import { HandleDraf } from '@/service/handleDraf'
 import { useState } from 'react'
-// import FormInput from "@/components/FormInput";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { MdHome } from "react-icons/md";
 import { handleDetailProduct } from '@/service/handleDetailProduct';
+import { useCon } from '@/zustand/useCon';
+import toast from 'react-hot-toast';
 
 import dynamic from 'next/dynamic';
 const FormInput = dynamic(() => import('@/components/FormInput'), {
@@ -15,14 +16,16 @@ const FormInput = dynamic(() => import('@/components/FormInput'), {
 });
 
 export default function ListProduct({ dataList, query }) {
+    const setLayang = useCon((state) => state.setLayang)
+    const layang = useCon((state) => state.layang)
+
     const router = useRouter()
-    const [klik, setKlik] = useState(false)
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState(null)
     const [search, setSearch] = useState(query)
 
     const GetDetailProduct = async (id) => {
-        setKlik(true)
+        setLayang()
         setLoading(true)
         const data = await handleDetailProduct(id)
         setData(data?.data[0])
@@ -33,6 +36,7 @@ export default function ListProduct({ dataList, query }) {
         setLoading(true)
         await HandleDraf(slug, draf)
         setLoading(false)
+        toast.success('Successfully!')
     }
 
     const handleSearch = (e) => {
@@ -46,6 +50,7 @@ export default function ListProduct({ dataList, query }) {
             <div className={styles.dalamcontainer}>
                 <div className={styles.atas}>
                     <Link href={'/'} className={styles.judul}><MdHome size={30} />PelangiTeknik</Link>
+                    <Link href={'/post'} target='_blank'> <button className={styles.searchP}>Posting</button></Link>
                     <div className={styles.search}>
                         <form onSubmit={handleSearch}>
                             <input
@@ -55,7 +60,7 @@ export default function ListProduct({ dataList, query }) {
                                 value={search}
                             />
 
-                            <button type="submit">Search</button>
+                            <button className={styles.searchB} type="submit">Search</button>
                         </form>
                     </div>
                 </div>
@@ -84,7 +89,7 @@ export default function ListProduct({ dataList, query }) {
                                         <label className={styles.switch}>
                                             <input
                                                 type="checkbox"
-                                                checked={product?.saveDraf}
+                                                checked={!product?.saveDraf}
                                                 onChange={() => UpdatePublish(product?.slugProduct, !product?.saveDraf)}
                                             />
                                             <span className={styles.slider}></span>
@@ -99,19 +104,20 @@ export default function ListProduct({ dataList, query }) {
             </div>
 
 
-            {loading ?
-                <div className={styles.loading}>
-                    <div className={styles.kotak} >
-                        LOADING...
-                    </div>
-                </div> :
-                klik &&
-                <>
-                    <div className={styles.bghitam} onClick={() => setKlik(false)}></div>
-                    <div className={styles.containerupdate}>
-                        <FormInput data={data} />
-                    </div>
-                </>
+            {
+                loading ?
+                    <div className={styles.loading}>
+                        <div className={styles.kotak} >
+                            LOADING...
+                        </div>
+                    </div> :
+                    layang &&
+                    <>
+                        <div className={styles.bghitam} onClick={() => setLayang()}></div>
+                        <div className={styles.containerupdate}>
+                            <FormInput data={data} />
+                        </div>
+                    </>
             }
         </div >
     )

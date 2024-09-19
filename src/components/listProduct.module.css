@@ -45,6 +45,7 @@
     border: 1px solid var(--colorthrid);
     border-radius: var(--border-radius);
     padding: 1px;
+    display: flex;
 }
 
 .atas .search input {
@@ -56,12 +57,28 @@
     outline: 0;
 }
 
-.atas .search button {
+.atas .search .searchB {
     height: 100%;
     padding: 10px;
     border-radius: var(--border-radius);
     cursor: pointer;
     font-weight: 700;
+}
+
+.atas .searchP {
+    height: 40px;
+    padding: 0 18px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.atas button {
+    background-color: var(--colorbggreyutama);
+}
+
+.atas button:hover {
+    background-color: var(--hovercolorbggreyutama);
 }
 
 

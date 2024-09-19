@@ -156,3 +156,43 @@
 .bawah .detail .isi label {
     margin-bottom: 5px;
 }
+
+.yesno {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    /* background-color: var(--colorsekunder); */
+}
+
+.yesno .tombol {
+    background-color: var(--colormain);
+    color: var(--colorsekunder);
+    padding: 3px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+}
+
+.yesno .tombol:hover {
+    background-color: var(--hovercolormain);
+    cursor: pointer;
+}
+
+.tombolhapus {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: var(--colormain);
+    color: var(--colorsekunder);
+    border: none;
+    font-size: 0.5rem;
+    cursor: 'pointer';
+    width: fit-content !important;
+    height: 20px !important;
+    padding: 0 10px!important;
+}

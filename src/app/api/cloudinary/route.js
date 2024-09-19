@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server"
 import { v2 as cloudinary } from 'cloudinary'
 
-export async function GET(req, res) {
-    return NextResponse.json({ hello: 'failed to load data' })
-}
-
 export async function POST(req, res) {
     try {
         const formData = await req.formData();
@@ -34,6 +30,24 @@ export async function POST(req, res) {
         }
         // Return the array of results
         return NextResponse.json({ status: "success", results: uploadResults });
+    } catch (e) {
+        console.error(e);
+        return NextResponse.json({ status: "fail", error: e });
+    }
+}
+
+
+export async function DELETE(req, res) {
+    cloudinary.config({
+        cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET
+    });
+
+    try {
+        const result = await cloudinary.api.delete_resources(['zntwjwaaheilbolpov4x'], function (result) { console.log(result) });
+        // Return the array of results
+        return NextResponse.json({ status: "success", result });
     } catch (e) {
         console.error(e);
         return NextResponse.json({ status: "fail", error: e });

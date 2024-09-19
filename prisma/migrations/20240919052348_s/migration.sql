@@ -1,5 +1,6 @@
 -- CreateTable
 CREATE TABLE "listProduct" (
+    "id" SERIAL NOT NULL,
     "start" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "end" TIMESTAMP(3) NOT NULL,
     "slugProduct" TEXT NOT NULL,
@@ -19,6 +20,9 @@ CREATE TABLE "listProduct" (
 
 -- CreateTable
 CREATE TABLE "specProduct" (
+    "id" SERIAL NOT NULL,
+    "start" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "end" TIMESTAMP(3) NOT NULL,
     "phase_spec" TEXT,
     "frequency_spec" TEXT,
     "gensetPower_spec" TEXT,
@@ -27,7 +31,7 @@ CREATE TABLE "specProduct" (
     "ratedACVoltage_spec" TEXT,
     "starting_spec" TEXT,
     "fuelConsumption_spec" TEXT,
-    "weight_spec" TEXT,
+    "weight_spec" INTEGER,
     "dimension_spec" TEXT,
     "IdProduct" TEXT NOT NULL
 );
@@ -35,6 +39,8 @@ CREATE TABLE "specProduct" (
 -- CreateTable
 CREATE TABLE "imageProduct" (
     "id" SERIAL NOT NULL,
+    "start" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "end" TIMESTAMP(3) NOT NULL,
     "asset_id" TEXT,
     "public_id" TEXT,
     "version" INTEGER,
@@ -66,6 +72,12 @@ CREATE UNIQUE INDEX "listProduct_slugProduct_key" ON "listProduct"("slugProduct"
 
 -- CreateIndex
 CREATE UNIQUE INDEX "specProduct_IdProduct_key" ON "specProduct"("IdProduct");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "imageProduct_asset_id_key" ON "imageProduct"("asset_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "imageProduct_public_id_key" ON "imageProduct"("public_id");
 
 -- CreateIndex
 CREATE INDEX "imageProduct_IdProduct_idx" ON "imageProduct"("IdProduct");

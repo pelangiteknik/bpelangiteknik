@@ -10,8 +10,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   // directUrl = env("DIRECT_URL")
 }
 
@@ -36,6 +36,9 @@ model listProduct {
 }
 
 model specProduct {
+  id                   Int      @default(autoincrement())
+  start                DateTime @default(now())
+  end                  DateTime @updatedAt
   phase_spec           String?
   frequency_spec       String?
   gensetPower_spec     String?
@@ -53,8 +56,10 @@ model specProduct {
 
 model imageProduct {
   id                Int      @id @default(autoincrement())
-  asset_id          String? // Asset ID
-  public_id         String? // Public ID
+  start             DateTime @default(now())
+  end               DateTime @updatedAt
+  asset_id          String?  @unique // Asset ID
+  public_id         String?  @unique // Public ID
   version           Int? // Version
   version_id        String? // Version ID
   signature         String? // Signature

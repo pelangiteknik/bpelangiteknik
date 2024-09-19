@@ -75,9 +75,6 @@ export async function PUT(req) {
         productDiscount,
         productPriceFinal
     }
-
-    console.log(data)
-
     if (authorization == process.env.NEXT_PUBLIC_SECREET) {
         const CreateList = await prisma.listProduct.updateMany({
             where: {

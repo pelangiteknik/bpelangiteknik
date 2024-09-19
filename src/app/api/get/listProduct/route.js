@@ -5,7 +5,7 @@ export async function GET(req) {
     const data = await prisma.listProduct.findMany({
         take: 10,
         orderBy: {
-            id: 'asc'
+            id: 'desc'
         }
     })
 

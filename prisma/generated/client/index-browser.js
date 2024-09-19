@@ -137,6 +137,9 @@ exports.Prisma.ListProductScalarFieldEnum = {
 };
 
 exports.Prisma.SpecProductScalarFieldEnum = {
+  id: 'id',
+  start: 'start',
+  end: 'end',
   phase_spec: 'phase_spec',
   frequency_spec: 'frequency_spec',
   gensetPower_spec: 'gensetPower_spec',
@@ -152,6 +155,8 @@ exports.Prisma.SpecProductScalarFieldEnum = {
 
 exports.Prisma.ImageProductScalarFieldEnum = {
   id: 'id',
+  start: 'start',
+  end: 'end',
   asset_id: 'asset_id',
   public_id: 'public_id',
   version: 'version',

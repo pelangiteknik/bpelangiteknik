@@ -2177,14 +2177,19 @@ export namespace Prisma {
   }
 
   export type SpecProductAvgAggregateOutputType = {
+    id: number | null
     weight_spec: number | null
   }
 
   export type SpecProductSumAggregateOutputType = {
+    id: number | null
     weight_spec: number | null
   }
 
   export type SpecProductMinAggregateOutputType = {
+    id: number | null
+    start: Date | null
+    end: Date | null
     phase_spec: string | null
     frequency_spec: string | null
     gensetPower_spec: string | null
@@ -2199,6 +2204,9 @@ export namespace Prisma {
   }
 
   export type SpecProductMaxAggregateOutputType = {
+    id: number | null
+    start: Date | null
+    end: Date | null
     phase_spec: string | null
     frequency_spec: string | null
     gensetPower_spec: string | null
@@ -2213,6 +2221,9 @@ export namespace Prisma {
   }
 
   export type SpecProductCountAggregateOutputType = {
+    id: number
+    start: number
+    end: number
     phase_spec: number
     frequency_spec: number
     gensetPower_spec: number
@@ -2229,14 +2240,19 @@ export namespace Prisma {
 
 
   export type SpecProductAvgAggregateInputType = {
+    id?: true
     weight_spec?: true
   }
 
   export type SpecProductSumAggregateInputType = {
+    id?: true
     weight_spec?: true
   }
 
   export type SpecProductMinAggregateInputType = {
+    id?: true
+    start?: true
+    end?: true
     phase_spec?: true
     frequency_spec?: true
     gensetPower_spec?: true
@@ -2251,6 +2267,9 @@ export namespace Prisma {
   }
 
   export type SpecProductMaxAggregateInputType = {
+    id?: true
+    start?: true
+    end?: true
     phase_spec?: true
     frequency_spec?: true
     gensetPower_spec?: true
@@ -2265,6 +2284,9 @@ export namespace Prisma {
   }
 
   export type SpecProductCountAggregateInputType = {
+    id?: true
+    start?: true
+    end?: true
     phase_spec?: true
     frequency_spec?: true
     gensetPower_spec?: true
@@ -2366,6 +2388,9 @@ export namespace Prisma {
   }
 
   export type SpecProductGroupByOutputType = {
+    id: number
+    start: Date
+    end: Date
     phase_spec: string | null
     frequency_spec: string | null
     gensetPower_spec: string | null
@@ -2399,6 +2424,9 @@ export namespace Prisma {
 
 
   export type specProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    start?: boolean
+    end?: boolean
     phase_spec?: boolean
     frequency_spec?: boolean
     gensetPower_spec?: boolean
@@ -2414,6 +2442,9 @@ export namespace Prisma {
   }, ExtArgs["result"]["specProduct"]>
 
   export type specProductSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    start?: boolean
+    end?: boolean
     phase_spec?: boolean
     frequency_spec?: boolean
     gensetPower_spec?: boolean
@@ -2429,6 +2460,9 @@ export namespace Prisma {
   }, ExtArgs["result"]["specProduct"]>
 
   export type specProductSelectScalar = {
+    id?: boolean
+    start?: boolean
+    end?: boolean
     phase_spec?: boolean
     frequency_spec?: boolean
     gensetPower_spec?: boolean
@@ -2455,6 +2489,9 @@ export namespace Prisma {
       user: Prisma.$listProductPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
+      id: number
+      start: Date
+      end: Date
       phase_spec: string | null
       frequency_spec: string | null
       gensetPower_spec: string | null
@@ -2549,8 +2586,8 @@ export namespace Prisma {
      * // Get first 10 SpecProducts
      * const specProducts = await prisma.specProduct.findMany({ take: 10 })
      * 
-     * // Only select the `phase_spec`
-     * const specProductWithPhase_specOnly = await prisma.specProduct.findMany({ select: { phase_spec: true } })
+     * // Only select the `id`
+     * const specProductWithIdOnly = await prisma.specProduct.findMany({ select: { id: true } })
      * 
      */
     findMany<T extends specProductFindManyArgs>(args?: SelectSubset<T, specProductFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$specProductPayload<ExtArgs>, T, "findMany">>
@@ -2594,9 +2631,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many SpecProducts and only return the `phase_spec`
-     * const specProductWithPhase_specOnly = await prisma.specProduct.createManyAndReturn({ 
-     *   select: { phase_spec: true },
+     * // Create many SpecProducts and only return the `id`
+     * const specProductWithIdOnly = await prisma.specProduct.createManyAndReturn({ 
+     *   select: { id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -2860,6 +2897,9 @@ export namespace Prisma {
    * Fields of the specProduct model
    */ 
   interface specProductFieldRefs {
+    readonly id: FieldRef<"specProduct", 'Int'>
+    readonly start: FieldRef<"specProduct", 'DateTime'>
+    readonly end: FieldRef<"specProduct", 'DateTime'>
     readonly phase_spec: FieldRef<"specProduct", 'String'>
     readonly frequency_spec: FieldRef<"specProduct", 'String'>
     readonly gensetPower_spec: FieldRef<"specProduct", 'String'>
@@ -3233,6 +3273,8 @@ export namespace Prisma {
 
   export type ImageProductMinAggregateOutputType = {
     id: number | null
+    start: Date | null
+    end: Date | null
     asset_id: string | null
     public_id: string | null
     version: number | null
@@ -3258,6 +3300,8 @@ export namespace Prisma {
 
   export type ImageProductMaxAggregateOutputType = {
     id: number | null
+    start: Date | null
+    end: Date | null
     asset_id: string | null
     public_id: string | null
     version: number | null
@@ -3283,6 +3327,8 @@ export namespace Prisma {
 
   export type ImageProductCountAggregateOutputType = {
     id: number
+    start: number
+    end: number
     asset_id: number
     public_id: number
     version: number
@@ -3327,6 +3373,8 @@ export namespace Prisma {
 
   export type ImageProductMinAggregateInputType = {
     id?: true
+    start?: true
+    end?: true
     asset_id?: true
     public_id?: true
     version?: true
@@ -3352,6 +3400,8 @@ export namespace Prisma {
 
   export type ImageProductMaxAggregateInputType = {
     id?: true
+    start?: true
+    end?: true
     asset_id?: true
     public_id?: true
     version?: true
@@ -3377,6 +3427,8 @@ export namespace Prisma {
 
   export type ImageProductCountAggregateInputType = {
     id?: true
+    start?: true
+    end?: true
     asset_id?: true
     public_id?: true
     version?: true
@@ -3490,6 +3542,8 @@ export namespace Prisma {
 
   export type ImageProductGroupByOutputType = {
     id: number
+    start: Date
+    end: Date
     asset_id: string | null
     public_id: string | null
     version: number | null
@@ -3535,6 +3589,8 @@ export namespace Prisma {
 
   export type imageProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    start?: boolean
+    end?: boolean
     asset_id?: boolean
     public_id?: boolean
     version?: boolean
@@ -3562,6 +3618,8 @@ export namespace Prisma {
 
   export type imageProductSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    start?: boolean
+    end?: boolean
     asset_id?: boolean
     public_id?: boolean
     version?: boolean
@@ -3589,6 +3647,8 @@ export namespace Prisma {
 
   export type imageProductSelectScalar = {
     id?: boolean
+    start?: boolean
+    end?: boolean
     asset_id?: boolean
     public_id?: boolean
     version?: boolean
@@ -3627,6 +3687,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      start: Date
+      end: Date
       asset_id: string | null
       public_id: string | null
       version: number | null
@@ -4044,6 +4106,8 @@ export namespace Prisma {
    */ 
   interface imageProductFieldRefs {
     readonly id: FieldRef<"imageProduct", 'Int'>
+    readonly start: FieldRef<"imageProduct", 'DateTime'>
+    readonly end: FieldRef<"imageProduct", 'DateTime'>
     readonly asset_id: FieldRef<"imageProduct", 'String'>
     readonly public_id: FieldRef<"imageProduct", 'String'>
     readonly version: FieldRef<"imageProduct", 'Int'>
@@ -4433,6 +4497,9 @@ export namespace Prisma {
 
 
   export const SpecProductScalarFieldEnum: {
+    id: 'id',
+    start: 'start',
+    end: 'end',
     phase_spec: 'phase_spec',
     frequency_spec: 'frequency_spec',
     gensetPower_spec: 'gensetPower_spec',
@@ -4451,6 +4518,8 @@ export namespace Prisma {
 
   export const ImageProductScalarFieldEnum: {
     id: 'id',
+    start: 'start',
+    end: 'end',
     asset_id: 'asset_id',
     public_id: 'public_id',
     version: 'version',
@@ -4720,6 +4789,9 @@ export namespace Prisma {
     AND?: specProductWhereInput | specProductWhereInput[]
     OR?: specProductWhereInput[]
     NOT?: specProductWhereInput | specProductWhereInput[]
+    id?: IntFilter<"specProduct"> | number
+    start?: DateTimeFilter<"specProduct"> | Date | string
+    end?: DateTimeFilter<"specProduct"> | Date | string
     phase_spec?: StringNullableFilter<"specProduct"> | string | null
     frequency_spec?: StringNullableFilter<"specProduct"> | string | null
     gensetPower_spec?: StringNullableFilter<"specProduct"> | string | null
@@ -4735,6 +4807,9 @@ export namespace Prisma {
   }
 
   export type specProductOrderByWithRelationInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     phase_spec?: SortOrderInput | SortOrder
     frequency_spec?: SortOrderInput | SortOrder
     gensetPower_spec?: SortOrderInput | SortOrder
@@ -4754,6 +4829,9 @@ export namespace Prisma {
     AND?: specProductWhereInput | specProductWhereInput[]
     OR?: specProductWhereInput[]
     NOT?: specProductWhereInput | specProductWhereInput[]
+    id?: IntFilter<"specProduct"> | number
+    start?: DateTimeFilter<"specProduct"> | Date | string
+    end?: DateTimeFilter<"specProduct"> | Date | string
     phase_spec?: StringNullableFilter<"specProduct"> | string | null
     frequency_spec?: StringNullableFilter<"specProduct"> | string | null
     gensetPower_spec?: StringNullableFilter<"specProduct"> | string | null
@@ -4768,6 +4846,9 @@ export namespace Prisma {
   }, "IdProduct">
 
   export type specProductOrderByWithAggregationInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     phase_spec?: SortOrderInput | SortOrder
     frequency_spec?: SortOrderInput | SortOrder
     gensetPower_spec?: SortOrderInput | SortOrder
@@ -4790,6 +4871,9 @@ export namespace Prisma {
     AND?: specProductScalarWhereWithAggregatesInput | specProductScalarWhereWithAggregatesInput[]
     OR?: specProductScalarWhereWithAggregatesInput[]
     NOT?: specProductScalarWhereWithAggregatesInput | specProductScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"specProduct"> | number
+    start?: DateTimeWithAggregatesFilter<"specProduct"> | Date | string
+    end?: DateTimeWithAggregatesFilter<"specProduct"> | Date | string
     phase_spec?: StringNullableWithAggregatesFilter<"specProduct"> | string | null
     frequency_spec?: StringNullableWithAggregatesFilter<"specProduct"> | string | null
     gensetPower_spec?: StringNullableWithAggregatesFilter<"specProduct"> | string | null
@@ -4808,6 +4892,8 @@ export namespace Prisma {
     OR?: imageProductWhereInput[]
     NOT?: imageProductWhereInput | imageProductWhereInput[]
     id?: IntFilter<"imageProduct"> | number
+    start?: DateTimeFilter<"imageProduct"> | Date | string
+    end?: DateTimeFilter<"imageProduct"> | Date | string
     asset_id?: StringNullableFilter<"imageProduct"> | string | null
     public_id?: StringNullableFilter<"imageProduct"> | string | null
     version?: IntNullableFilter<"imageProduct"> | number | null
@@ -4835,6 +4921,8 @@ export namespace Prisma {
 
   export type imageProductOrderByWithRelationInput = {
     id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     asset_id?: SortOrderInput | SortOrder
     public_id?: SortOrderInput | SortOrder
     version?: SortOrderInput | SortOrder
@@ -4862,11 +4950,13 @@ export namespace Prisma {
 
   export type imageProductWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    asset_id?: string
+    public_id?: string
     AND?: imageProductWhereInput | imageProductWhereInput[]
     OR?: imageProductWhereInput[]
     NOT?: imageProductWhereInput | imageProductWhereInput[]
-    asset_id?: StringNullableFilter<"imageProduct"> | string | null
-    public_id?: StringNullableFilter<"imageProduct"> | string | null
+    start?: DateTimeFilter<"imageProduct"> | Date | string
+    end?: DateTimeFilter<"imageProduct"> | Date | string
     version?: IntNullableFilter<"imageProduct"> | number | null
     version_id?: StringNullableFilter<"imageProduct"> | string | null
     signature?: StringNullableFilter<"imageProduct"> | string | null
@@ -4888,10 +4978,12 @@ export namespace Prisma {
     api_key?: StringNullableFilter<"imageProduct"> | string | null
     IdProduct?: StringFilter<"imageProduct"> | string
     user?: XOR<ListProductRelationFilter, listProductWhereInput>
-  }, "id">
+  }, "id" | "asset_id" | "public_id">
 
   export type imageProductOrderByWithAggregationInput = {
     id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     asset_id?: SortOrderInput | SortOrder
     public_id?: SortOrderInput | SortOrder
     version?: SortOrderInput | SortOrder
@@ -4926,6 +5018,8 @@ export namespace Prisma {
     OR?: imageProductScalarWhereWithAggregatesInput[]
     NOT?: imageProductScalarWhereWithAggregatesInput | imageProductScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"imageProduct"> | number
+    start?: DateTimeWithAggregatesFilter<"imageProduct"> | Date | string
+    end?: DateTimeWithAggregatesFilter<"imageProduct"> | Date | string
     asset_id?: StringNullableWithAggregatesFilter<"imageProduct"> | string | null
     public_id?: StringNullableWithAggregatesFilter<"imageProduct"> | string | null
     version?: IntNullableWithAggregatesFilter<"imageProduct"> | number | null
@@ -5078,6 +5172,9 @@ export namespace Prisma {
   }
 
   export type specProductCreateInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
     phase_spec?: string | null
     frequency_spec?: string | null
     gensetPower_spec?: string | null
@@ -5092,6 +5189,9 @@ export namespace Prisma {
   }
 
   export type specProductUncheckedCreateInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
     phase_spec?: string | null
     frequency_spec?: string | null
     gensetPower_spec?: string | null
@@ -5106,6 +5206,9 @@ export namespace Prisma {
   }
 
   export type specProductUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     phase_spec?: NullableStringFieldUpdateOperationsInput | string | null
     frequency_spec?: NullableStringFieldUpdateOperationsInput | string | null
     gensetPower_spec?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5120,6 +5223,9 @@ export namespace Prisma {
   }
 
   export type specProductUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     phase_spec?: NullableStringFieldUpdateOperationsInput | string | null
     frequency_spec?: NullableStringFieldUpdateOperationsInput | string | null
     gensetPower_spec?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5134,6 +5240,9 @@ export namespace Prisma {
   }
 
   export type specProductCreateManyInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
     phase_spec?: string | null
     frequency_spec?: string | null
     gensetPower_spec?: string | null
@@ -5148,6 +5257,9 @@ export namespace Prisma {
   }
 
   export type specProductUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     phase_spec?: NullableStringFieldUpdateOperationsInput | string | null
     frequency_spec?: NullableStringFieldUpdateOperationsInput | string | null
     gensetPower_spec?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5161,6 +5273,9 @@ export namespace Prisma {
   }
 
   export type specProductUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     phase_spec?: NullableStringFieldUpdateOperationsInput | string | null
     frequency_spec?: NullableStringFieldUpdateOperationsInput | string | null
     gensetPower_spec?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5175,6 +5290,8 @@ export namespace Prisma {
   }
 
   export type imageProductCreateInput = {
+    start?: Date | string
+    end?: Date | string
     asset_id?: string | null
     public_id?: string | null
     version?: number | null
@@ -5201,6 +5318,8 @@ export namespace Prisma {
 
   export type imageProductUncheckedCreateInput = {
     id?: number
+    start?: Date | string
+    end?: Date | string
     asset_id?: string | null
     public_id?: string | null
     version?: number | null
@@ -5226,6 +5345,8 @@ export namespace Prisma {
   }
 
   export type imageProductUpdateInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     asset_id?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
@@ -5252,6 +5373,8 @@ export namespace Prisma {
 
   export type imageProductUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     asset_id?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
@@ -5278,6 +5401,8 @@ export namespace Prisma {
 
   export type imageProductCreateManyInput = {
     id?: number
+    start?: Date | string
+    end?: Date | string
     asset_id?: string | null
     public_id?: string | null
     version?: number | null
@@ -5303,6 +5428,8 @@ export namespace Prisma {
   }
 
   export type imageProductUpdateManyMutationInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     asset_id?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
@@ -5328,6 +5455,8 @@ export namespace Prisma {
 
   export type imageProductUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     asset_id?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
@@ -5675,6 +5804,9 @@ export namespace Prisma {
   }
 
   export type specProductCountOrderByAggregateInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     phase_spec?: SortOrder
     frequency_spec?: SortOrder
     gensetPower_spec?: SortOrder
@@ -5689,10 +5821,14 @@ export namespace Prisma {
   }
 
   export type specProductAvgOrderByAggregateInput = {
+    id?: SortOrder
     weight_spec?: SortOrder
   }
 
   export type specProductMaxOrderByAggregateInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     phase_spec?: SortOrder
     frequency_spec?: SortOrder
     gensetPower_spec?: SortOrder
@@ -5707,6 +5843,9 @@ export namespace Prisma {
   }
 
   export type specProductMinOrderByAggregateInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     phase_spec?: SortOrder
     frequency_spec?: SortOrder
     gensetPower_spec?: SortOrder
@@ -5721,6 +5860,7 @@ export namespace Prisma {
   }
 
   export type specProductSumOrderByAggregateInput = {
+    id?: SortOrder
     weight_spec?: SortOrder
   }
 
@@ -5731,6 +5871,8 @@ export namespace Prisma {
 
   export type imageProductCountOrderByAggregateInput = {
     id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     asset_id?: SortOrder
     public_id?: SortOrder
     version?: SortOrder
@@ -5765,6 +5907,8 @@ export namespace Prisma {
 
   export type imageProductMaxOrderByAggregateInput = {
     id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     asset_id?: SortOrder
     public_id?: SortOrder
     version?: SortOrder
@@ -5790,6 +5934,8 @@ export namespace Prisma {
 
   export type imageProductMinOrderByAggregateInput = {
     id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     asset_id?: SortOrder
     public_id?: SortOrder
     version?: SortOrder
@@ -6214,6 +6360,8 @@ export namespace Prisma {
   }
 
   export type imageProductCreateWithoutUserInput = {
+    start?: Date | string
+    end?: Date | string
     asset_id?: string | null
     public_id?: string | null
     version?: number | null
@@ -6239,6 +6387,8 @@ export namespace Prisma {
 
   export type imageProductUncheckedCreateWithoutUserInput = {
     id?: number
+    start?: Date | string
+    end?: Date | string
     asset_id?: string | null
     public_id?: string | null
     version?: number | null
@@ -6273,6 +6423,9 @@ export namespace Prisma {
   }
 
   export type specProductCreateWithoutUserInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
     phase_spec?: string | null
     frequency_spec?: string | null
     gensetPower_spec?: string | null
@@ -6286,6 +6439,9 @@ export namespace Prisma {
   }
 
   export type specProductUncheckedCreateWithoutUserInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
     phase_spec?: string | null
     frequency_spec?: string | null
     gensetPower_spec?: string | null
@@ -6324,6 +6480,8 @@ export namespace Prisma {
     OR?: imageProductScalarWhereInput[]
     NOT?: imageProductScalarWhereInput | imageProductScalarWhereInput[]
     id?: IntFilter<"imageProduct"> | number
+    start?: DateTimeFilter<"imageProduct"> | Date | string
+    end?: DateTimeFilter<"imageProduct"> | Date | string
     asset_id?: StringNullableFilter<"imageProduct"> | string | null
     public_id?: StringNullableFilter<"imageProduct"> | string | null
     version?: IntNullableFilter<"imageProduct"> | number | null
@@ -6360,6 +6518,9 @@ export namespace Prisma {
   }
 
   export type specProductUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     phase_spec?: NullableStringFieldUpdateOperationsInput | string | null
     frequency_spec?: NullableStringFieldUpdateOperationsInput | string | null
     gensetPower_spec?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6373,6 +6534,9 @@ export namespace Prisma {
   }
 
   export type specProductUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     phase_spec?: NullableStringFieldUpdateOperationsInput | string | null
     frequency_spec?: NullableStringFieldUpdateOperationsInput | string | null
     gensetPower_spec?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6563,6 +6727,8 @@ export namespace Prisma {
 
   export type imageProductCreateManyUserInput = {
     id?: number
+    start?: Date | string
+    end?: Date | string
     asset_id?: string | null
     public_id?: string | null
     version?: number | null
@@ -6587,6 +6753,8 @@ export namespace Prisma {
   }
 
   export type imageProductUpdateWithoutUserInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     asset_id?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
@@ -6612,6 +6780,8 @@ export namespace Prisma {
 
   export type imageProductUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     asset_id?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
@@ -6637,6 +6807,8 @@ export namespace Prisma {
 
   export type imageProductUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
     asset_id?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null

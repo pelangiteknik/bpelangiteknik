@@ -11,10 +11,21 @@ import "draft-js/dist/Draft.css";
 import draftToHtml from "draftjs-to-html";
 import { useRouter } from 'next/navigation';
 import { MdOutlineFileUpload } from "react-icons/md";
+import Image from 'next/image';
+import { HandleDeleteImageC } from '@/service/handleDeleteImageC';
+import { useCon } from '@/zustand/useCon';
+import toast from 'react-hot-toast';
 
 export default function FormInput({ data }) {
+    const setLayang = useCon((state) => state.setLayang)
 
     const [selectedImages, setSelectedImages] = useState([]);
+    const [selectedImagesDB, setSelectedImagesDB] = useState(data?.url_image_product);
+
+    const [selectedImagesDBLocal, setSelectedImagesDBLocal] = useState([]);
+    const [alertIDDeleteImage, setalertIDDeleteImage] = useState('');
+
+    const [alertKondisi, setAlertKondisi] = useState(false);
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [draf, setDraf] = useState(null)
@@ -44,6 +55,52 @@ export default function FormInput({ data }) {
     //     )
     //     setEditorState(EditorState.createWithContent(state))
     // }
+
+
+    const handleRemoveImageDB = (e, kondisi, kondisi2) => {
+        setalertIDDeleteImage(e)
+        setAlertKondisi(kondisi)
+        const remove = () => {
+            const updatedImages = selectedImagesDB.filter((data) => data.public_id !== e); // Filter out the image
+            setSelectedImagesDB(updatedImages);
+
+            // simpanlocal
+            setSelectedImagesDBLocal([...selectedImagesDBLocal, e])
+        }
+
+        kondisi2 && remove()
+        router.refresh()
+    }
+
+    // Remove image by index
+    const handleRemoveImage = (e, kondisi, kondisi2) => {
+        setalertIDDeleteImage(e)
+        setAlertKondisi(kondisi)
+        const remove = () => {
+            const updatedImages = selectedImages.filter((_, i) => i !== e); // Filter out the image
+            setSelectedImages(updatedImages);
+            // simpanlocal
+        }
+        kondisi2 && remove()
+        router.refresh()
+    };
+
+    const handleChange = (e) => {
+        formik.setFieldValue('myFile', e.target.files[0]);
+        const files = Array.from(e.target.files); // Convert FileList to an array
+        const imagePreviews = [];
+
+        files.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                imagePreviews.push({ file, preview: reader.result });
+                if (imagePreviews.length === files.length) {
+                    setSelectedImages(prevImages => [...prevImages, ...imagePreviews]); // Add new images to existing ones
+                }
+            };
+            reader.readAsDataURL(file); // Read file as a Data URL
+        });
+    };
 
     const validationRules = Yup.object().shape({
         productName: Yup.string()
@@ -96,14 +153,14 @@ export default function FormInput({ data }) {
         // fuelConsumption_spec: Yup.string()
         //     .max(200, 'Must be 20 characters or less')
         //     .required('Required'),
-        // weight_spec: Yup.string()
-        //     .max(200, 'Must be 20 characters or less')
-        //     .required('Required'),
+        weight_spec: Yup.number()
+            .max(9999999999, 'Must be 20 characters or less')
+            .required('Required'),
         // dimension_spec: Yup.string()
         //     .max(200, 'Must be 20 characters or less')
         //     .required('Required'),
         // email: Yup.string().email('Invalid email address').required('Required'),
-        myFile: Yup.mixed().required('required')
+        myFile: Yup.mixed()
             .test('fileFormat', 'Only Image files are allowed', value => {
 
                 if (value) {
@@ -112,10 +169,10 @@ export default function FormInput({ data }) {
                 }
                 return true;
             })
-            .test('fileSize', 'File size must not be more than 3MB',
+            .test('fileSize', 'File size must not be more than 30MB',
                 value => {
                     if (value) {
-                        return value?.size <= 3145728;
+                        return value?.size <= 32145728;
                     }
                     return true;
                 }),
@@ -133,22 +190,23 @@ export default function FormInput({ data }) {
             productPriceFinal: data ? data?.productPriceFinal : '',
             descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
 
-            phase_spec: data ? data?.spec_product.phase_spec : '',
-            frequency_spec: data ? data?.spec_product.frequency_spec : '',
-            gensetPower_spec: data ? data?.spec_product.gensetPower_spec : '',
-            ratedPower_spec: data ? data?.spec_product.ratedPower_spec : '',
-            maxPower_spec: data ? data?.spec_product.maxPower_spec : '',
-            ratedACVoltage_spec: data ? data?.spec_product.ratedACVoltage_spec : '',
-            starting_spec: data ? data?.spec_product.starting_spec : '',
-            fuelConsumption_spec: data ? data?.spec_product.fuelConsumption_spec : '',
-            weight_spec: data ? data?.spec_product.weight_spec : '',
-            dimension_spec: data ? data?.spec_product.dimension_spec : '',
+            phase_spec: data ? data?.spec_product?.phase_spec : '',
+            frequency_spec: data ? data?.spec_product?.frequency_spec : '',
+            gensetPower_spec: data ? data?.spec_product?.gensetPower_spec : '',
+            ratedPower_spec: data ? data?.spec_product?.ratedPower_spec : '',
+            maxPower_spec: data ? data?.spec_product?.maxPower_spec : '',
+            ratedACVoltage_spec: data ? data?.spec_product?.ratedACVoltage_spec : '',
+            starting_spec: data ? data?.spec_product?.starting_spec : '',
+            fuelConsumption_spec: data ? data?.spec_product?.fuelConsumption_spec : '',
+            weight_spec: data ? data?.spec_product?.weight_spec : '',
+            dimension_spec: data ? data?.spec_product?.dimension_spec : '',
             // email: '',
             myFile: '',
         },
 
+
         onSubmit: async (value) => {
-            if (selectedImages.length === 0) return
+            // if (selectedImages.length === 0) return
 
             try {
                 setLoading(true)
@@ -157,7 +215,7 @@ export default function FormInput({ data }) {
                     formData.append('files', image?.file); // Append each image file to formData
                 });
 
-                const res = await fetch('http://localhost:3000/api', {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cloudinary`, {
                     method: 'POST',
                     body: formData
                 })
@@ -177,7 +235,7 @@ export default function FormInput({ data }) {
                     productPriceFinal: Math.round(value?.productPrice - ((value?.productPrice * value?.productDiscount) / 100)),
                     slugProduct: slug,
                     IdProduct: slug,
-                    saveDraf: draf ? true : false
+                    saveDraf: draf
                 }
 
                 await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
@@ -190,7 +248,7 @@ export default function FormInput({ data }) {
                 })
 
                 await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/specProduct`, {
-                    method: 'POST',
+                    method: data ? 'PUT' : 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
@@ -198,22 +256,45 @@ export default function FormInput({ data }) {
                     body: JSON.stringify(GabungData),
                 })
 
-                // Menggunakan for...of untuk mengiterasi array dataImage
+                // Menggunakan for...of untuk mengiterasi array dataImage cloudinary
                 for (const image of dataImage) {
-                    await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/imageProduct`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
-                        },
-                        body: JSON.stringify({ ...image, IdProduct: slug }),
-                    })
+                    {
+                        selectedImages.length && await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/imageProduct`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+                            },
+                            body: JSON.stringify({ ...image, IdProduct: slug }),
+                        })
+                    }
                 }
+
+                // Menggunakan for...of untuk mengiterasi array dataImage supabase
+                for (const public_id of selectedImagesDBLocal) {
+                    {
+                        data &&
+                            await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/imageProduct`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+                                },
+                                body: JSON.stringify({ public_id: public_id }),
+                            })
+                    }
+                }
+
+                // delete image couldinary
+                data && await HandleDeleteImageC(selectedImagesDBLocal)
+
                 setLoading(false)
                 router.push('/')
                 formik.resetForm()
+                setLayang()
+                toast.success('Successfully!')
                 // handle the error
-                if (!res.ok) throw new Error(await res.text())
+                // if (!res.ok) throw new Error(await res.text())
             } catch (e) {
                 // Handle errors here
                 console.error(e)
@@ -222,31 +303,6 @@ export default function FormInput({ data }) {
         },
         validationSchema: validationRules,
     })
-
-    // Remove image by index
-    const handleRemoveImage = (index) => {
-        const updatedImages = selectedImages.filter((_, i) => i !== index); // Filter out the image
-        setSelectedImages(updatedImages);
-        router.refresh()
-    };
-
-    const handleChange = (e) => {
-        formik.setFieldValue('myFile', e.target.files[0]);
-        const files = Array.from(e.target.files); // Convert FileList to an array
-        const imagePreviews = [];
-
-        files.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = () => {
-                imagePreviews.push({ file, preview: reader.result });
-                if (imagePreviews.length === files.length) {
-                    setSelectedImages(prevImages => [...prevImages, ...imagePreviews]); // Add new images to existing ones
-                }
-            };
-            reader.readAsDataURL(file); // Read file as a Data URL
-        });
-    };
-
 
     return (
         <div className={styles.container}>
@@ -280,33 +336,73 @@ export default function FormInput({ data }) {
 
                                 <div className={styles.judulsamping}>Product Image</div>
                                 <div className="image-preview">
-                                    {selectedImages.map((image, index) => (
-                                        <div key={index} style={{ display: 'inline-block', position: 'relative', margin: '10px' }}>
-                                            <img
-                                                src={image.preview}
-                                                alt={`Preview ${index}`}
-                                                style={{ width: '120px', height: '120px', objectFit: 'cover' }}
-                                            />
-                                            <button
-                                                type="button"
-                                                onClick={() => handleRemoveImage(index)}
-                                                style={{
-                                                    position: 'absolute',
-                                                    top: '5px',
-                                                    right: '5px',
-                                                    background: 'red',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    // borderRadius: '50%',
-                                                    width: 'fit-content',
-                                                    height: '20px',
-                                                    cursor: 'pointer',
-                                                }}
-                                            >
-                                                X
-                                            </button>
-                                        </div>
-                                    ))}
+
+                                    {selectedImagesDB?.map((image, index) => {
+                                        return (
+                                            <div key={index} style={{ display: 'inline-block', position: 'relative', margin: '10px' }}>
+                                                <Image
+                                                    src={image.url}
+                                                    alt={`Preview ${index}`}
+                                                    style={{ width: '90px', height: '90px', objectFit: 'cover' }}
+                                                    width={90}
+                                                    height={90}
+                                                />
+                                                {!loading &&
+                                                    <>
+                                                        {alertKondisi && alertIDDeleteImage == image.public_id &&
+                                                            <div className={styles.yesno}>
+                                                                <div className={styles.tombol} onClick={() => handleRemoveImageDB(image.public_id, false, true)}>YES</div>
+                                                                <div className={styles.tombol} onClick={() => handleRemoveImageDB(image.public_id, false)}>NO</div>
+                                                            </div>
+                                                        }
+                                                        {!alertKondisi &&
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => handleRemoveImageDB(image.public_id, true)}
+                                                                className={styles.tombolhapus}
+                                                            >
+                                                                X
+                                                            </button>
+                                                        }
+                                                    </>
+                                                }
+                                            </div>
+                                        )
+                                    })}
+
+                                    {/* POSTING */}
+                                    {selectedImages.map((image, index) => {
+                                        return (
+                                            <div key={index} style={{ display: 'inline-block', position: 'relative', margin: '10px' }}>
+                                                <Image
+                                                    src={image.preview}
+                                                    alt={`Preview ${index}`}
+                                                    style={{ width: '90px', height: '90px', objectFit: 'cover' }}
+                                                    width={90}
+                                                    height={90}
+                                                />
+                                                {!loading &&
+                                                    <>
+                                                        {alertKondisi && alertIDDeleteImage == index &&
+                                                            <div className={styles.yesno}>
+                                                                <div className={styles.tombol} onClick={() => handleRemoveImage(index, false, true)}>YES</div>
+                                                                <div className={styles.tombol} onClick={() => handleRemoveImage(index, false)}>NO</div>
+                                                            </div>
+                                                        }
+                                                        {!alertKondisi &&
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => handleRemoveImage(index, true)}
+                                                                className={styles.tombolhapus}
+                                                            >
+                                                                X
+                                                            </button>
+                                                        }
+                                                    </>
+                                                }
+                                            </div>
+                                        )
+                                    })}
                                 </div>
 
                                 <label
@@ -333,6 +429,7 @@ export default function FormInput({ data }) {
                                 <div className={styles.isi}>
                                     <label htmlFor="productName">Product Name</label>
                                     <input
+                                        disabled={loading}
                                         id="productName"
                                         name="productName"
                                         type="text"
@@ -345,6 +442,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="stockProduct">Stock Product</label>
                                             <input
+                                                disabled={loading}
                                                 id="stockProduct"
                                                 name="stockProduct"
                                                 type="number"
@@ -358,6 +456,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="productType">Product Type</label>
                                             <input
+                                                disabled={loading}
                                                 id="productType"
                                                 name="productType"
                                                 type="text"
@@ -371,6 +470,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="subProductType">Sub Product Type</label>
                                             <input
+                                                disabled={loading}
                                                 id="subProductType"
                                                 name="subProductType"
                                                 type="text"
@@ -385,6 +485,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="productPrice">Price</label>
                                             <input
+                                                disabled={loading}
                                                 id="productPrice"
                                                 name="productPrice"
                                                 type="number"
@@ -397,6 +498,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="productDiscount">Discount (optional)</label>
                                             <input
+                                                disabled={loading}
                                                 id="productDiscount"
                                                 name="productDiscount"
                                                 type="number"
@@ -454,6 +556,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="phase_spec">Phase</label>
                                             <input
+                                                disabled={loading}
                                                 id="phase_spec"
                                                 name="phase_spec"
                                                 type="text"
@@ -467,6 +570,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="frequency_spec">Frekuensi</label>
                                             <input
+                                                disabled={loading}
                                                 id="frequency_spec"
                                                 name="frequency_spec"
                                                 type="text"
@@ -481,6 +585,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="gensetPower_spec">Genset Power</label>
                                             <input
+                                                disabled={loading}
                                                 id="gensetPower_spec"
                                                 name="gensetPower_spec"
                                                 type="text"
@@ -494,6 +599,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="ratedPower_spec">Rated</label>
                                             <input
+                                                disabled={loading}
                                                 id="ratedPower_spec"
                                                 name="ratedPower_spec"
                                                 type="text"
@@ -508,6 +614,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="maxPower_spec">Max Power</label>
                                             <input
+                                                disabled={loading}
                                                 id="maxPower_spec"
                                                 name="maxPower_spec"
                                                 type="text"
@@ -521,6 +628,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="ratedACVoltage_spec">Rated Voltage</label>
                                             <input
+                                                disabled={loading}
                                                 id="ratedACVoltage_spec"
                                                 name="ratedACVoltage_spec"
                                                 placeholder='ex: 220V'
@@ -535,6 +643,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="starting_spec">Starting</label>
                                             <input
+                                                disabled={loading}
                                                 id="starting_spec"
                                                 name="starting_spec"
                                                 type="text"
@@ -548,6 +657,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="fuelConsumption_spec">Fuel Consumption</label>
                                             <input
+                                                disabled={loading}
                                                 id="fuelConsumption_spec"
                                                 name="fuelConsumption_spec"
                                                 type="text"
@@ -562,9 +672,10 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="weight_spec">Wight</label>
                                             <input
+                                                disabled={loading}
                                                 id="weight_spec"
                                                 name="weight_spec"
-                                                type="text"
+                                                type="number"
                                                 placeholder='ex: 250KG'
                                                 onChange={formik.handleChange}
                                                 value={formik.values.weight_spec}
@@ -575,6 +686,7 @@ export default function FormInput({ data }) {
                                         <div className={styles.bariskan}>
                                             <label htmlFor="dimension_spec">Dimension</label>
                                             <input
+                                                disabled={loading}
                                                 id="dimension_spec"
                                                 name="dimension_spec"
                                                 type="text"
@@ -593,8 +705,8 @@ export default function FormInput({ data }) {
 
                     </div>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
 
     )
 }

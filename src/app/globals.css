@@ -11,6 +11,7 @@
   --colorbggrey: #777577 !important;
   --colorgrey: #30302f !important;
   --colorbggreyutama: #e7e7e9 !important;
+  --hovercolorbggreyutama: #c2c2ca !important;
 
   --colorwa: #137036 !important;
   --hover-colorwa: #137037ef !important;
@@ -50,7 +51,13 @@ h1 {
 
 button {
   border: 0;
+  background-color: var(--colorbggreyutama);
 }
+
+button:hover {
+  background-color: var(--hovercolorbggreyutama);
+}
+
 
 tbody,
 tr,

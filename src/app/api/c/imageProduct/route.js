@@ -61,3 +61,28 @@ export async function POST(req) {
     } else return Response.json({ status: 500, isCreated: false, contact: 'natanael rio wijaya 08971041460' })
 
 }
+
+
+export async function DELETE(req) {
+    const authorization = req.headers.get('authorization')
+
+    BigInt.prototype.toJSON = function () {
+        return this.toString();
+    };
+
+    const {
+        public_id,
+    } = await req.json()
+
+
+    if (authorization == process.env.NEXT_PUBLIC_SECREET) {
+        const CreateList = await prisma.imageProduct.delete({
+            where: {
+                public_id
+            },
+        })
+        const res = await ResponseData(CreateList, authorization)
+        return res
+    } else return Response.json({ status: 500, isCreated: false, contact: 'natanael rio wijaya 08971041460' })
+
+}
