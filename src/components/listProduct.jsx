@@ -18,6 +18,7 @@ const FormInput = dynamic(() => import('@/components/FormInput'), {
 });
 
 import { usePathname } from 'next/navigation'
+import { FormatRupiah } from '@/utils/formatRupiah';
 
 export default function ListProduct({ dataList, query }) {
     const pathname = usePathname()
@@ -69,7 +70,6 @@ export default function ListProduct({ dataList, query }) {
         }
     }
 
-
     return (
         <div className={styles.container}>
             <div className={styles.dalamcontainer}>
@@ -109,7 +109,7 @@ export default function ListProduct({ dataList, query }) {
                                 <th>Discount (%)</th>
                                 <th>Final Price</th>
                                 <th>Publish</th>
-                                <th>DELETE</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -118,9 +118,9 @@ export default function ListProduct({ dataList, query }) {
                                 return (<tr key={index} >
                                     <td onClick={() => GetDetailProduct(product?.slugProduct)}>{product?.productName}</td>
                                     <td>{product?.stockProduct}</td>
-                                    <td>{product?.productPrice}</td>
-                                    <td>{product?.productDiscount}</td>
-                                    <td>{product?.productPriceFinal}</td>
+                                    <td>{FormatRupiah(product?.productPrice)}</td>
+                                    <td>{product?.productDiscount}%</td>
+                                    <td>{FormatRupiah(product?.productPriceFinal)}</td>
                                     <td>
                                         <label className={styles.switch}>
                                             <input

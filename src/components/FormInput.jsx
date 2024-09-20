@@ -16,6 +16,7 @@ import { HandleDeleteImageC } from '@/service/handleDeleteImageC';
 import { useCon } from '@/zustand/useCon';
 import toast from 'react-hot-toast';
 import { usePathname } from 'next/navigation'
+import Link from 'next/link';
 
 export default function FormInput({ data, text }) {
     const pathname = usePathname()
@@ -309,7 +310,7 @@ export default function FormInput({ data, text }) {
             <div className={styles.dalamcontainer}>
                 <form className={styles.form} onSubmit={formik.handleSubmit}>
                     <div className={styles.atas}>
-                        <div className={styles.kiri}>{data ? data?.productName : 'PelangiTeknik'}</div>
+                        <Link target='_blank' href={'/'} className={styles.kiri}>{data ? data?.productName : 'PelangiTeknik'}</Link>
                         <div className={styles.kanan}>
                             <button type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
                             <button type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? text ? text : 'Save Product' : loading ? 'Loading...' : text ? text : 'Save Product'}</button>
@@ -670,13 +671,13 @@ export default function FormInput({ data, text }) {
                                     </div>
                                     <div className={styles.satubaris}>
                                         <div className={styles.bariskan}>
-                                            <label htmlFor="weight_spec">Wight</label>
+                                            <label htmlFor="weight_spec">Wight ( satuan gram )</label>
                                             <input
                                                 disabled={loading}
                                                 id="weight_spec"
                                                 name="weight_spec"
                                                 type="number"
-                                                placeholder='ex: 250KG'
+                                                placeholder='ex: 25000'
                                                 onChange={formik.handleChange}
                                                 value={formik.values.weight_spec}
                                                 style={formik.errors.weight_spec ? { border: '1px solid var(--colormain)' } : {}}
