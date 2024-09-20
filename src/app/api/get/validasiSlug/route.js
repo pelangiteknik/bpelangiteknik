@@ -7,7 +7,7 @@ export async function GET(req) {
 
     const data = await prisma.listProduct.findMany({
         where: {
-            productName: {
+            slugProduct: {
                 contains: query,
                 mode: 'insensitive'
             }

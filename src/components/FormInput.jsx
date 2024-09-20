@@ -228,73 +228,74 @@ export default function FormInput({ data, text }) {
 
                 const slugData = await resSlug.json();
 
-                if (slugData.data.length) {
+                if (pathname == '/post' && slugData?.data?.length) {
                     // Handle duplicate slug
                     toast.error("Produk dengan nama ini sudah ada, silakan pilih nama lain.");
                     setLoading(false);
                     return; // Stop further execution if slug exists
-                }
+                } else {
 
 
-                const formData = new FormData();
-                selectedImages.forEach(image => {
-                    formData.append('files', image?.file); // Append each image file to formData
-                });
+                    const formData = new FormData();
+                    selectedImages.forEach(image => {
+                        formData.append('files', image?.file); // Append each image file to formData
+                    });
 
-                const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cloudinary`, {
-                    method: 'POST',
-                    body: formData
-                })
-                const dataRes = await res.json()
-                const dataImage = dataRes?.results
-
-
-
-                const GabungData = {
-                    ...value,
-                    descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
-                    productPriceFinal: Math.round(value?.productPrice - ((value?.productPrice * value?.productDiscount) / 100)),
-                    slugProduct: slug,
-                    saveDraf: draf,
-                    dataImage: dataImage
-                }
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cloudinary`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    const dataRes = await res.json()
+                    const dataImage = dataRes?.results
 
 
-                await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
-                    method: data ? 'PUT' : 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
-                    },
-                    body: JSON.stringify(GabungData),
-                })
 
-
-                // Menggunakan for...of untuk mengiterasi array dataImage supabase
-                for (const public_id of selectedImagesDBLocal) {
-                    {
-                        data &&
-                            await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
-                                method: 'DELETE',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
-                                },
-                                body: JSON.stringify({ public_id: public_id }),
-                            })
+                    const GabungData = {
+                        ...value,
+                        descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+                        productPriceFinal: Math.round(value?.productPrice - ((value?.productPrice * value?.productDiscount) / 100)),
+                        slugProduct: slug,
+                        saveDraf: draf,
+                        dataImage: dataImage
                     }
+
+
+                    await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
+                        method: data ? 'PUT' : 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+                        },
+                        body: JSON.stringify(GabungData),
+                    })
+
+
+                    // Menggunakan for...of untuk mengiterasi array dataImage supabase
+                    for (const public_id of selectedImagesDBLocal) {
+                        {
+                            data &&
+                                await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+                                    },
+                                    body: JSON.stringify({ public_id: public_id }),
+                                })
+                        }
+                    }
+
+                    // delete image couldinary
+                    data && await HandleDeleteImageC(selectedImagesDBLocal)
+
+                    setLoading(false)
+                    router.push('/')
+                    formik.resetForm()
+                    pathname == '/' && setLayang()
+                    toast.success('data berhasil ditambahkan!')
+                    // handle the error
+                    // if (!res.ok) throw new Error(await res.text())
                 }
-
-                // delete image couldinary
-                data && await HandleDeleteImageC(selectedImagesDBLocal)
-
-                setLoading(false)
-                router.push('/')
-                formik.resetForm()
-                pathname == '/' && setLayang()
-                toast.success('data berhasil ditambahkan!')
-                // handle the error
-                // if (!res.ok) throw new Error(await res.text())
 
             } catch (e) {
                 // Handle errors here
