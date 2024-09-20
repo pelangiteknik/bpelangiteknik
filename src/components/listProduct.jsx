@@ -8,16 +8,25 @@ import { MdHome } from "react-icons/md";
 import { handleDetailProduct } from '@/service/handleDetailProduct';
 import { useCon } from '@/zustand/useCon';
 import toast from 'react-hot-toast';
+import { MdDeleteOutline } from "react-icons/md";
 
 import dynamic from 'next/dynamic';
+import { HandleDeleteProduct } from '@/service/handleDeleteProduct';
 const FormInput = dynamic(() => import('@/components/FormInput'), {
     loading: () => <p>Loading Form...</p>, // Optional: loading state while the component is being loaded
     ssr: false // Disable server-side rendering for this component
 });
 
+import { usePathname } from 'next/navigation'
+
 export default function ListProduct({ dataList, query }) {
+    const pathname = usePathname()
+    const KondisiPencarian = pathname.startsWith('/s/')
+
     const setLayang = useCon((state) => state.setLayang)
     const layang = useCon((state) => state.layang)
+    // const savedSearch = localStorage.getItem('searchLocal');
+
 
     const router = useRouter()
     const [loading, setLoading] = useState(false)
@@ -43,7 +52,23 @@ export default function ListProduct({ dataList, query }) {
         e.preventDefault()
         setLoading(true)
         router.push(`/s/${search}`)
+        // localStorage.setItem('searchLocal', search)
     }
+
+
+    const HandleDeleteProducts = async (e) => {
+        if (confirm('Apakah yakin hapus?')) {
+            // Save it!
+            setLoading(true)
+            await HandleDeleteProduct(e)
+            setLoading(false)
+            toast.success('Successfully!')
+        } else {
+            // Do nothing!
+            console.log('Thing was not saved to the database.');
+        }
+    }
+
 
     return (
         <div className={styles.container}>
@@ -65,7 +90,17 @@ export default function ListProduct({ dataList, query }) {
                     </div>
                 </div>
                 <div className={styles.bawah}>
-                    <table className={styles.producttable}>
+                    {
+                        KondisiPencarian &&
+                        <div className={styles.hasilpencarian}>
+                            Hasil Pencarian: <b>
+                                {query}
+                            </b>
+                        </div>
+                    }
+                    <table
+                        style={KondisiPencarian ? { margin: 0 } : {}}
+                        className={styles.producttable}>
                         <thead>
                             <tr>
                                 <th>Product Name</th>
@@ -73,7 +108,8 @@ export default function ListProduct({ dataList, query }) {
                                 <th>Price</th>
                                 <th>Discount (%)</th>
                                 <th>Final Price</th>
-                                <th>Publish</th> {/* Column for toggle */}
+                                <th>Publish</th>
+                                <th>DELETE</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,11 +131,14 @@ export default function ListProduct({ dataList, query }) {
                                             <span className={styles.slider}></span>
                                         </label>
                                     </td>
+                                    <td onClick={() => HandleDeleteProducts(product?.slugProduct)}><MdDeleteOutline size={30} /></td>
                                 </tr>)
                             }
                             )}
                         </tbody>
                     </table>
+
+                    {KondisiPencarian && !dataList.length && <div>Data Tidak ada</div>}
                 </div>
             </div>
 

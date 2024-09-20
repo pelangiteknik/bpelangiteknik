@@ -15,8 +15,10 @@ import Image from 'next/image';
 import { HandleDeleteImageC } from '@/service/handleDeleteImageC';
 import { useCon } from '@/zustand/useCon';
 import toast from 'react-hot-toast';
+import { usePathname } from 'next/navigation'
 
 export default function FormInput({ data, text }) {
+    const pathname = usePathname()
     const setLayang = useCon((state) => state.setLayang)
 
     const [selectedImages, setSelectedImages] = useState([]);
@@ -178,6 +180,7 @@ export default function FormInput({ data, text }) {
                 }),
     })
 
+
     const formik = useFormik({
         initialValues: {
             productName: data ? data?.productName : '',
@@ -206,10 +209,32 @@ export default function FormInput({ data, text }) {
 
 
         onSubmit: async (value) => {
-            // if (selectedImages.length === 0) return
-
             try {
                 setLoading(true)
+                const slug = value?.productName
+                    ?.toLowerCase() // ubah jadi huruf kecil
+                    ?.replace(/[^a-z0-9\s]/g, '') // hapus karakter selain huruf, angka, dan spasi
+                    ?.trim() // hapus spasi di awal dan akhir
+                    ?.replace(/\s+/g, '-')
+
+                // Validate if the slug is duplicate
+                const resSlug = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/get/validasiSlug?query=${slug}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+                    },
+                });
+
+                const slugData = await resSlug.json();
+
+                if (slugData.data.length) {
+                    // Handle duplicate slug
+                    toast.error("Produk dengan nama ini sudah ada, silakan pilih nama lain.");
+                    setLoading(false);
+                    return; // Stop further execution if slug exists
+                }
+
+
                 const formData = new FormData();
                 selectedImages.forEach(image => {
                     formData.append('files', image?.file); // Append each image file to formData
@@ -222,11 +247,6 @@ export default function FormInput({ data, text }) {
                 const dataRes = await res.json()
                 const dataImage = dataRes?.results
 
-                const slug = value?.productName
-                    ?.toLowerCase() // ubah jadi huruf kecil
-                    ?.replace(/[^a-z0-9\s]/g, '') // hapus karakter selain huruf, angka, dan spasi
-                    ?.trim() // hapus spasi di awal dan akhir
-                    ?.replace(/\s+/g, '-')
 
 
                 const GabungData = {
@@ -234,9 +254,10 @@ export default function FormInput({ data, text }) {
                     descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
                     productPriceFinal: Math.round(value?.productPrice - ((value?.productPrice * value?.productDiscount) / 100)),
                     slugProduct: slug,
-                    IdProduct: slug,
-                    saveDraf: draf
+                    saveDraf: draf,
+                    dataImage: dataImage
                 }
+
 
                 await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
                     method: data ? 'PUT' : 'POST',
@@ -247,34 +268,12 @@ export default function FormInput({ data, text }) {
                     body: JSON.stringify(GabungData),
                 })
 
-                await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/specProduct`, {
-                    method: data ? 'PUT' : 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
-                    },
-                    body: JSON.stringify(GabungData),
-                })
-
-                // Menggunakan for...of untuk mengiterasi array dataImage cloudinary
-                for (const image of dataImage) {
-                    {
-                        selectedImages.length && await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/imageProduct`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
-                            },
-                            body: JSON.stringify({ ...image, IdProduct: slug }),
-                        })
-                    }
-                }
 
                 // Menggunakan for...of untuk mengiterasi array dataImage supabase
                 for (const public_id of selectedImagesDBLocal) {
                     {
                         data &&
-                            await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/imageProduct`, {
+                            await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
                                 method: 'DELETE',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -291,15 +290,16 @@ export default function FormInput({ data, text }) {
                 setLoading(false)
                 router.push('/')
                 formik.resetForm()
-                setLayang()
-                toast.success('Successfully!')
+                pathname == '/' && setLayang()
+                toast.success('data berhasil ditambahkan!')
                 // handle the error
                 // if (!res.ok) throw new Error(await res.text())
+
             } catch (e) {
                 // Handle errors here
+                toast.error("Tidak Berhasil, silahkan Ulang")
                 console.error(e)
             }
-
         },
         validationSchema: validationRules,
     })
@@ -340,12 +340,12 @@ export default function FormInput({ data, text }) {
                                     {selectedImagesDB?.map((image, index) => {
                                         return (
                                             <div key={index} style={{ display: 'inline-block', position: 'relative', margin: '10px' }}>
-                                                <Image
-                                                    src={image.url}
+                                                <img
+                                                    src={image?.url}
                                                     alt={`Preview ${index}`}
                                                     style={{ width: '90px', height: '90px', objectFit: 'cover' }}
-                                                    width={90}
-                                                    height={90}
+                                                // width={90}
+                                                // height={90}
                                                 />
                                                 {!loading &&
                                                     <>
