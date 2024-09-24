@@ -20,7 +20,7 @@ const FormInput = dynamic(() => import('@/components/FormInput'), {
 import { usePathname } from 'next/navigation'
 import { FormatRupiah } from '@/utils/formatRupiah';
 
-export default function ListProduct({ dataList, query }) {
+export default function ListProduct({ dataList, query, dataKategori }) {
     const pathname = usePathname()
     const KondisiPencarian = pathname.startsWith('/s/')
 
@@ -154,7 +154,7 @@ export default function ListProduct({ dataList, query }) {
                     <>
                         <div className={styles.bghitam} onClick={() => setLayang()}></div>
                         <div className={styles.containerupdate}>
-                            <FormInput data={data} text={'Update Product'} />
+                            <FormInput data={data} text={'Update Product'} dataKategori={dataKategori} />
                         </div>
                     </>
             }

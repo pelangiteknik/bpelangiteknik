@@ -15,24 +15,42 @@ datasource db {
   // directUrl = env("DIRECT_URL")
 }
 
+model categoryProduct {
+  id           Int           @id @default(autoincrement())
+  start        DateTime      @default(now())
+  end          DateTime      @updatedAt
+  category     String        @unique
+  urlYoutube   String?
+  title        String?
+  desc         String?
+  listProducts listProduct[]
+}
+
 model listProduct {
-  id                Int      @default(autoincrement())
-  start             DateTime @default(now())
-  end               DateTime @updatedAt
-  slugProduct       String   @id @unique
-  saveDraf          Boolean  @default(true)
-  descProduct       String?
-  productName       String?
-  stockProduct      Int?
-  productType       String?
-  subProductType    String?
-  tagProduct        Json?
-  productPrice      BigInt?
-  productDiscount   Int?
-  productPriceFinal BigInt?
+  id           Int      @default(autoincrement())
+  start        DateTime @default(now())
+  end          DateTime @updatedAt
+  slugProduct  String   @id @unique
+  saveDraf     Boolean  @default(true)
+  descProduct  String?
+  productName  String?
+  stockProduct Int?
+
+  productKategori String
+  user            categoryProduct @relation(fields: [productKategori], references: [category])
+
+  subKategoriProduct String?
+  productType        String
+  tagProduct         Json?
+  productPrice       BigInt?
+  productDiscount    Int?
+  productPriceFinal  BigInt?
+  urlYoutube         String?
 
   url_image_product imageProduct[]
   spec_product      specProduct?
+
+  @@index([productType])
 }
 
 model specProduct {
@@ -81,7 +99,24 @@ model imageProduct {
   api_key           String? // API key used for upload
 
   IdProduct String
+  // IdProductArtikel String
   user      listProduct @relation(fields: [IdProduct], references: [slugProduct])
+  // userd            postArtikel @relation(fields: [IdProductArtikel], references: [slug])
 
   @@index([IdProduct])
+}
+
+model postArtikel {
+  id          Int      @default(autoincrement())
+  title       String
+  slug        String   @id @unique
+  content     String
+  description String? // Meta description for SEO
+  metaTitle   String? // Custom meta title for SEO
+  tags        Json? // Array of tags for categorization
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  // url_image_product imageProduct[]
+  saveDraf    Boolean  @default(true)
 }

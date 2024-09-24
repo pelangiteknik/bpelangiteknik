@@ -119,6 +119,7 @@
 
 .bawah .tag label {
     margin-bottom: 5px;
+    display: flex;
 }
 
 .bawah .tag input {
@@ -139,6 +140,54 @@
     flex-direction: column;
 }
 
+.tambahkategoriklik {
+    font-weight: 700;
+}
+
+.tambahkategoriklik:hover {
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.bariskankategori {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tambahkategori {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--colorsekunder);
+    border: 2px solid var(--colorthrid);
+    z-index: 999;
+    border-radius: var(--border-radius);
+    padding: 5px;
+}
+
+.ataskategori {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.closekategori {
+    font-weight: 700;
+    width: 20px;
+    cursor: pointer;
+}
+
+
+.bawah .detail .isi select {
+    padding: 10px;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--colorbggreyutama);
+    margin-bottom: 10px;
+}
+
 .bawah .detail .isi {
     display: flex;
     flex-direction: column;
@@ -155,6 +204,7 @@
 
 .bawah .detail .isi label {
     margin-bottom: 5px;
+    display: flex;
 }
 
 .yesno {
@@ -194,5 +244,19 @@
     cursor: 'pointer';
     width: fit-content !important;
     height: 20px !important;
-    padding: 0 10px!important;
+    padding: 0 10px !important;
+}
+
+.red {
+    border: 2px solid var(--colormain) !important;
+}
+
+
+.bgblack {
+    position: absolute;
+    top: 0;
+    background-color: var(--colormain);
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
 }

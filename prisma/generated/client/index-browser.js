@@ -119,6 +119,16 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.CategoryProductScalarFieldEnum = {
+  id: 'id',
+  start: 'start',
+  end: 'end',
+  category: 'category',
+  urlYoutube: 'urlYoutube',
+  title: 'title',
+  desc: 'desc'
+};
+
 exports.Prisma.ListProductScalarFieldEnum = {
   id: 'id',
   start: 'start',
@@ -128,12 +138,14 @@ exports.Prisma.ListProductScalarFieldEnum = {
   descProduct: 'descProduct',
   productName: 'productName',
   stockProduct: 'stockProduct',
+  productKategori: 'productKategori',
+  subKategoriProduct: 'subKategoriProduct',
   productType: 'productType',
-  subProductType: 'subProductType',
   tagProduct: 'tagProduct',
   productPrice: 'productPrice',
   productDiscount: 'productDiscount',
-  productPriceFinal: 'productPriceFinal'
+  productPriceFinal: 'productPriceFinal',
+  urlYoutube: 'urlYoutube'
 };
 
 exports.Prisma.SpecProductScalarFieldEnum = {
@@ -181,6 +193,20 @@ exports.Prisma.ImageProductScalarFieldEnum = {
   IdProduct: 'IdProduct'
 };
 
+exports.Prisma.PostArtikelScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  content: 'content',
+  description: 'description',
+  metaTitle: 'metaTitle',
+  tags: 'tags',
+  published: 'published',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  saveDraf: 'saveDraf'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -196,22 +222,24 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
 
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-
 
 exports.Prisma.ModelName = {
+  categoryProduct: 'categoryProduct',
   listProduct: 'listProduct',
   specProduct: 'specProduct',
-  imageProduct: 'imageProduct'
+  imageProduct: 'imageProduct',
+  postArtikel: 'postArtikel'
 };
 
 /**

@@ -24,12 +24,8 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Toaster
           toastOptions={{
-            className: '',
             style: {
-              border: '1px solid #713200',
-              padding: '16px',
-              color: '#713200',
-              fontSize: '0.7rem'
+              fontSize: '0.6rem'
             },
           }}
         />
