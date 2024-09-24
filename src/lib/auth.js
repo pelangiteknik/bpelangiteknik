@@ -1,7 +1,7 @@
-import type { NextAuthOptions } from "next-auth"
+// import type { NextAuthOptions } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 
-export const authOptions: NextAuthOptions = {
+export const authOptions = {
     session: {
         strategy: "jwt"
     },
