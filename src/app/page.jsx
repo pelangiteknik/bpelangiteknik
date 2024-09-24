@@ -23,6 +23,7 @@ export async function GetListProduct() {
     console.log(error);
   }
 }
+
 export async function GetListKategoriProduct() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/get/getKategoriProduct`, {

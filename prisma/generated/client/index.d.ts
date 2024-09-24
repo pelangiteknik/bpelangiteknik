@@ -1274,6 +1274,7 @@ export namespace Prisma {
     urlYoutube: string | null
     title: string | null
     desc: string | null
+    tags: string | null
   }
 
   export type CategoryProductMaxAggregateOutputType = {
@@ -1284,6 +1285,7 @@ export namespace Prisma {
     urlYoutube: string | null
     title: string | null
     desc: string | null
+    tags: string | null
   }
 
   export type CategoryProductCountAggregateOutputType = {
@@ -1294,6 +1296,7 @@ export namespace Prisma {
     urlYoutube: number
     title: number
     desc: number
+    tags: number
     _all: number
   }
 
@@ -1314,6 +1317,7 @@ export namespace Prisma {
     urlYoutube?: true
     title?: true
     desc?: true
+    tags?: true
   }
 
   export type CategoryProductMaxAggregateInputType = {
@@ -1324,6 +1328,7 @@ export namespace Prisma {
     urlYoutube?: true
     title?: true
     desc?: true
+    tags?: true
   }
 
   export type CategoryProductCountAggregateInputType = {
@@ -1334,6 +1339,7 @@ export namespace Prisma {
     urlYoutube?: true
     title?: true
     desc?: true
+    tags?: true
     _all?: true
   }
 
@@ -1431,6 +1437,7 @@ export namespace Prisma {
     urlYoutube: string | null
     title: string | null
     desc: string | null
+    tags: string | null
     _count: CategoryProductCountAggregateOutputType | null
     _avg: CategoryProductAvgAggregateOutputType | null
     _sum: CategoryProductSumAggregateOutputType | null
@@ -1460,6 +1467,7 @@ export namespace Prisma {
     urlYoutube?: boolean
     title?: boolean
     desc?: boolean
+    tags?: boolean
     listProducts?: boolean | categoryProduct$listProductsArgs<ExtArgs>
     _count?: boolean | CategoryProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["categoryProduct"]>
@@ -1472,6 +1480,7 @@ export namespace Prisma {
     urlYoutube?: boolean
     title?: boolean
     desc?: boolean
+    tags?: boolean
   }, ExtArgs["result"]["categoryProduct"]>
 
   export type categoryProductSelectScalar = {
@@ -1482,6 +1491,7 @@ export namespace Prisma {
     urlYoutube?: boolean
     title?: boolean
     desc?: boolean
+    tags?: boolean
   }
 
   export type categoryProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1503,6 +1513,7 @@ export namespace Prisma {
       urlYoutube: string | null
       title: string | null
       desc: string | null
+      tags: string | null
     }, ExtArgs["result"]["categoryProduct"]>
     composites: {}
   }
@@ -1904,6 +1915,7 @@ export namespace Prisma {
     readonly urlYoutube: FieldRef<"categoryProduct", 'String'>
     readonly title: FieldRef<"categoryProduct", 'String'>
     readonly desc: FieldRef<"categoryProduct", 'String'>
+    readonly tags: FieldRef<"categoryProduct", 'String'>
   }
     
 
@@ -6707,7 +6719,8 @@ export namespace Prisma {
     category: 'category',
     urlYoutube: 'urlYoutube',
     title: 'title',
-    desc: 'desc'
+    desc: 'desc',
+    tags: 'tags'
   };
 
   export type CategoryProductScalarFieldEnum = (typeof CategoryProductScalarFieldEnum)[keyof typeof CategoryProductScalarFieldEnum]
@@ -6947,6 +6960,7 @@ export namespace Prisma {
     urlYoutube?: StringNullableFilter<"categoryProduct"> | string | null
     title?: StringNullableFilter<"categoryProduct"> | string | null
     desc?: StringNullableFilter<"categoryProduct"> | string | null
+    tags?: StringNullableFilter<"categoryProduct"> | string | null
     listProducts?: ListProductListRelationFilter
   }
 
@@ -6958,6 +6972,7 @@ export namespace Prisma {
     urlYoutube?: SortOrderInput | SortOrder
     title?: SortOrderInput | SortOrder
     desc?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
     listProducts?: listProductOrderByRelationAggregateInput
   }
 
@@ -6972,6 +6987,7 @@ export namespace Prisma {
     urlYoutube?: StringNullableFilter<"categoryProduct"> | string | null
     title?: StringNullableFilter<"categoryProduct"> | string | null
     desc?: StringNullableFilter<"categoryProduct"> | string | null
+    tags?: StringNullableFilter<"categoryProduct"> | string | null
     listProducts?: ListProductListRelationFilter
   }, "id" | "category">
 
@@ -6983,6 +6999,7 @@ export namespace Prisma {
     urlYoutube?: SortOrderInput | SortOrder
     title?: SortOrderInput | SortOrder
     desc?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
     _count?: categoryProductCountOrderByAggregateInput
     _avg?: categoryProductAvgOrderByAggregateInput
     _max?: categoryProductMaxOrderByAggregateInput
@@ -7001,6 +7018,7 @@ export namespace Prisma {
     urlYoutube?: StringNullableWithAggregatesFilter<"categoryProduct"> | string | null
     title?: StringNullableWithAggregatesFilter<"categoryProduct"> | string | null
     desc?: StringNullableWithAggregatesFilter<"categoryProduct"> | string | null
+    tags?: StringNullableWithAggregatesFilter<"categoryProduct"> | string | null
   }
 
   export type listProductWhereInput = {
@@ -7471,6 +7489,7 @@ export namespace Prisma {
     urlYoutube?: string | null
     title?: string | null
     desc?: string | null
+    tags?: string | null
     listProducts?: listProductCreateNestedManyWithoutUserInput
   }
 
@@ -7482,6 +7501,7 @@ export namespace Prisma {
     urlYoutube?: string | null
     title?: string | null
     desc?: string | null
+    tags?: string | null
     listProducts?: listProductUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -7492,6 +7512,7 @@ export namespace Prisma {
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
     listProducts?: listProductUpdateManyWithoutUserNestedInput
   }
 
@@ -7503,6 +7524,7 @@ export namespace Prisma {
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
     listProducts?: listProductUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -7514,6 +7536,7 @@ export namespace Prisma {
     urlYoutube?: string | null
     title?: string | null
     desc?: string | null
+    tags?: string | null
   }
 
   export type categoryProductUpdateManyMutationInput = {
@@ -7523,6 +7546,7 @@ export namespace Prisma {
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type categoryProductUncheckedUpdateManyInput = {
@@ -7533,6 +7557,7 @@ export namespace Prisma {
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type listProductCreateInput = {
@@ -8158,6 +8183,7 @@ export namespace Prisma {
     urlYoutube?: SortOrder
     title?: SortOrder
     desc?: SortOrder
+    tags?: SortOrder
   }
 
   export type categoryProductAvgOrderByAggregateInput = {
@@ -8172,6 +8198,7 @@ export namespace Prisma {
     urlYoutube?: SortOrder
     title?: SortOrder
     desc?: SortOrder
+    tags?: SortOrder
   }
 
   export type categoryProductMinOrderByAggregateInput = {
@@ -8182,6 +8209,7 @@ export namespace Prisma {
     urlYoutube?: SortOrder
     title?: SortOrder
     desc?: SortOrder
+    tags?: SortOrder
   }
 
   export type categoryProductSumOrderByAggregateInput = {
@@ -9219,6 +9247,7 @@ export namespace Prisma {
     urlYoutube?: string | null
     title?: string | null
     desc?: string | null
+    tags?: string | null
   }
 
   export type categoryProductUncheckedCreateWithoutListProductsInput = {
@@ -9229,6 +9258,7 @@ export namespace Prisma {
     urlYoutube?: string | null
     title?: string | null
     desc?: string | null
+    tags?: string | null
   }
 
   export type categoryProductCreateOrConnectWithoutListProductsInput = {
@@ -9354,6 +9384,7 @@ export namespace Prisma {
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type categoryProductUncheckedUpdateWithoutListProductsInput = {
@@ -9364,6 +9395,7 @@ export namespace Prisma {
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type imageProductUpsertWithWhereUniqueWithoutUserInput = {

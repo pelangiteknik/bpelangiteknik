@@ -126,7 +126,8 @@ exports.Prisma.CategoryProductScalarFieldEnum = {
   category: 'category',
   urlYoutube: 'urlYoutube',
   title: 'title',
-  desc: 'desc'
+  desc: 'desc',
+  tags: 'tags'
 };
 
 exports.Prisma.ListProductScalarFieldEnum = {

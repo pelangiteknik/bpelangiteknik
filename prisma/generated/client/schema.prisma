@@ -23,6 +23,7 @@ model categoryProduct {
   urlYoutube   String?
   title        String?
   desc         String?
+  tags         String?
   listProducts listProduct[]
 }
 
