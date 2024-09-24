@@ -18,6 +18,7 @@ import toast from 'react-hot-toast';
 import { usePathname } from 'next/navigation'
 import Link from 'next/link';
 import { HandleValidasi } from '@/service/handleValidasi';
+import Logout from './logout';
 
 export default function FormInput({ data, text, dataKategori }) {
 
@@ -367,6 +368,7 @@ export default function FormInput({ data, text, dataKategori }) {
                                     <div className={styles.kanan}>
                                         <button type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
                                         <button type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? text ? text : 'Save Product' : loading ? 'Loading...' : text ? text : 'Save Product'}</button>
+                                        <Logout />
                                     </div>
                                 </div>
                                 <div className={styles.bawah}>

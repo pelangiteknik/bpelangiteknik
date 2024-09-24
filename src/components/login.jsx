@@ -9,9 +9,11 @@ export default function Login() {
     const router = useRouter()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
         try {
             const res = await signIn("credentials",
                 {
@@ -19,18 +21,21 @@ export default function Login() {
                     email: email,
                     password: password
                 }
+
             )
             if (!res?.error) {
                 router.push('/')
                 router.refresh()
                 toast.success('Successfully Login! ')
-
+                setLoading(false)
             } else {
                 toast.error("Failed Login");
+                setLoading(false)
             }
         } catch (err) {
             console.log(err);
         }
+        setLoading(false)
     };
 
     return (
@@ -57,7 +62,7 @@ export default function Login() {
                         required
                     />
                 </div>
-                <button type="submit" className={styles.loginBtn}>Login</button>
+                <button type="submit" className={styles.loginBtn}>{loading ? 'Loading...' : 'Login'}</button>
             </form>
         </div>
     );

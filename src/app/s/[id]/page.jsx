@@ -30,7 +30,6 @@ export default async function Home({ params }) {
 
     return (
         <>
-            {/* <ListProduct dataList={data?.data} query={params.id} /> */}
             {session ? <ListProduct dataList={data?.data} query={params.id} /> : <Login />}
         </>
     );

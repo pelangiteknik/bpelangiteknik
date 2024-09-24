@@ -19,6 +19,7 @@ const FormInput = dynamic(() => import('@/components/FormInput'), {
 
 import { usePathname } from 'next/navigation'
 import { FormatRupiah } from '@/utils/formatRupiah';
+import Logout from './logout';
 
 export default function ListProduct({ dataList, query, dataKategori }) {
     const pathname = usePathname()
@@ -76,17 +77,20 @@ export default function ListProduct({ dataList, query, dataKategori }) {
                 <div className={styles.atas}>
                     <Link href={'/'} className={styles.judul}><MdHome size={30} />PelangiTeknik</Link>
                     <Link href={'/post'} target='_blank'> <button className={styles.searchP}>Posting</button></Link>
-                    <div className={styles.search}>
-                        <form onSubmit={handleSearch}>
-                            <input
-                                type="text"
-                                placeholder="Search..."
-                                onChange={(e) => setSearch(e.target.value)}
-                                value={search}
-                            />
+                    <div className={styles.ataskanan}>
+                        <div className={styles.search}>
+                            <form onSubmit={handleSearch}>
+                                <input
+                                    type="text"
+                                    placeholder="Search..."
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    value={search}
+                                />
 
-                            <button className={styles.searchB} type="submit">Search</button>
-                        </form>
+                                <button className={styles.searchB} type="submit">Search</button>
+                            </form>
+                        </div>
+                        <Logout />
                     </div>
                 </div>
                 <div className={styles.bawah}>

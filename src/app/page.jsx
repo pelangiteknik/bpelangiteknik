@@ -50,7 +50,6 @@ export default async function Home() {
 
   return (
     <>
-      {/* <ListProduct dataList={dataList?.data} dataKategori={dataKategori?.data} /> */}
       {session ? <ListProduct dataList={dataList?.data} dataKategori={dataKategori?.data} /> : <Login />}
     </>
   );
