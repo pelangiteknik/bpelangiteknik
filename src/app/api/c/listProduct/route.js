@@ -92,6 +92,7 @@ export async function PUT(req) {
         productPrice,
         productDiscount,
         productPriceFinal,
+        urlYoutube,
 
 
         phase_spec,
@@ -124,6 +125,7 @@ export async function PUT(req) {
                 productPrice,
                 productDiscount,
                 productPriceFinal,
+                urlYoutube,
             }
         })
 

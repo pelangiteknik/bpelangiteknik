@@ -1,7 +1,7 @@
 import ListProduct from "@/components/listProduct";
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "@/lib/auth";
-// import Login from "@/components/login";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import Login from "@/components/login";
 
 export const dynamic = 'force-dynamic'
 
@@ -46,12 +46,12 @@ export async function GetListKategoriProduct() {
 export default async function Home() {
   const dataList = await GetListProduct()
   const dataKategori = await GetListKategoriProduct()
-  // const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions)
 
   return (
     <>
-      <ListProduct dataList={dataList?.data} dataKategori={dataKategori?.data} />
-      {/* {session ? <ListProduct dataList={dataList?.data} dataKategori={dataKategori?.data} /> : <Login />} */}
+      {/* <ListProduct dataList={dataList?.data} dataKategori={dataKategori?.data} /> */}
+      {session ? <ListProduct dataList={dataList?.data} dataKategori={dataKategori?.data} /> : <Login />}
     </>
   );
 }

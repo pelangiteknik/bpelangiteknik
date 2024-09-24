@@ -1,7 +1,7 @@
 import ListProduct from "@/components/listProduct";
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "@/lib/auth";
-// import Login from "@/components/login";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import Login from "@/components/login";
 
 export const dynamic = 'force-dynamic'
 
@@ -26,12 +26,12 @@ export async function GetListProduct(id) {
 
 export default async function Home({ params }) {
     const data = await GetListProduct(params.id)
-    // const session = await getServerSession(authOptions)
+    const session = await getServerSession(authOptions)
 
     return (
         <>
-            <ListProduct dataList={data?.data} query={params.id} />
-            {/* {session ? <ListProduct dataList={data?.data} query={params.id} /> : <Login />} */}
+            {/* <ListProduct dataList={data?.data} query={params.id} /> */}
+            {session ? <ListProduct dataList={data?.data} query={params.id} /> : <Login />}
         </>
     );
 }
