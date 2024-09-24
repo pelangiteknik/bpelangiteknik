@@ -1,11 +1,16 @@
 'use server'
 export const HandleGetKategori = async () => {
-    const resSlug = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/get/getKategoriProduct`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
-        },
-    });
+    try {
+        const resSlug = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/get/getKategoriProduct`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+            },
+        });
 
-    return resSlug.json();
+        return resSlug.json();
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
