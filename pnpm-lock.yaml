@@ -63,6 +63,9 @@ importers:
       '@types/draftjs-to-html':
         specifier: ^0.8.4
         version: 0.8.4
+      '@types/html-to-draftjs':
+        specifier: ^1.4.3
+        version: 1.4.3
       '@types/node':
         specifier: 22.5.4
         version: 22.5.4
@@ -183,6 +186,9 @@ packages:
 
   '@types/hoist-non-react-statics@3.3.5':
     resolution: {integrity: sha512-SbcrWzkKBw2cdwRTwQAswfpB9g9LJWfjtUeW/jvNwbhC8cpmmNYVePa+ncbUe0rGTQ7G3Ff6mYUN2VMfLVr+Sg==}
+
+  '@types/html-to-draftjs@1.4.3':
+    resolution: {integrity: sha512-8TAgtzFA/sfwjGNXJ7Zod5tgnqsfJFQZYB8Nmu9GIoF7AVSwRm2quF1Ve09dHgHxSVsTSSy2diZSVdeSvTe7vg==}
 
   '@types/node@22.5.4':
     resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
@@ -628,6 +634,10 @@ snapshots:
     dependencies:
       '@types/react': 18.3.5
       hoist-non-react-statics: 3.3.2
+
+  '@types/html-to-draftjs@1.4.3':
+    dependencies:
+      '@types/draft-js': 0.11.18
 
   '@types/node@22.5.4':
     dependencies:

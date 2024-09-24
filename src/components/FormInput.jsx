@@ -3,15 +3,12 @@ import { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styles from '@/components/formInput.module.css'
-import { ContentState, convertFromHTML, convertToRaw, EditorState } from "draft-js";
-import htmlToDraft from 'html-to-draftjs';
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import "draft-js/dist/Draft.css";
+import dynamic from "next/dynamic";
+const EditorProduct = dynamic(() => import('@/components/editorProduct'), { ssr: false });
 import draftToHtml from "draftjs-to-html";
+// import htmlToDraft from "html-to-draftjs";
 import { useRouter } from 'next/navigation';
 import { MdOutlineFileUpload } from "react-icons/md";
-// import Image from 'next/image';
 import { HandleDeleteImageC } from '@/service/handleDeleteImageC';
 import { useCon } from '@/zustand/useCon';
 import toast from 'react-hot-toast';
@@ -36,23 +33,6 @@ export default function FormInput({ data, text, dataKategori }) {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [draf, setDraf] = useState(null)
-
-    // TEXT EDITOR
-    const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const onEditorStateChange = (editorState) => {
-        // formik.setFieldValue('myFile', e.target.files[0]);
-        setEditorState(editorState)
-    };
-
-    useEffect(() => {
-        const edit = () => {
-            const contentBlock = htmlToDraft(data?.descProduct);
-            const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-            const editorState = EditorState.createWithContent(contentState);
-            setEditorState(editorState)
-        }
-        data && edit()
-    }, [data, data?.descProduct])
 
     // const ResetDeskripsi = () => {
     //     const blocksFromHTML = convertFromHTML('&nbsp;')
@@ -162,7 +142,7 @@ export default function FormInput({ data, text, dataKategori }) {
         productDiscount: data ? data?.productDiscount : '',
         productPriceFinal: data ? data?.productPriceFinal : '',
         urlYoutube: data ? data?.urlYoutube : '',
-        descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+        descProduct: '',
 
         phase_spec: data ? data?.spec_product?.phase_spec : '',
         frequency_spec: data ? data?.spec_product?.frequency_spec : '',
@@ -181,6 +161,8 @@ export default function FormInput({ data, text, dataKategori }) {
     const validationSchema = Yup.object({
         productName: Yup.string()
             .max(150, 'Must be 15 characters or less')
+            .required('*'),
+        descProduct: Yup.string()
             .required('*'),
         stockProduct: Yup.number()
             .max(99999, 'Must be 15 characters or less')
@@ -295,7 +277,7 @@ export default function FormInput({ data, text, dataKategori }) {
 
                 const GabungData = {
                     ...value,
-                    descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+                    // descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
                     productPriceFinal: Math.round(value?.productPrice - ((value?.productPrice * value?.productDiscount) / 100)),
                     slugProduct: slug,
                     saveDraf: draf,
@@ -547,15 +529,13 @@ export default function FormInput({ data, text, dataKategori }) {
                                                         />
                                                     </div>
                                                 </div>
-                                                <label htmlFor="productDescription">Deskripsi</label>
-                                                <Editor
-                                                    editorState={editorState}
-                                                    toolbarClassName="toolbarClassName"
-                                                    wrapperClassName="wrapperClassName"
-                                                    editorClassName="editorClassName"
-                                                    placeholder="Tulis Diskripsi..."
-                                                    onEditorStateChange={onEditorStateChange}
+                                                <label htmlFor="descProduct">Deskripsi <ErrorMessage name="descProduct" component="div" style={{ color: 'red' }} /></label>
+
+                                                <EditorProduct
+                                                    initialValue={data ? data?.descProduct : ''}
+                                                    onChange={(editorContent) => setFieldValue('descProduct', draftToHtml(editorContent))}
                                                 />
+
                                             </div>
                                         </div>
                                         <div className={styles.detail} style={{ margin: '20px 0 30px 0' }}>
