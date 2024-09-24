@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { useFormik } from "formik";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styles from '@/components/formInput.module.css'
 import { ContentState, convertFromHTML, convertToRaw, EditorState } from "draft-js";
@@ -11,15 +11,20 @@ import "draft-js/dist/Draft.css";
 import draftToHtml from "draftjs-to-html";
 import { useRouter } from 'next/navigation';
 import { MdOutlineFileUpload } from "react-icons/md";
-import Image from 'next/image';
+// import Image from 'next/image';
 import { HandleDeleteImageC } from '@/service/handleDeleteImageC';
 import { useCon } from '@/zustand/useCon';
 import toast from 'react-hot-toast';
 import { usePathname } from 'next/navigation'
+import Link from 'next/link';
+import { HandleValidasi } from '@/service/handleValidasi';
 
-export default function FormInput({ data, text }) {
+export default function FormInput({ data, text, dataKategori }) {
+
     const pathname = usePathname()
     const setLayang = useCon((state) => state.setLayang)
+
+    const [klikKategori, setKlikKategori] = useState(false);
 
     const [selectedImages, setSelectedImages] = useState([]);
     const [selectedImagesDB, setSelectedImagesDB] = useState(data?.url_image_product);
@@ -63,7 +68,7 @@ export default function FormInput({ data, text }) {
         setalertIDDeleteImage(e)
         setAlertKondisi(kondisi)
         const remove = () => {
-            const updatedImages = selectedImagesDB.filter((data) => data.public_id !== e); // Filter out the image
+            const updatedImages = selectedImagesDB.filter((data) => data?.public_id !== e); // Filter out the image
             setSelectedImagesDB(updatedImages);
 
             // simpanlocal
@@ -87,9 +92,11 @@ export default function FormInput({ data, text }) {
         router.refresh()
     };
 
-    const handleChange = (e) => {
-        formik.setFieldValue('myFile', e.target.files[0]);
-        const files = Array.from(e.target.files); // Convert FileList to an array
+    const handleFileChange = (event, setFieldValue) => {
+        const filesData = event.target.files;
+        setFieldValue('images', filesData);
+
+        const files = Array.from(event.target.files); // Convert FileList to an array
         const imagePreviews = [];
 
         files.forEach(file => {
@@ -102,31 +109,102 @@ export default function FormInput({ data, text }) {
             };
             reader.readAsDataURL(file); // Read file as a Data URL
         });
+
     };
 
-    const validationRules = Yup.object().shape({
+
+    // State untuk menyimpan nilai input
+    const [kategori, setKategori] = useState('');
+    const [loadingKategori, setLoadingKategori] = useState(false);
+
+    // Fungsi untuk menangani perubahan input
+    const handleInputChangeKategori = (event) => {
+        setKategori(event?.target.value);
+    };
+
+    // Fungsi untuk submit form
+    const handleSubmitKategori = async (event) => {
+        event.preventDefault();
+        setLoadingKategori(true)
+
+        if (dataKategori.filter((data) => data?.category == kategori).length) {
+            toast.error(`Produk kategori ${kategori} sudah ada, silakan pilih kategori lain.`);
+            setLoadingKategori(false)
+            return true
+        } else {
+            await HandlePostCategory({
+                "category": kategori
+            })
+            setLoadingKategori(false)
+            setKlikKategori(false)
+            setKategori('')
+            toast.success(`kategori ${kategori} berhasil ditambahkan!`)
+            router.refresh()
+        }
+
+        // await HandlePostCategory({
+        //     "category": kategori    
+        //     "urlYoutube": null
+        //     "title": null
+        //     "desc": null
+        //     "tags": null
+        // })
+    };
+
+    const initialValues = {
+        productName: data ? data?.productName : '',
+        stockProduct: data ? data?.stockProduct : '',
+        productType: data ? data?.productType : '',
+        subKategoriProduct: data ? data?.subKategoriProduct : '',
+        productKategori: data ? data?.productKategori : '',
+        tagProduct: data ? data?.tagProduct : '',
+        productPrice: data ? data?.productPrice : '',
+        productDiscount: data ? data?.productDiscount : '',
+        productPriceFinal: data ? data?.productPriceFinal : '',
+        urlYoutube: data ? data?.urlYoutube : '',
+        descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+
+        phase_spec: data ? data?.spec_product?.phase_spec : '',
+        frequency_spec: data ? data?.spec_product?.frequency_spec : '',
+        gensetPower_spec: data ? data?.spec_product?.gensetPower_spec : '',
+        ratedPower_spec: data ? data?.spec_product?.ratedPower_spec : '',
+        maxPower_spec: data ? data?.spec_product?.maxPower_spec : '',
+        ratedACVoltage_spec: data ? data?.spec_product?.ratedACVoltage_spec : '',
+        starting_spec: data ? data?.spec_product?.starting_spec : '',
+        fuelConsumption_spec: data ? data?.spec_product?.fuelConsumption_spec : '',
+        weight_spec: data ? data?.spec_product?.weight_spec : '',
+        dimension_spec: data ? data?.spec_product?.dimension_spec : '',
+        // email: '',
+        images: []
+    };
+
+    const validationSchema = Yup.object({
         productName: Yup.string()
             .max(150, 'Must be 15 characters or less')
-            .required('Required'),
+            .required('*'),
         stockProduct: Yup.number()
             .max(99999, 'Must be 15 characters or less')
-            .required('Required'),
+            .required('*'),
         tagProduct: Yup.string()
             .max(150, 'Must be 15 characters or less')
-            .required('Required'),
+            .required('*'),
         productType: Yup.string()
             .max(200, 'Must be 20 characters or less')
-            .required('Required'),
-        subProductType: Yup.string()
+            .required('*'),
+        productKategori: Yup.string().required('*'),
+        urlYoutube: Yup.string()
             .max(200, 'Must be 20 characters or less')
-            .required('Required'),
+            .required('*'),
+        // subKategoriProduct: Yup.string()
+        //     .max(200, 'Must be 20 characters or less')
+        //     .required('Required'),
 
         productPrice: Yup.number()
             .max(9999999999, 'Must be 200 characters or less')
-            .required('Required'),
+            .required('*'),
         productDiscount: Yup.number()
-            .max(999, 'Must be 200 characters or less')
-            .required('Required'),
+            .max(100, 'Must be 100 characters or less')
+            .required('*'),
         // productPriceFinal: Yup.number()
         //     .max(9999999999, 'Must be 200 characters or less')
         //     .required('Required'),
@@ -157,62 +235,51 @@ export default function FormInput({ data, text }) {
         //     .required('Required'),
         weight_spec: Yup.number()
             .max(9999999999, 'Must be 20 characters or less')
-            .required('Required'),
+            .required('*'),
+        images: Yup.mixed().required('At least one file is required')
+        // images: Yup.mixed()
+        //     .test('fileFormat', 'Only Image files are allowed', value => {
+
+        //         if (value) {
+        //             const supportedFormats = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'tiff'];
+        //             return supportedFormats.includes(value?.name?.split('.')?.pop());
+        //         }
+        //         return true;
+        //     })
+        //     .test('fileSize', 'File size must not be more than 30MB',
+        //         value => {
+        //             if (value) {
+        //                 return value?.size <= 32145728;
+        //             }
+        //             return true;
+        //         }),
         // dimension_spec: Yup.string()
         //     .max(200, 'Must be 20 characters or less')
         //     .required('Required'),
         // email: Yup.string().email('Invalid email address').required('Required'),
-        myFile: Yup.mixed()
-            .test('fileFormat', 'Only Image files are allowed', value => {
+    });
 
-                if (value) {
-                    const supportedFormats = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'tiff'];
-                    return supportedFormats.includes(value?.name?.split('.')?.pop());
-                }
-                return true;
-            })
-            .test('fileSize', 'File size must not be more than 30MB',
-                value => {
-                    if (value) {
-                        return value?.size <= 32145728;
-                    }
-                    return true;
-                }),
-    })
+    const handleSubmit = async (value) => {
 
+        try {
+            setKategori(false)
+            setLoading(true)
+            const slug = value?.productName
+                ?.toLowerCase() // ubah jadi huruf kecil
+                ?.replace(/[^a-z0-9\s]/g, '') // hapus karakter selain huruf, angka, dan spasi
+                ?.trim() // hapus spasi di awal dan akhir
+                ?.replace(/\s+/g, '-')
 
-    const formik = useFormik({
-        initialValues: {
-            productName: data ? data?.productName : '',
-            stockProduct: data ? data?.stockProduct : '',
-            productType: data ? data?.productType : '',
-            subProductType: data ? data?.subProductType : '',
-            tagProduct: data ? data?.tagProduct : '',
-            productPrice: data ? data?.productPrice : '',
-            productDiscount: data ? data?.productDiscount : '',
-            productPriceFinal: data ? data?.productPriceFinal : '',
-            descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+            // Validate if the slug is duplicate
+            const slugData = pathname == '/post' ? await HandleValidasi(slug) : []
 
-            phase_spec: data ? data?.spec_product?.phase_spec : '',
-            frequency_spec: data ? data?.spec_product?.frequency_spec : '',
-            gensetPower_spec: data ? data?.spec_product?.gensetPower_spec : '',
-            ratedPower_spec: data ? data?.spec_product?.ratedPower_spec : '',
-            maxPower_spec: data ? data?.spec_product?.maxPower_spec : '',
-            ratedACVoltage_spec: data ? data?.spec_product?.ratedACVoltage_spec : '',
-            starting_spec: data ? data?.spec_product?.starting_spec : '',
-            fuelConsumption_spec: data ? data?.spec_product?.fuelConsumption_spec : '',
-            weight_spec: data ? data?.spec_product?.weight_spec : '',
-            dimension_spec: data ? data?.spec_product?.dimension_spec : '',
-            // email: '',
-            myFile: '',
-        },
+            if (pathname == '/post' && slugData?.data?.length) {
+                // Handle duplicate slug
+                toast.error("Produk dengan nama ini sudah ada, silakan pilih nama lain.");
+                setLoading(false);
+                return; // Stop further execution if slug exists
+            } else {
 
-
-        onSubmit: async (value) => {
-            // if (selectedImages.length === 0) return
-
-            try {
-                setLoading(true)
                 const formData = new FormData();
                 selectedImages.forEach(image => {
                     formData.append('files', image?.file); // Append each image file to formData
@@ -223,14 +290,7 @@ export default function FormInput({ data, text }) {
                     body: formData
                 })
                 const dataRes = await res.json()
-
                 const dataImage = dataRes?.results
-
-                const slug = value?.productName
-                    ?.toLowerCase() // ubah jadi huruf kecil
-                    ?.replace(/[^a-z0-9\s]/g, '') // hapus karakter selain huruf, angka, dan spasi
-                    ?.trim() // hapus spasi di awal dan akhir
-                    ?.replace(/\s+/g, '-')
 
 
                 const GabungData = {
@@ -242,6 +302,7 @@ export default function FormInput({ data, text }) {
                     dataImage: dataImage
                 }
 
+
                 await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
                     method: data ? 'PUT' : 'POST',
                     headers: {
@@ -250,6 +311,7 @@ export default function FormInput({ data, text }) {
                     },
                     body: JSON.stringify(GabungData),
                 })
+
 
                 // Menggunakan for...of untuk mengiterasi array dataImage supabase
                 for (const public_id of selectedImagesDBLocal) {
@@ -271,423 +333,294 @@ export default function FormInput({ data, text }) {
 
                 setLoading(false)
                 // router.push('/')
-                formik.resetForm()
+                // formik.resetForm()
                 pathname == '/' && setLayang()
-                toast.success('Successfully!')
+                toast.success('data berhasil ditambahkan!')
                 // handle the error
                 // if (!res.ok) throw new Error(await res.text())
-            } catch (e) {
-                // Handle errors here
-                console.error(e)
             }
 
-        },
-        validationSchema: validationRules,
-    })
+        } catch (e) {
+            // Handle errors here
+            toast.error("Tidak Berhasil, silahkan Ulang")
+            console.error(e)
+        }
+    };
 
     return (
-        <div className={styles.container}>
-            <div className={styles.dalamcontainer}>
-                <form className={styles.form} onSubmit={formik.handleSubmit}>
-                    <div className={styles.atas}>
-                        <div className={styles.kiri}>{data ? data?.productName : 'PelangiTeknik'}</div>
-                        <div className={styles.kanan}>
-                            <button type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
-                            <button type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? text ? text : 'Save Product' : loading ? 'Loading...' : text ? text : 'Save Product'}</button>
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+        >
+            {({ setFieldValue, values }) => (
+                <Form>
+                    <div className={styles.container}>
+
+
+                        <div className={styles.dalamcontainer}>
+                            <div className={styles.form}>
+                                <div className={styles.atas}>
+                                    <Link target='_blank' href={'/'} className={styles.kiri}>
+                                        {data ? data?.productName : 'PelangiTeknik'}
+                                    </Link>
+                                    <div className={styles.kanan}>
+                                        <button type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
+                                        <button type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? text ? text : 'Save Product' : loading ? 'Loading...' : text ? text : 'Save Product'}</button>
+                                    </div>
+                                </div>
+                                <div className={styles.bawah}>
+                                    <div className={styles.productImage}>
+                                        <div className={styles.judul}>Product Image</div>
+                                        <hr />
+                                        <div className={styles.isi}>
+                                            <div className={styles.tag}>
+                                                <label htmlFor="tagProduct">Tag <ErrorMessage name="tagProduct" component="div" style={{ color: 'red' }} /></label>
+                                                <Field type="text"
+                                                    name="tagProduct"
+                                                    id="tagProduct"
+                                                />
+
+                                            </div>
+                                            <div className={styles.tag}>
+                                                <label htmlFor="urlYoutube">Url Youtube  <ErrorMessage name="urlYoutube" component="div" style={{ color: 'red' }} /></label>
+                                                <Field type="text" name="urlYoutube" id="urlYoutube" />
+
+                                            </div>
+                                            <div className={styles.judulsamping}>Product Image</div>
+                                            <div className="image-preview">
+                                                {selectedImagesDB?.map((image, index) => (
+                                                    <div key={index} style={{ display: 'inline-block', position: 'relative', margin: '10px' }}>
+                                                        <img
+                                                            src={image?.url}
+                                                            alt={`Preview ${index}`}
+                                                            style={{ width: '90px', height: '90px', objectFit: 'cover' }}
+                                                        />
+                                                        {!loading && (
+                                                            <>
+                                                                {alertKondisi && alertIDDeleteImage === image?.public_id && (
+                                                                    <div className={styles.yesno}>
+                                                                        <div className={styles.tombol} onClick={() => handleRemoveImageDB(image?.public_id, false, true)}>YES</div>
+                                                                        <div className={styles.tombol} onClick={() => handleRemoveImageDB(image?.public_id, false)}>NO</div>
+                                                                    </div>
+                                                                )}
+                                                                {!alertKondisi && (
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => handleRemoveImageDB(image?.public_id, true)}
+                                                                        className={styles.tombolhapus}
+                                                                    >
+                                                                        X
+                                                                    </button>
+                                                                )}
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                                {selectedImages.map((image, index) => (
+                                                    <div key={index} style={{ display: 'inline-block', position: 'relative', margin: '10px' }}>
+                                                        <img
+                                                            src={image.preview}
+                                                            alt={`Preview ${index}`}
+                                                            style={{ width: '90px', height: '90px', objectFit: 'cover' }}
+                                                        />
+                                                        {!loading && (
+                                                            <>
+                                                                {alertKondisi && alertIDDeleteImage === index && (
+                                                                    <div className={styles.yesno}>
+                                                                        <div className={styles.tombol} onClick={() => handleRemoveImage(index, false, true)}>YES</div>
+                                                                        <div className={styles.tombol} onClick={() => handleRemoveImage(index, false)}>NO</div>
+                                                                    </div>
+                                                                )}
+                                                                {!alertKondisi && (
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => handleRemoveImage(index, true)}
+                                                                        className={styles.tombolhapus}
+                                                                    >
+                                                                        X
+                                                                    </button>
+                                                                )}
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            <label
+                                                className={styles.labeltag}
+                                                htmlFor="images"><MdOutlineFileUpload /> &nbsp;Upload Image</label>
+                                            <input
+                                                // style={{ display: 'none' }}
+                                                type="file"
+                                                id="images"
+                                                name="images"
+                                                accept="image/*"
+                                                multiple
+                                                onChange={(event) => handleFileChange(event, setFieldValue)}
+                                            />
+
+                                            <ErrorMessage name="images" component="div" style={{ color: 'red' }} />
+
+
+                                        </div>
+                                    </div>
+                                    <div className={styles.detaildetail}>
+                                        <div className={styles.detail}>
+                                            <div className={styles.judul}>General Information</div>
+                                            <hr />
+                                            <div className={styles.isi}>
+                                                <label htmlFor="productName">Product Name  <ErrorMessage name="productName" component="div" style={{ color: 'red' }} /></label>
+                                                <Field type="text" name="productName" id="productName" />
+                                                <div className={styles.satubaris}>
+                                                    <div className={styles.bariskankategori}>
+                                                        {klikKategori && <div className={styles.tambahkategori}>
+                                                            <div className={styles.ataskategori}>
+                                                                <label htmlFor="kategori">Tambah Kategori</label>
+                                                                {!loadingKategori && <div className={styles.closekategori} onClick={() => setKlikKategori(!klikKategori)}>x</div>}
+                                                            </div>
+                                                            <div style={{ display: 'flex', gap: '5px' }}>
+                                                                <input
+                                                                    style={{ width: '70%' }}
+                                                                    type="text"
+                                                                    id="kategori"
+                                                                    value={kategori}
+                                                                    onChange={handleInputChangeKategori}
+                                                                    placeholder="Masukkan kategori"
+                                                                    required
+                                                                    disabled={loadingKategori}
+                                                                />
+                                                                <button onClick={handleSubmitKategori} type="submit">{loadingKategori ? 'Loading' : 'Tambah'}</button>
+                                                            </div>
+                                                        </div>}
+
+
+                                                        <label htmlFor="productKategori">Kategori  <ErrorMessage name="productKategori" component="div" style={{ color: 'red' }} />
+                                                            &nbsp; <div className={styles.tambahkategoriklik} onClick={() => setKlikKategori(!klikKategori)}>( Tambah Kategori ? )</div>
+                                                        </label>
+
+                                                        <Field as="select" name="productKategori" id="productKategori">
+                                                            <option value="">Select a Kategori</option>
+
+                                                            {dataKategori.map((data, i) => {
+                                                                return (
+                                                                    <option key={i} value={data?.category}>{data?.category}</option>
+                                                                )
+                                                            })}
+
+                                                        </Field>
+
+                                                        {/* <Field type="text" name="productKategori" id="productKategori" /> */}
+                                                    </div>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="subKategoriProduct">Sub Kategori  <ErrorMessage name="subKategoriProduct" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="text" name="subKategoriProduct" id="subKategoriProduct" />
+                                                    </div>
+                                                </div>
+                                                <div className={styles.satubaris}>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="stockProduct">Stock Product  <ErrorMessage name="stockProduct" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="number" name="stockProduct" id="stockProduct" />
+                                                    </div>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="productType">Product Type  <ErrorMessage name="productType" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="text" name="productType" id="productType" />
+                                                    </div>
+                                                </div>
+                                                <div className={styles.satubaris}>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="productPrice">Price  <ErrorMessage name="productPrice" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="number" name="productPrice" id="productPrice" />
+                                                    </div>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="productDiscount">Discount (optional)  <ErrorMessage name="productDiscount" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="number" name="productDiscount" id="productDiscount" />
+                                                    </div>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="productPriceFinal">Discount Price  <ErrorMessage name="productPriceFinal" component="div" style={{ color: 'red' }} /></label>
+                                                        <input
+                                                            id="productPriceFinal"
+                                                            name="productPriceFinal"
+                                                            type="number"
+                                                            value={Math.round(values?.productPrice - ((values?.productPrice * values?.productDiscount) / 100)) != 0 && Math.round(values?.productPrice - ((values?.productPrice * values?.productDiscount) / 100))}
+                                                            disabled
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <label htmlFor="productDescription">Deskripsi</label>
+                                                <Editor
+                                                    editorState={editorState}
+                                                    toolbarClassName="toolbarClassName"
+                                                    wrapperClassName="wrapperClassName"
+                                                    editorClassName="editorClassName"
+                                                    placeholder="Tulis Diskripsi..."
+                                                    onEditorStateChange={onEditorStateChange}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className={styles.detail} style={{ margin: '20px 0 30px 0' }}>
+                                            <div className={styles.judul}>Spesifikasi Produk</div>
+                                            <hr />
+                                            <div className={styles.isi}>
+                                                <div className={styles.satubaris}>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="phase_spec">Phase <ErrorMessage name="phase_spec" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="text" name="phase_spec" id="phase_spec" />
+                                                    </div>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="frequency_spec">Frekuensi <ErrorMessage name="frequency_spec" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="text" name="frequency_spec" id="frequency_spec" />
+                                                    </div>
+                                                </div>
+                                                <div className={styles.satubaris}>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="gensetPower_spec">Genset Power <ErrorMessage name="gensetPower_spec" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="text" name="gensetPower_spec" id="gensetPower_spec" />
+                                                    </div>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="ratedPower_spec">Rated <ErrorMessage name="ratedPower_spec" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="text" name="ratedPower_spec" id="ratedPower_spec" />
+                                                    </div>
+                                                </div>
+                                                <div className={styles.satubaris}>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="maxPower_spec">Max Power <ErrorMessage name="maxPower_spec" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="text" name="maxPower_spec" id="maxPower_spec" />
+                                                    </div>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="ratedACVoltage_spec">Rated Voltage <ErrorMessage name="ratedACVoltage_spec" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="text" name="ratedACVoltage_spec" id="ratedACVoltage_spec" />
+                                                    </div>
+                                                </div>
+                                                <div className={styles.satubaris}>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="starting_spec">Starting <ErrorMessage name="starting_spec" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="text" name="starting_spec" id="starting_spec" />
+                                                    </div>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="fuelConsumption_spec">Fuel Consumption <ErrorMessage name="fuelConsumption_spec" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="text" name="fuelConsumption_spec" id="fuelConsumption_spec" />
+                                                    </div>
+                                                </div>
+                                                <div className={styles.satubaris}>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="weight_spec">Weight (satuan gram) <ErrorMessage name="weight_spec" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="number" name="weight_spec" id="weight_spec" />
+                                                    </div>
+                                                    <div className={styles.bariskan}>
+                                                        <label htmlFor="dimension_spec">Dimension <ErrorMessage name="dimension_spec" component="div" style={{ color: 'red' }} /></label>
+                                                        <Field type="text" name="dimension_spec" id="dimension_spec" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className={styles.bawah}>
-                        <div className={styles.productImage}>
-                            <div className={styles.judul}>Product Image</div>
-                            <hr />
-
-                            <div className={styles.isi}>
-                                <div className={styles.tag}>
-                                    <label htmlFor="tagProduct">Tag</label>
-                                    <input
-                                        id="tagProduct"
-                                        name="tagProduct"
-                                        type="text"
-                                        placeholder='ex: genset, genset slient'
-                                        onChange={formik.handleChange}
-                                        value={formik.values.tagProduct}
-                                        style={formik.errors.tagProduct ? { border: '1px solid var(--colormain)' } : {}}
-                                    />
-                                </div>
-
-                                <div className={styles.judulsamping}>Product Image</div>
-                                <div className="image-preview">
-
-                                    {selectedImagesDB?.map((image, index) => {
-                                        return (
-                                            <div key={index} style={{ display: 'inline-block', position: 'relative', margin: '10px' }}>
-                                                <Image
-                                                    src={image.url}
-                                                    alt={`Preview ${index}`}
-                                                    style={{ width: '90px', height: '90px', objectFit: 'cover' }}
-                                                    width={90}
-                                                    height={90}
-                                                />
-                                                {!loading &&
-                                                    <>
-                                                        {alertKondisi && alertIDDeleteImage == image.public_id &&
-                                                            <div className={styles.yesno}>
-                                                                <div className={styles.tombol} onClick={() => handleRemoveImageDB(image.public_id, false, true)}>YES</div>
-                                                                <div className={styles.tombol} onClick={() => handleRemoveImageDB(image.public_id, false)}>NO</div>
-                                                            </div>
-                                                        }
-                                                        {!alertKondisi &&
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => handleRemoveImageDB(image.public_id, true)}
-                                                                className={styles.tombolhapus}
-                                                            >
-                                                                X
-                                                            </button>
-                                                        }
-                                                    </>
-                                                }
-                                            </div>
-                                        )
-                                    })}
-
-                                    {/* POSTING */}
-                                    {selectedImages.map((image, index) => {
-                                        return (
-                                            <div key={index} style={{ display: 'inline-block', position: 'relative', margin: '10px' }}>
-                                                <Image
-                                                    src={image.preview}
-                                                    alt={`Preview ${index}`}
-                                                    style={{ width: '90px', height: '90px', objectFit: 'cover' }}
-                                                    width={90}
-                                                    height={90}
-                                                />
-                                                {!loading &&
-                                                    <>
-                                                        {alertKondisi && alertIDDeleteImage == index &&
-                                                            <div className={styles.yesno}>
-                                                                <div className={styles.tombol} onClick={() => handleRemoveImage(index, false, true)}>YES</div>
-                                                                <div className={styles.tombol} onClick={() => handleRemoveImage(index, false)}>NO</div>
-                                                            </div>
-                                                        }
-                                                        {!alertKondisi &&
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => handleRemoveImage(index, true)}
-                                                                className={styles.tombolhapus}
-                                                            >
-                                                                X
-                                                            </button>
-                                                        }
-                                                    </>
-                                                }
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-
-                                <label
-                                    className={styles.labeltag}
-                                    htmlFor="myFile"><MdOutlineFileUpload /> &nbsp;Upload Image</label>
-                                <input
-                                    style={{ display: 'none' }}
-                                    id='myFile'
-                                    type='file'
-                                    name='myFile'
-                                    accept="image/*"
-                                    onChange={handleChange}
-                                    multiple
-                                />
-
-                                <div>{(formik.errors.myFile) ? <p style={{ color: 'red' }}>{formik.errors.myFile}</p> : null}</div>
-
-                            </div>
-                        </div>
-                        <div className={styles.detaildetail}>
-                            <div className={styles.detail}>
-                                <div className={styles.judul}>General Information</div>
-                                <hr />
-                                <div className={styles.isi}>
-                                    <label htmlFor="productName">Product Name</label>
-                                    <input
-                                        disabled={loading}
-                                        id="productName"
-                                        name="productName"
-                                        type="text"
-                                        onChange={formik.handleChange}
-                                        value={formik.values.productName}
-                                        style={formik.errors.productName ? { border: '1px solid var(--colormain)' } : {}}
-                                    />
-
-                                    <div className={styles.satubaris}>
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="stockProduct">Stock Product</label>
-                                            <input
-                                                disabled={loading}
-                                                id="stockProduct"
-                                                name="stockProduct"
-                                                type="number"
-                                                onChange={formik.handleChange}
-                                                value={formik.values.stockProduct}
-                                                style={formik.errors.stockProduct ? { border: '1px solid var(--colormain)' } : {}}
-
-                                            />
-                                        </div>
-
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="productType">Product Type</label>
-                                            <input
-                                                disabled={loading}
-                                                id="productType"
-                                                name="productType"
-                                                type="text"
-                                                onChange={formik.handleChange}
-                                                value={formik.values.productType}
-                                                style={formik.errors.productType ? { border: '1px solid var(--colormain)' } : {}}
-
-                                            />
-                                        </div>
-
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="subProductType">Sub Product Type</label>
-                                            <input
-                                                disabled={loading}
-                                                id="subProductType"
-                                                name="subProductType"
-                                                type="text"
-                                                onChange={formik.handleChange}
-                                                value={formik.values.subProductType}
-                                                style={formik.errors.subProductType ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className={styles.satubaris}>
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="productPrice">Price</label>
-                                            <input
-                                                disabled={loading}
-                                                id="productPrice"
-                                                name="productPrice"
-                                                type="number"
-                                                onChange={formik.handleChange}
-                                                value={formik.values.productPrice}
-                                                style={formik.errors.productPrice ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="productDiscount">Discount (optional)</label>
-                                            <input
-                                                disabled={loading}
-                                                id="productDiscount"
-                                                name="productDiscount"
-                                                type="number"
-                                                onChange={formik.handleChange}
-                                                value={formik.values.productDiscount}
-                                                max={100}
-                                                style={formik.errors.productDiscount ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="productPriceFinal">Discount Price</label>
-                                            <input
-                                                id="productPriceFinal"
-                                                name="productPriceFinal"
-                                                type="number"
-                                                onChange={formik.handleChange}
-                                                value={Math.round(formik.values.productPrice - ((formik.values.productPrice * formik.values.productDiscount) / 100)) != 0 && Math.round(formik.values.productPrice - ((formik.values.productPrice * formik.values.productDiscount) / 100))}
-                                                disabled
-                                                style={formik.errors.productPriceFinal ? { border: '1px solid var(--colormain)' } : {}}
-                                            // disabled
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <label htmlFor="productPrice">Deskripsi</label>
-                                    <Editor
-                                        editorState={editorState}
-                                        toolbarClassName="toolbarClassName"
-                                        wrapperClassName="wrapperClassName"
-                                        editorClassName="editorClassName"
-                                        placeholder="Tulis Diskripsi..."
-                                        onEditorStateChange={onEditorStateChange}
-                                        mention={{
-                                            separator: " ",
-                                            trigger: "@",
-                                            suggestions: [
-                                                { text: "APPLE", value: "apple" },
-                                                { text: "BANANA", value: "banana", url: "banana" },
-                                                { text: "CHERRY", value: "cherry", url: "cherry" },
-                                                { text: "DURIAN", value: "durian", url: "durian" },
-                                                { text: "EGGFRUIT", value: "eggfruit", url: "eggfruit" },
-                                                { text: "FIG", value: "fig", url: "fig" },
-                                                { text: "GRAPEFRUIT", value: "grapefruit", url: "grapefruit" },
-                                                { text: "HONEYDEW", value: "honeydew", url: "honeydew" }
-                                            ]
-                                        }} />
-                                </div>
-                            </div>
-                            <div className={styles.detail} style={{ margin: '20px 0 30px 0' }}>
-                                <div className={styles.judul}>Spesifikasi Produk</div>
-                                <hr />
-                                <div className={styles.isi}>
-                                    <div className={styles.satubaris}>
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="phase_spec">Phase</label>
-                                            <input
-                                                disabled={loading}
-                                                id="phase_spec"
-                                                name="phase_spec"
-                                                type="text"
-                                                placeholder='ex: 3 Phase'
-                                                onChange={formik.handleChange}
-                                                value={formik.values.phase_spec}
-                                                style={formik.errors.phase_spec ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="frequency_spec">Frekuensi</label>
-                                            <input
-                                                disabled={loading}
-                                                id="frequency_spec"
-                                                name="frequency_spec"
-                                                type="text"
-                                                placeholder='ex: 50Hz'
-                                                onChange={formik.handleChange}
-                                                value={formik.values.frequency_spec}
-                                                style={formik.errors.frequency_spec ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className={styles.satubaris}>
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="gensetPower_spec">Genset Power</label>
-                                            <input
-                                                disabled={loading}
-                                                id="gensetPower_spec"
-                                                name="gensetPower_spec"
-                                                type="text"
-                                                placeholder='ex: '
-                                                onChange={formik.handleChange}
-                                                value={formik.values.gensetPower_spec}
-                                                style={formik.errors.gensetPower_spec ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="ratedPower_spec">Rated</label>
-                                            <input
-                                                disabled={loading}
-                                                id="ratedPower_spec"
-                                                name="ratedPower_spec"
-                                                type="text"
-                                                placeholder='ex: 9KVA'
-                                                onChange={formik.handleChange}
-                                                value={formik.values.ratedPower_spec}
-                                                style={formik.errors.ratedPower_spec ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className={styles.satubaris}>
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="maxPower_spec">Max Power</label>
-                                            <input
-                                                disabled={loading}
-                                                id="maxPower_spec"
-                                                name="maxPower_spec"
-                                                type="text"
-                                                placeholder='ex: 9.5KVA'
-                                                onChange={formik.handleChange}
-                                                value={formik.values.maxPower_spec}
-                                                style={formik.errors.maxPower_spec ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="ratedACVoltage_spec">Rated Voltage</label>
-                                            <input
-                                                disabled={loading}
-                                                id="ratedACVoltage_spec"
-                                                name="ratedACVoltage_spec"
-                                                placeholder='ex: 220V'
-                                                type="text"
-                                                onChange={formik.handleChange}
-                                                value={formik.values.ratedACVoltage_spec}
-                                                style={formik.errors.ratedACVoltage_spec ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className={styles.satubaris}>
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="starting_spec">Starting</label>
-                                            <input
-                                                disabled={loading}
-                                                id="starting_spec"
-                                                name="starting_spec"
-                                                type="text"
-                                                placeholder='ex: Electric'
-                                                onChange={formik.handleChange}
-                                                value={formik.values.starting_spec}
-                                                style={formik.errors.starting_spec ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="fuelConsumption_spec">Fuel Consumption</label>
-                                            <input
-                                                disabled={loading}
-                                                id="fuelConsumption_spec"
-                                                name="fuelConsumption_spec"
-                                                type="text"
-                                                placeholder='ex: 2.5L/Hr'
-                                                onChange={formik.handleChange}
-                                                value={formik.values.fuelConsumption_spec}
-                                                style={formik.errors.fuelConsumption_spec ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className={styles.satubaris}>
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="weight_spec">Wight</label>
-                                            <input
-                                                disabled={loading}
-                                                id="weight_spec"
-                                                name="weight_spec"
-                                                type="number"
-                                                placeholder='ex: 250KG'
-                                                onChange={formik.handleChange}
-                                                value={formik.values.weight_spec}
-                                                style={formik.errors.weight_spec ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-
-                                        <div className={styles.bariskan}>
-                                            <label htmlFor="dimension_spec">Dimension</label>
-                                            <input
-                                                disabled={loading}
-                                                id="dimension_spec"
-                                                name="dimension_spec"
-                                                type="text"
-                                                onChange={formik.handleChange}
-                                                placeholder='ex: 1130x760x860mm'
-                                                value={formik.values.dimension_spec}
-                                                style={formik.errors.dimension_spec ? { border: '1px solid var(--colormain)' } : {}}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                    </div>
-                </form>
-            </div >
-        </div >
-
-    )
+                </Form>
+            )}
+        </Formik>
+    );
 }
