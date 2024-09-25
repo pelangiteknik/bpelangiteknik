@@ -116,7 +116,7 @@ export default function FormInputArtikel({ data, text }) {
         content: Yup.string()
             .required('*'),
         description: Yup.string()
-            .max(150, 'Must be 15 characters or less')
+            .min(100, 'Minimal 100huruf')
             .required('*'),
         tags: Yup.string()
             .max(150, 'Must be 15 characters or less')
@@ -258,12 +258,13 @@ export default function FormInputArtikel({ data, text }) {
                                                 <Field type="text"
                                                     name="tags"
                                                     id="tags"
+                                                    placeholder={'ex: genset slient, genset 20kva'}
                                                 />
 
                                             </div>
                                             <div className={styles.tag}>
                                                 <label htmlFor="description">Description <ErrorMessage name="description" component="div" style={{ color: 'red' }} /></label>
-                                                <Field type="text" name="description" id="description" />
+                                                <Field placeholder="ex: genset adalah perangkat yang digunakan untuk menghasilkan listrik saat sumber listrik utama tidak tersedia. " as="textarea" type="text" name="description" id="description" />
                                             </div>
                                             <div className={styles.judulsamping}>Product Image</div>
                                             <div className="image-preview">
@@ -349,7 +350,8 @@ export default function FormInputArtikel({ data, text }) {
                                             <hr />
                                             <div className={styles.isi}>
                                                 <label htmlFor="title">Judul Artikel  <ErrorMessage name="title" component="div" style={{ color: 'red' }} /></label>
-                                                <Field type="text" name="title" id="title" />
+                                                <Field placeholder={'ex: Cara merawat genset supaya bersih dan sehat'} type="text" name="title" id="title" />
+
 
                                                 <label htmlFor="productDescription">Deskripsi</label>
                                                 <Editor

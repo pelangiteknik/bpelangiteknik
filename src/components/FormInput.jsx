@@ -198,6 +198,7 @@ export default function FormInput({ data, text, dataKategori }) {
         urlYoutube: Yup.string()
             .required('*'),
         descMetaProduct: Yup.string()
+            .min(100, 'Minimal 100huruf')
             .required('*'),
         // subKategoriProduct: Yup.string()
         //     .max(200, 'Must be 20 characters or less')
@@ -336,7 +337,7 @@ export default function FormInput({ data, text, dataKategori }) {
                 selectedImagesDBLocal.length && data && await HandleDeleteImageC(selectedImagesDBLocal)
 
                 setLoading(false)
-                // router.push('/')
+                router.push('/')
                 // formik.resetForm()
                 // resetForm()
                 pathname == '/' && setLayang()
@@ -385,17 +386,29 @@ export default function FormInput({ data, text, dataKategori }) {
                                                 <Field type="text"
                                                     name="tagProduct"
                                                     id="tagProduct"
+                                                    placeholder={'ex: genset slient, genset 20kva'}
                                                 />
 
                                             </div>
                                             <div className={styles.tag}>
-                                                <label htmlFor="descMetaProduct">Deskripsi <ErrorMessage name="descMetaProduct" component="div" style={{ color: 'red' }} /></label>
-                                                <Field type="text" name="descMetaProduct" id="descMetaProduct" />
+                                                <label htmlFor="descMetaProduct">Deskripsi  <ErrorMessage name="descMetaProduct" component="div" style={{ color: 'red' }} /></label>
+                                                <Field
+                                                    type="text"
+                                                    as="textarea"
+                                                    name="descMetaProduct"
+                                                    id="descMetaProduct"
+                                                    placeholder="ex: genset adalah perangkat yang digunakan untuk menghasilkan listrik saat sumber listrik utama tidak tersedia. "
+                                                />
 
                                             </div>
                                             <div className={styles.tag}>
                                                 <label htmlFor="urlYoutube">Url Youtube  <ErrorMessage name="urlYoutube" component="div" style={{ color: 'red' }} /></label>
-                                                <Field type="text" name="urlYoutube" id="urlYoutube" />
+                                                <Field
+                                                    type="text"
+                                                    name="urlYoutube"
+                                                    id="urlYoutube"
+                                                    placeholder='ex: https://www.youtube.com/watch?v=MZyjr4bDYWs'
+                                                />
 
                                             </div>
                                             <div className={styles.judulsamping}>Product Image</div>
@@ -482,7 +495,12 @@ export default function FormInput({ data, text, dataKategori }) {
                                             <hr />
                                             <div className={styles.isi}>
                                                 <label htmlFor="productName">Product Name  <ErrorMessage name="productName" component="div" style={{ color: 'red' }} /></label>
-                                                <Field type="text" name="productName" id="productName" />
+                                                <Field
+                                                    type="text"
+                                                    name="productName"
+                                                    id="productName"
+                                                    placeholder={'ex: Genset Tsuzumi TFS 30 KVA '}
+                                                />
                                                 <div className={styles.satubaris}>
                                                     <div className={styles.bariskankategori}>
                                                         {klikKategori && <div className={styles.tambahkategori}>
@@ -525,27 +543,52 @@ export default function FormInput({ data, text, dataKategori }) {
                                                     </div>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="subKategoriProduct">Sub Kategori  <ErrorMessage name="subKategoriProduct" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="text" name="subKategoriProduct" id="subKategoriProduct" />
+                                                        <Field
+                                                            type="text"
+                                                            name="subKategoriProduct"
+                                                            id="subKategoriProduct"
+                                                            placeholder={'ex: Engine Fawde'}
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className={styles.satubaris}>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="stockProduct">Stock Product  <ErrorMessage name="stockProduct" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="number" name="stockProduct" id="stockProduct" />
+                                                        <Field
+                                                            type="number"
+                                                            name="stockProduct"
+                                                            id="stockProduct"
+                                                            placeholder={'ex: 25'}
+                                                        />
                                                     </div>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="productType">Product Type  <ErrorMessage name="productType" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="text" name="productType" id="productType" />
+                                                        <Field
+                                                            type="text"
+                                                            name="productType"
+                                                            id="productType"
+                                                            placeholder={'ex: TDG10000S'}
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className={styles.satubaris}>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="productPrice">Price  <ErrorMessage name="productPrice" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="number" name="productPrice" id="productPrice" />
+                                                        <Field
+                                                            type="number"
+                                                            name="productPrice"
+                                                            id="productPrice"
+                                                            placeholder={'ex: 1000000'}
+                                                        />
                                                     </div>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="productDiscount">Discount (optional)  <ErrorMessage name="productDiscount" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="number" name="productDiscount" id="productDiscount" />
+                                                        <Field
+                                                            type="number"
+                                                            name="productDiscount"
+                                                            id="productDiscount"
+                                                            placeholder={'ex: 10'}
+                                                        />
                                                     </div>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="productPriceFinal">Discount Price  <ErrorMessage name="productPriceFinal" component="div" style={{ color: 'red' }} /></label>
@@ -576,51 +619,51 @@ export default function FormInput({ data, text, dataKategori }) {
                                                 <div className={styles.satubaris}>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="phase_spec">Phase <ErrorMessage name="phase_spec" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="text" name="phase_spec" id="phase_spec" />
+                                                        <Field placeholder={'ex: 1 Phase'} type="text" name="phase_spec" id="phase_spec" />
                                                     </div>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="frequency_spec">Frekuensi <ErrorMessage name="frequency_spec" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="text" name="frequency_spec" id="frequency_spec" />
+                                                        <Field placeholder={'ex: 50Hz'} type="text" name="frequency_spec" id="frequency_spec" />
                                                     </div>
                                                 </div>
                                                 <div className={styles.satubaris}>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="gensetPower_spec">Genset Power <ErrorMessage name="gensetPower_spec" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="text" name="gensetPower_spec" id="gensetPower_spec" />
+                                                        <Field placeholder={'ex: 10'} type="text" name="gensetPower_spec" id="gensetPower_spec" />
                                                     </div>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="ratedPower_spec">Rated <ErrorMessage name="ratedPower_spec" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="text" name="ratedPower_spec" id="ratedPower_spec" />
+                                                        <Field placeholder={'ex: 9.5KVA'} type="text" name="ratedPower_spec" id="ratedPower_spec" />
                                                     </div>
                                                 </div>
                                                 <div className={styles.satubaris}>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="maxPower_spec">Max Power <ErrorMessage name="maxPower_spec" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="text" name="maxPower_spec" id="maxPower_spec" />
+                                                        <Field placeholder={'ex: 9.5KVA'} type="text" name="maxPower_spec" id="maxPower_spec" />
                                                     </div>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="ratedACVoltage_spec">Rated Voltage <ErrorMessage name="ratedACVoltage_spec" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="text" name="ratedACVoltage_spec" id="ratedACVoltage_spec" />
+                                                        <Field placeholder={'ex: 220V'} type="text" name="ratedACVoltage_spec" id="ratedACVoltage_spec" />
                                                     </div>
                                                 </div>
                                                 <div className={styles.satubaris}>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="starting_spec">Starting <ErrorMessage name="starting_spec" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="text" name="starting_spec" id="starting_spec" />
+                                                        <Field placeholder={'ex: Electric'} type="text" name="starting_spec" id="starting_spec" />
                                                     </div>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="fuelConsumption_spec">Fuel Consumption <ErrorMessage name="fuelConsumption_spec" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="text" name="fuelConsumption_spec" id="fuelConsumption_spec" />
+                                                        <Field placeholder={'ex: 2.3L/Hr'} type="text" name="fuelConsumption_spec" id="fuelConsumption_spec" />
                                                     </div>
                                                 </div>
                                                 <div className={styles.satubaris}>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="weight_spec">Weight (satuan gram) <ErrorMessage name="weight_spec" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="number" name="weight_spec" id="weight_spec" />
+                                                        <Field placeholder={'ex: 1000'} type="number" name="weight_spec" id="weight_spec" />
                                                     </div>
                                                     <div className={styles.bariskan}>
                                                         <label htmlFor="dimension_spec">Dimension <ErrorMessage name="dimension_spec" component="div" style={{ color: 'red' }} /></label>
-                                                        <Field type="text" name="dimension_spec" id="dimension_spec" />
+                                                        <Field placeholder={'ex: 930x535x720mm'} type="text" name="dimension_spec" id="dimension_spec" />
                                                     </div>
                                                 </div>
                                             </div>

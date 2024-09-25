@@ -115,9 +115,9 @@ export default function ListProduct({ dataList, query, dataKategori, dataArtikel
             <div className={styles.dalamcontainer}>
                 <div className={styles.atas}>
                     <Link href={'/'} className={styles.judul}><MdHome size={30} />PelangiTeknik</Link>
-                    <Link href={'/post'} target='_blank'> <button className={styles.searchP}>Posting Product <MdLibraryAdd />
+                    <Link href={'/post'} onClick={() => setLoading(true)}> <button className={styles.searchP}>Posting Product <MdLibraryAdd />
                     </button></Link>
-                    <Link href={'/postartikel'} target='_blank'> <button className={styles.searchP}>Posting Artikel <MdLibraryAdd />
+                    <Link href={'/postartikel'} onClick={() => setLoading(true)}> <button className={styles.searchP}>Posting Artikel <MdLibraryAdd />
                     </button></Link>
                     <div className={styles.ataskanan}>
                         <div className={styles.search}>

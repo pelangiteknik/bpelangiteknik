@@ -70,6 +70,8 @@
     padding: 20px
 }
 
+
+
 .bawah .labeltag {
     display: flex;
     align-items: center;
@@ -128,6 +130,14 @@
     border-radius: var(--border-radius);
     border: 2px solid var(--colorbggreyutama);
     margin-bottom: 10px;
+}
+
+.bawah textarea {
+    padding: 10px;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--colorbggreyutama);
+    margin-bottom: 10px;
+    height: 130px;
 }
 
 .satubaris {
