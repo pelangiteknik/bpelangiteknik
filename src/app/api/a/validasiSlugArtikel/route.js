@@ -5,9 +5,9 @@ export async function GET(req) {
     const searchParams = req.nextUrl.searchParams;
     const query = searchParams.get('query')
 
-    const data = await prisma.listProduct.findMany({
+    const data = await prisma.postArtikel.findMany({
         where: {
-            slugProduct: {
+            slug: {
                 contains: query
             }
         },

@@ -9,6 +9,13 @@ import { handleDetailProduct } from '@/service/handleDetailProduct';
 import { useCon } from '@/zustand/useCon';
 import toast from 'react-hot-toast';
 import { MdDeleteOutline } from "react-icons/md";
+import { MdLibraryAdd } from "react-icons/md";
+import { usePathname } from 'next/navigation'
+import { FormatRupiah } from '@/utils/formatRupiah';
+import Logout from './logout';
+import { HandleDrafArtikel } from '@/service/artikel/handleDraf';
+import { HandleDetailArtikel } from '@/service/artikel/handleDetail';
+import { HandleDeleteArtikel } from '@/service/artikel/handleDelete';
 
 import dynamic from 'next/dynamic';
 import { HandleDeleteProduct } from '@/service/handleDeleteProduct';
@@ -16,23 +23,29 @@ const FormInput = dynamic(() => import('@/components/FormInput'), {
     loading: () => <p>Loading Form...</p>, // Optional: loading state while the component is being loaded
     ssr: false // Disable server-side rendering for this component
 });
+const FormInputArtikel = dynamic(() => import('@/components/FormInputArtikel'), {
+    loading: () => <p>Loading Form...</p>, // Optional: loading state while the component is being loaded
+    ssr: false // Disable server-side rendering for this component
+});
 
-import { usePathname } from 'next/navigation'
-import { FormatRupiah } from '@/utils/formatRupiah';
-import Logout from './logout';
 
-export default function ListProduct({ dataList, query, dataKategori }) {
+export default function ListProduct({ dataList, query, dataKategori, dataArtikel }) {
+
     const pathname = usePathname()
     const KondisiPencarian = pathname.startsWith('/s/')
 
     const setLayang = useCon((state) => state.setLayang)
     const layang = useCon((state) => state.layang)
+
+    const setLayangArtikel = useCon((state) => state.setLayangArtikel)
+    const layangArtikel = useCon((state) => state.layangArtikel)
     // const savedSearch = localStorage.getItem('searchLocal');
 
 
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState(null)
+    const [dataArtikelUpdate, setDataArtikelUpdate] = useState(null)
     const [search, setSearch] = useState(query)
 
     const GetDetailProduct = async (id) => {
@@ -42,10 +55,23 @@ export default function ListProduct({ dataList, query, dataKategori }) {
         setData(data?.data[0])
         setLoading(false)
     }
+    const GetDetailProductArtikel = async (id) => {
+        setLayangArtikel()
+        setLoading(true)
+        const data = await HandleDetailArtikel(id)
+        setDataArtikelUpdate(data?.data[0])
+        setLoading(false)
+    }
 
     const UpdatePublish = async (slug, draf) => {
         setLoading(true)
         await HandleDraf(slug, draf)
+        setLoading(false)
+        toast.success('Successfully!')
+    }
+    const UpdatePublishArtikel = async (slug, draf) => {
+        setLoading(true)
+        await HandleDrafArtikel(slug, draf)
         setLoading(false)
         toast.success('Successfully!')
     }
@@ -71,12 +97,28 @@ export default function ListProduct({ dataList, query, dataKategori }) {
         }
     }
 
+    const HandleDeleteArtikels = async (e) => {
+        if (confirm('Apakah yakin hapus?')) {
+            // Save it!
+            setLoading(true)
+            await HandleDeleteArtikel(e)
+            setLoading(false)
+            toast.success('Successfully!')
+        } else {
+            // Do nothing!
+            console.log('Thing was not saved to the database.');
+        }
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.dalamcontainer}>
                 <div className={styles.atas}>
                     <Link href={'/'} className={styles.judul}><MdHome size={30} />PelangiTeknik</Link>
-                    <Link href={'/post'} target='_blank'> <button className={styles.searchP}>Posting</button></Link>
+                    <Link href={'/post'} target='_blank'> <button className={styles.searchP}>Posting Product <MdLibraryAdd />
+                    </button></Link>
+                    <Link href={'/postartikel'} target='_blank'> <button className={styles.searchP}>Posting Artikel <MdLibraryAdd />
+                    </button></Link>
                     <div className={styles.ataskanan}>
                         <div className={styles.search}>
                             <form onSubmit={handleSearch}>
@@ -93,6 +135,8 @@ export default function ListProduct({ dataList, query, dataKategori }) {
                         <Logout />
                     </div>
                 </div>
+
+                {/* //PRODUCT */}
                 <div className={styles.bawah}>
                     {
                         KondisiPencarian &&
@@ -125,7 +169,7 @@ export default function ListProduct({ dataList, query, dataKategori }) {
                                     <td>{FormatRupiah(product?.productPrice)}</td>
                                     <td>{product?.productDiscount}%</td>
                                     <td>{FormatRupiah(product?.productPriceFinal)}</td>
-                                    <td>
+                                    <td style={{ width: '100px' }}>
                                         <label className={styles.switch}>
                                             <input
                                                 type="checkbox"
@@ -135,7 +179,7 @@ export default function ListProduct({ dataList, query, dataKategori }) {
                                             <span className={styles.slider}></span>
                                         </label>
                                     </td>
-                                    <td onClick={() => HandleDeleteProducts(product?.slugProduct)}><MdDeleteOutline size={30} /></td>
+                                    <td style={{ width: '50px', cursor: 'pointer', color: 'var(--colormain)' }} onClick={() => HandleDeleteProducts(product?.slugProduct)}><MdDeleteOutline size={30} /></td>
                                 </tr>)
                             }
                             )}
@@ -144,6 +188,43 @@ export default function ListProduct({ dataList, query, dataKategori }) {
 
                     {KondisiPencarian && !dataList.length && <div>Data Tidak ada</div>}
                 </div>
+
+                {/* ARTIKEL */}
+                <div className={styles.bawah}>
+                    <table
+                        className={styles.producttable}>
+                        <thead>
+                            <tr>
+                                <th>Judul Artikel</th>
+                                <th>Publish</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {dataArtikel?.map((artikel, index) => {
+
+                                return (<tr key={index} >
+                                    <td onClick={() => GetDetailProductArtikel(artikel?.slug)}>{artikel?.title}</td>
+                                    <td style={{ width: '100px' }}>
+                                        <label className={styles.switch}>
+                                            <input
+                                                type="checkbox"
+                                                checked={!artikel?.saveDraf}
+                                                onChange={() => UpdatePublishArtikel(artikel?.slug, !artikel?.saveDraf)}
+                                            />
+                                            <span className={styles.slider}></span>
+                                        </label>
+                                    </td>
+                                    <td style={{ width: '50px', cursor: 'pointer', color: 'var(--colormain)' }} onClick={() => HandleDeleteArtikels(artikel?.slug)}><MdDeleteOutline size={30} /></td>
+                                </tr>)
+                            }
+                            )}
+                        </tbody>
+                    </table>
+
+                    {KondisiPencarian && !dataList.length && <div>Data Tidak ada</div>}
+                </div>
+
             </div>
 
 
@@ -159,6 +240,21 @@ export default function ListProduct({ dataList, query, dataKategori }) {
                         <div className={styles.bghitam} onClick={() => setLayang()}></div>
                         <div className={styles.containerupdate}>
                             <FormInput data={data} text={'Update Product'} dataKategori={dataKategori} />
+                        </div>
+                    </>
+            }
+            {
+                loading ?
+                    <div className={styles.loading}>
+                        <div className={styles.kotak} >
+                            LOADING...
+                        </div>
+                    </div> :
+                    layangArtikel &&
+                    <>
+                        <div className={styles.bghitam} onClick={() => setLayangArtikel()}></div>
+                        <div className={styles.containerupdate}>
+                            <FormInputArtikel data={dataArtikelUpdate} text={'Update Artikel'} />
                         </div>
                     </>
             }

@@ -152,6 +152,7 @@ export default function FormInput({ data, text, dataKategori }) {
         // })
     };
 
+
     const initialValues = {
         productName: data ? data?.productName : '',
         stockProduct: data ? data?.stockProduct : '',
@@ -163,6 +164,7 @@ export default function FormInput({ data, text, dataKategori }) {
         productDiscount: data ? data?.productDiscount : '',
         productPriceFinal: data ? data?.productPriceFinal : '',
         urlYoutube: data ? data?.urlYoutube : '',
+        descMetaProduct: data ? data?.descMetaProduct : '',
         descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
 
         phase_spec: data ? data?.spec_product?.phase_spec : '',
@@ -194,7 +196,8 @@ export default function FormInput({ data, text, dataKategori }) {
             .required('*'),
         productKategori: Yup.string().required('*'),
         urlYoutube: Yup.string()
-            .max(200, 'Must be 20 characters or less')
+            .required('*'),
+        descMetaProduct: Yup.string()
             .required('*'),
         // subKategoriProduct: Yup.string()
         //     .max(200, 'Must be 20 characters or less')
@@ -317,7 +320,7 @@ export default function FormInput({ data, text, dataKategori }) {
                 // Menggunakan for...of untuk mengiterasi array dataImage supabase
                 for (const public_id of selectedImagesDBLocal) {
                     {
-                        data &&
+                        selectedImagesDBLocal.length && data &&
                             await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
                                 method: 'DELETE',
                                 headers: {
@@ -330,11 +333,12 @@ export default function FormInput({ data, text, dataKategori }) {
                 }
 
                 // delete image couldinary
-                data && await HandleDeleteImageC(selectedImagesDBLocal)
+                selectedImagesDBLocal.length && data && await HandleDeleteImageC(selectedImagesDBLocal)
 
                 setLoading(false)
                 // router.push('/')
                 // formik.resetForm()
+                // resetForm()
                 pathname == '/' && setLayang()
                 toast.success('data berhasil ditambahkan!')
                 // handle the error
@@ -373,7 +377,7 @@ export default function FormInput({ data, text, dataKategori }) {
                                 </div>
                                 <div className={styles.bawah}>
                                     <div className={styles.productImage}>
-                                        <div className={styles.judul}>Product Image</div>
+                                        <div className={styles.judul}>Meta Tag Google</div>
                                         <hr />
                                         <div className={styles.isi}>
                                             <div className={styles.tag}>
@@ -382,6 +386,11 @@ export default function FormInput({ data, text, dataKategori }) {
                                                     name="tagProduct"
                                                     id="tagProduct"
                                                 />
+
+                                            </div>
+                                            <div className={styles.tag}>
+                                                <label htmlFor="descMetaProduct">Deskripsi <ErrorMessage name="descMetaProduct" component="div" style={{ color: 'red' }} /></label>
+                                                <Field type="text" name="descMetaProduct" id="descMetaProduct" />
 
                                             </div>
                                             <div className={styles.tag}>
@@ -453,7 +462,7 @@ export default function FormInput({ data, text, dataKategori }) {
                                                 className={styles.labeltag}
                                                 htmlFor="images"><MdOutlineFileUpload /> &nbsp;Upload Image</label>
                                             <input
-                                                // style={{ display: 'none' }}
+                                                style={{ display: 'none' }}
                                                 type="file"
                                                 id="images"
                                                 name="images"
@@ -504,7 +513,7 @@ export default function FormInput({ data, text, dataKategori }) {
                                                         <Field as="select" name="productKategori" id="productKategori">
                                                             <option value="">Select a Kategori</option>
 
-                                                            {dataKategori.map((data, i) => {
+                                                            {dataKategori?.map((data, i) => {
                                                                 return (
                                                                     <option key={i} value={data?.category}>{data?.category}</option>
                                                                 )

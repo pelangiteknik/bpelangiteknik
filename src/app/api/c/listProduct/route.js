@@ -18,6 +18,7 @@ export async function POST(req) {
         productDiscount,
         productPriceFinal,
         urlYoutube,
+        descMetaProduct,
 
 
         phase_spec,
@@ -55,6 +56,7 @@ export async function POST(req) {
                 productDiscount,
                 productPriceFinal,
                 urlYoutube,
+                descMetaProduct,
                 spec_product: {
                     create: {
                         phase_spec,
@@ -93,7 +95,7 @@ export async function PUT(req) {
         productDiscount,
         productPriceFinal,
         urlYoutube,
-
+        descMetaProduct,
 
         phase_spec,
         frequency_spec,
@@ -126,6 +128,7 @@ export async function PUT(req) {
                 productDiscount,
                 productPriceFinal,
                 urlYoutube,
+                descMetaProduct,
             }
         })
 

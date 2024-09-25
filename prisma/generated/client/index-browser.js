@@ -139,6 +139,8 @@ exports.Prisma.ListProductScalarFieldEnum = {
   descProduct: 'descProduct',
   productName: 'productName',
   stockProduct: 'stockProduct',
+  descMetaProduct: 'descMetaProduct',
+  viewProduct: 'viewProduct',
   productKategori: 'productKategori',
   subKategoriProduct: 'subKategoriProduct',
   productType: 'productType',
@@ -200,12 +202,38 @@ exports.Prisma.PostArtikelScalarFieldEnum = {
   slug: 'slug',
   content: 'content',
   description: 'description',
-  metaTitle: 'metaTitle',
   tags: 'tags',
-  published: 'published',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   saveDraf: 'saveDraf'
+};
+
+exports.Prisma.ImageProductArtikelScalarFieldEnum = {
+  id: 'id',
+  start: 'start',
+  end: 'end',
+  asset_id: 'asset_id',
+  public_id: 'public_id',
+  version: 'version',
+  version_id: 'version_id',
+  signature: 'signature',
+  width: 'width',
+  height: 'height',
+  format: 'format',
+  resource_type: 'resource_type',
+  created_at: 'created_at',
+  tags: 'tags',
+  bytes: 'bytes',
+  type: 'type',
+  etag: 'etag',
+  placeholder: 'placeholder',
+  url: 'url',
+  secure_url: 'secure_url',
+  asset_folder: 'asset_folder',
+  display_name: 'display_name',
+  original_filename: 'original_filename',
+  api_key: 'api_key',
+  IdProductArtikel: 'IdProductArtikel'
 };
 
 exports.Prisma.SortOrder = {
@@ -240,7 +268,8 @@ exports.Prisma.ModelName = {
   listProduct: 'listProduct',
   specProduct: 'specProduct',
   imageProduct: 'imageProduct',
-  postArtikel: 'postArtikel'
+  postArtikel: 'postArtikel',
+  imageProductArtikel: 'imageProductArtikel'
 };
 
 /**

@@ -28,14 +28,16 @@ model categoryProduct {
 }
 
 model listProduct {
-  id           Int      @default(autoincrement())
-  start        DateTime @default(now())
-  end          DateTime @updatedAt
-  slugProduct  String   @id @unique
-  saveDraf     Boolean  @default(true)
-  descProduct  String?
-  productName  String?
-  stockProduct Int?
+  id              Int      @default(autoincrement())
+  start           DateTime @default(now())
+  end             DateTime @updatedAt
+  slugProduct     String   @id @unique
+  saveDraf        Boolean  @default(true)
+  descProduct     String?
+  productName     String?
+  stockProduct    Int?
+  descMetaProduct String?
+  viewProduct     Int?
 
   productKategori String
   user            categoryProduct @relation(fields: [productKategori], references: [category])
@@ -100,24 +102,52 @@ model imageProduct {
   api_key           String? // API key used for upload
 
   IdProduct String
-  // IdProductArtikel String
   user      listProduct @relation(fields: [IdProduct], references: [slugProduct])
-  // userd            postArtikel @relation(fields: [IdProductArtikel], references: [slug])
 
   @@index([IdProduct])
 }
 
 model postArtikel {
-  id          Int      @default(autoincrement())
-  title       String
-  slug        String   @id @unique
-  content     String
-  description String? // Meta description for SEO
-  metaTitle   String? // Custom meta title for SEO
-  tags        Json? // Array of tags for categorization
-  published   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  // url_image_product imageProduct[]
-  saveDraf    Boolean  @default(true)
+  id                  Int                   @default(autoincrement())
+  title               String
+  slug                String                @id @unique
+  content             String
+  description         String? // Meta description for SEO
+  tags                Json? // Array of tags for categorization
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  saveDraf            Boolean               @default(true)
+  imageProductArtikel imageProductArtikel[]
+}
+
+model imageProductArtikel {
+  id                Int      @id @default(autoincrement())
+  start             DateTime @default(now())
+  end               DateTime @updatedAt
+  asset_id          String?  @unique // Asset ID
+  public_id         String?  @unique // Public ID
+  version           Int? // Version
+  version_id        String? // Version ID
+  signature         String? // Signature
+  width             Int? // Image width
+  height            Int? // Image height
+  format            String? // Image format (e.g., jpg, png)
+  resource_type     String? // Resource type (e.g., image, video)
+  created_at        DateTime @default(now()) // Time of creation
+  tags              Json? // Tags associated with the image
+  bytes             Int? // Size of the file in bytes
+  type              String? // Upload type
+  etag              String? // ETag for cache control
+  placeholder       Boolean? // Whether the image is a placeholder
+  url               String? // URL to access the image
+  secure_url        String? // Secure URL for access
+  asset_folder      String? // Asset folder (nullable)
+  display_name      String? // Display name of the file (nullable)
+  original_filename String? // Original filename
+  api_key           String? // API key used for upload
+
+  IdProductArtikel String
+  userd            postArtikel @relation(fields: [IdProductArtikel], references: [slug])
+
+  @@index([IdProductArtikel])
 }

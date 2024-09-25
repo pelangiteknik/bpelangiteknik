@@ -43,14 +43,39 @@ export async function GetListKategoriProduct() {
   }
 }
 
+export async function GetListArtikel() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/a/listArtikel`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+      },
+      next: {
+        revalidate: 0
+      }
+    })
+    return res.json()
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default async function Home() {
   const dataList = await GetListProduct()
   const dataKategori = await GetListKategoriProduct()
+  const dataArtikel = await GetListArtikel()
+
   const session = await getServerSession(authOptions)
 
   return (
     <>
-      {session ? <ListProduct dataList={dataList?.data} dataKategori={dataKategori?.data} /> : <Login />}
+      {session ? <ListProduct
+        dataList={dataList?.data}
+        dataKategori={dataKategori?.data}
+        dataArtikel={dataArtikel?.data}
+      /> : <Login />}
     </>
   );
 }
