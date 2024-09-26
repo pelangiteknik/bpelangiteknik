@@ -25,12 +25,12 @@ export async function GetListProduct(id) {
 }
 
 export default async function Home({ params }) {
-    const data = await GetListProduct(params.id)
+    const data = await GetListProduct(params?.id)
     const session = await getServerSession(authOptions)
 
     return (
         <>
-            {session ? <ListProduct dataList={data?.data} query={params.id} /> : <Login />}
+            {session ? <ListProduct dataList={data?.data} query={params?.id} /> : <Login />}
         </>
     );
 }

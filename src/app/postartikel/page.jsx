@@ -3,6 +3,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Login from "@/components/login";
 
+export const dynamic = 'force-dynamic'
+
 export async function GetListKategoriArtikel() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/a/kategori`, {
