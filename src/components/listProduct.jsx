@@ -29,7 +29,7 @@ const FormInputArtikel = dynamic(() => import('@/components/FormInputArtikel'), 
 });
 
 
-export default function ListProduct({ dataList, query, dataKategori, dataArtikel }) {
+export default function ListProduct({ dataList, query, dataKategori, dataArtikel, dataKategoriArtikel }) {
 
     const pathname = usePathname()
     const KondisiPencarian = pathname.startsWith('/s/')
@@ -179,7 +179,7 @@ export default function ListProduct({ dataList, query, dataKategori, dataArtikel
                                             <span className={styles.slider}></span>
                                         </label>
                                     </td>
-                                    <td style={{ width: '50px', cursor: 'pointer', color: 'var(--colormain)' }} onClick={() => HandleDeleteProducts(product?.slugProduct)}><MdDeleteOutline size={30} /></td>
+                                    <td style={{ width: '50px', cursor: 'pointer', color: 'var(--colormain)' }} onClick={() => HandleDeleteProducts(product?.id)}><MdDeleteOutline size={30} /></td>
                                 </tr>)
                             }
                             )}
@@ -215,7 +215,7 @@ export default function ListProduct({ dataList, query, dataKategori, dataArtikel
                                             <span className={styles.slider}></span>
                                         </label>
                                     </td>
-                                    <td style={{ width: '50px', cursor: 'pointer', color: 'var(--colormain)' }} onClick={() => HandleDeleteArtikels(artikel?.slug)}><MdDeleteOutline size={30} /></td>
+                                    <td style={{ width: '50px', cursor: 'pointer', color: 'var(--colormain)' }} onClick={() => HandleDeleteArtikels(artikel?.id)}><MdDeleteOutline size={30} /></td>
                                 </tr>)
                             }
                             )}
@@ -254,7 +254,7 @@ export default function ListProduct({ dataList, query, dataKategori, dataArtikel
                     <>
                         <div className={styles.bghitam} onClick={() => setLayangArtikel()}></div>
                         <div className={styles.containerupdate}>
-                            <FormInputArtikel data={dataArtikelUpdate} text={'Update Artikel'} />
+                            <FormInputArtikel data={dataArtikelUpdate} dataKategori={dataKategoriArtikel} text={'Update Artikel'} />
                         </div>
                     </>
             }

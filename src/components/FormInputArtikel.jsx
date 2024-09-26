@@ -18,10 +18,10 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link';
 import Logout from './logout';
 import { HandleValidasiArtikel } from '@/service/artikel/handleValidasi';
-import { HandlePostCategory } from '@/service/handlePostCategory';
 import { HandlePostCategoryArtikel } from '@/service/artikel/handlePostKategori';
 
 export default function FormInputArtikel({ data, text, dataKategori }) {
+
     const [klikKategori, setKlikKategori] = useState(false);
 
     const pathname = usePathname()
@@ -161,9 +161,9 @@ export default function FormInputArtikel({ data, text, dataKategori }) {
             .min(100, 'Minimal 100huruf')
             .required('*'),
         tags: Yup.string()
-            .max(150, 'Must be 15 characters or less')
+            .max(150, 'Must be 150 characters or less')
             .required('*'),
-        categoryArtikelId: Yup.string()
+        categoryArtikelId: Yup.number()
             .required('*'),
 
         images: Yup.mixed().required('At least one file is required')
@@ -186,6 +186,7 @@ export default function FormInputArtikel({ data, text, dataKategori }) {
     });
 
     const handleSubmit = async (value) => {
+
         try {
             setLoading(true)
             const slug = value?.title
@@ -216,22 +217,28 @@ export default function FormInputArtikel({ data, text, dataKategori }) {
                 const dataRes = await res.json()
                 const dataImage = dataRes?.results
 
-                const GabungData = {
-                    ...value,
-                    content: draftToHtml(convertToRaw(editorState.getCurrentContent())),
-                    slug: slug,
-                    saveDraf: draf,
-                    dataImage: dataImage
-                }
-
-
                 await fetch(`${process.env.NEXT_PUBLIC_URL}/api/a/listArtikel`, {
                     method: data ? 'PUT' : 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
                     },
-                    body: JSON.stringify(GabungData),
+                    body: JSON.stringify(data ? {
+                        ...value,
+                        content: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+                        slug: slug,
+                        saveDraf: draf,
+                        dataImage: dataImage,
+                        categoryArtikelId: Number(value.categoryArtikelId),
+                        IdArtikel: data.id
+                    } : {
+                        ...value,
+                        content: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+                        slug: slug,
+                        saveDraf: draf,
+                        dataImage: dataImage,
+                        categoryArtikelId: Number(value.categoryArtikelId),
+                    }),
                 })
 
 
@@ -255,6 +262,7 @@ export default function FormInputArtikel({ data, text, dataKategori }) {
 
                 setLoading(false)
                 router.push('/')
+                router.refresh()
                 // resetForm()
                 pathname == '/' && setLayangArtikel()
                 toast.success('data berhasil ditambahkan!')
@@ -265,6 +273,7 @@ export default function FormInputArtikel({ data, text, dataKategori }) {
         } catch (e) {
             // Handle errors here
             toast.error("Tidak Berhasil, silahkan Ulang")
+            setLoading(false)
             console.error(e)
         }
     };
@@ -287,8 +296,8 @@ export default function FormInputArtikel({ data, text, dataKategori }) {
                                         {data ? data?.title : 'PelangiTeknik'}
                                     </Link>
                                     <div className={styles.kanan}>
-                                        <button type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
-                                        <button type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? text ? text : 'Save Artikel' : loading ? 'Loading...' : text ? text : 'Save Artikel'}</button>
+                                        <button disabled={loading} type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
+                                        <button disabled={loading} type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? text ? text : 'Save Artikel' : loading ? 'Loading...' : text ? text : 'Save Artikel'}</button>
                                         <Logout />
                                     </div>
                                 </div>
@@ -329,7 +338,7 @@ export default function FormInputArtikel({ data, text, dataKategori }) {
                                                     <option value="">Select a Kategori</option>
                                                     {dataKategori?.map((data, i) => {
                                                         return (
-                                                            <option key={i} value={data?.category}>{data?.category}</option>
+                                                            <option key={i} value={data?.id}>{data?.category}</option>
                                                         )
                                                     })}
 

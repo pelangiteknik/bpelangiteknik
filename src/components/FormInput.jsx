@@ -124,6 +124,7 @@ export default function FormInput({ data, text, dataKategori }) {
         setKategori(event?.target.value);
     };
 
+
     // Fungsi untuk submit form
     const handleSubmitKategori = async (event) => {
         event.preventDefault();
@@ -195,7 +196,7 @@ export default function FormInput({ data, text, dataKategori }) {
         productType: Yup.string()
             .max(200, 'Must be 20 characters or less')
             .required('*'),
-        productKategori: Yup.string().required('*'),
+        productKategori: Yup.number().required('*'),
         urlYoutube: Yup.string()
             .required('*'),
         descMetaProduct: Yup.string()
@@ -266,6 +267,7 @@ export default function FormInput({ data, text, dataKategori }) {
     });
 
     const handleSubmit = async (value) => {
+        console.log(value.productKategori)
 
         try {
             setKategori(false)
@@ -275,6 +277,7 @@ export default function FormInput({ data, text, dataKategori }) {
                 ?.replace(/[^a-z0-9\s]/g, '') // hapus karakter selain huruf, angka, dan spasi
                 ?.trim() // hapus spasi di awal dan akhir
                 ?.replace(/\s+/g, '-')
+
 
             // Validate if the slug is duplicate
             const slugData = pathname == '/post' ? await HandleValidasi(slug) : []
@@ -299,23 +302,31 @@ export default function FormInput({ data, text, dataKategori }) {
                 const dataImage = dataRes?.results
 
 
-                const GabungData = {
-                    ...value,
-                    descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
-                    productPriceFinal: Math.round(value?.productPrice - ((value?.productPrice * value?.productDiscount) / 100)),
-                    slugProduct: slug,
-                    saveDraf: draf,
-                    dataImage: dataImage
-                }
-
-
                 await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
                     method: data ? 'PUT' : 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
                     },
-                    body: JSON.stringify(GabungData),
+                    body: JSON.stringify(
+                        data ? {
+                            ...value,
+                            descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+                            productPriceFinal: Math.round(value?.productPrice - ((value?.productPrice * value?.productDiscount) / 100)),
+                            slugProduct: slug,
+                            saveDraf: draf,
+                            dataImage: dataImage,
+                            productKategori: Number(value.productKategori),
+                            IdProduct: data.id
+                        } : {
+                            ...value,
+                            descProduct: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+                            productPriceFinal: Math.round(value?.productPrice - ((value?.productPrice * value?.productDiscount) / 100)),
+                            slugProduct: slug,
+                            saveDraf: draf,
+                            dataImage: dataImage,
+                            productKategori: Number(value.productKategori),
+                        }),
                 })
 
 
@@ -339,6 +350,7 @@ export default function FormInput({ data, text, dataKategori }) {
 
                 setLoading(false)
                 router.push('/')
+                router.refresh()
                 // formik.resetForm()
                 // resetForm()
                 pathname == '/' && setLayang()
@@ -350,6 +362,7 @@ export default function FormInput({ data, text, dataKategori }) {
         } catch (e) {
             // Handle errors here
             toast.error("Tidak Berhasil, silahkan Ulang")
+            setLoading(false)
             console.error(e)
         }
     };
@@ -372,8 +385,8 @@ export default function FormInput({ data, text, dataKategori }) {
                                         {data ? data?.productName : 'PelangiTeknik'}
                                     </Link>
                                     <div className={styles.kanan}>
-                                        <button type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
-                                        <button type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? text ? text : 'Save Product' : loading ? 'Loading...' : text ? text : 'Save Product'}</button>
+                                        <button disabled={loading} type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
+                                        <button disabled={loading} type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? text ? text : 'Save Product' : loading ? 'Loading...' : text ? text : 'Save Product'}</button>
                                         <Logout />
                                     </div>
                                 </div>
@@ -534,7 +547,7 @@ export default function FormInput({ data, text, dataKategori }) {
 
                                                             {dataKategori?.map((data, i) => {
                                                                 return (
-                                                                    <option key={i} value={data?.category}>{data?.category}</option>
+                                                                    <option key={i} value={Number(data?.id)}>{data?.category}</option>
                                                                 )
                                                             })}
 

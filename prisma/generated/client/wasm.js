@@ -142,14 +142,14 @@ exports.Prisma.ListProductScalarFieldEnum = {
   stockProduct: 'stockProduct',
   descMetaProduct: 'descMetaProduct',
   viewProduct: 'viewProduct',
-  productKategori: 'productKategori',
   subKategoriProduct: 'subKategoriProduct',
   productType: 'productType',
   tagProduct: 'tagProduct',
   productPrice: 'productPrice',
   productDiscount: 'productDiscount',
   productPriceFinal: 'productPriceFinal',
-  urlYoutube: 'urlYoutube'
+  urlYoutube: 'urlYoutube',
+  productKategori: 'productKategori'
 };
 
 exports.Prisma.SpecProductScalarFieldEnum = {

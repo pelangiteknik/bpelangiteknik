@@ -4,17 +4,17 @@ import { ResponseData } from '@/components/api/ResponseData'
 export async function DELETE(req) {
     const authorization = req.headers.get('authorization')
 
-    const { slugProduct } = await req.json()
+    const { id } = await req.json()
     if (authorization == process.env.NEXT_PUBLIC_SECREET) {
 
         const imageProduct = prisma.imageProductArtikel.deleteMany({
             where: {
-                IdProductArtikel: slugProduct
+                IdProductArtikel: id
             }
         })
         const postArtikel = prisma.postArtikel.deleteMany({
             where: {
-                slug: slugProduct
+                id: id
             }
         })
 

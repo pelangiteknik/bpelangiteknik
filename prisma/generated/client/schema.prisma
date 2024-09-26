@@ -16,10 +16,10 @@ datasource db {
 }
 
 model categoryProduct {
-  id           Int           @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   start        DateTime      @default(now())
   end          DateTime      @updatedAt
-  category     String        @id @unique
+  category     String        @unique
   image        String?
   urlYoutube   String?
   title        String?
@@ -29,10 +29,10 @@ model categoryProduct {
 }
 
 model listProduct {
-  id              Int      @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   start           DateTime @default(now())
   end             DateTime @updatedAt
-  slugProduct     String   @id @unique
+  slugProduct     String   @unique
   saveDraf        Boolean  @default(true)
   descProduct     String?
   productName     String?
@@ -40,21 +40,21 @@ model listProduct {
   descMetaProduct String?
   viewProduct     Int?
 
-  productKategori String
-  user            categoryProduct @relation(fields: [productKategori], references: [category])
-
   subKategoriProduct String?
-  productType        String
+  productType        String?
   tagProduct         Json?
   productPrice       BigInt?
   productDiscount    Int?
   productPriceFinal  BigInt?
   urlYoutube         String?
 
+  productKategori Int
+  user            categoryProduct @relation(fields: [productKategori], references: [id])
+
   url_image_product imageProduct[]
   spec_product      specProduct?
 
-  @@index([productType])
+  @@index([productKategori])
 }
 
 model specProduct {
@@ -72,8 +72,8 @@ model specProduct {
   weight_spec          Int?
   dimension_spec       String?
 
-  IdProduct String      @unique
-  user      listProduct @relation(fields: [IdProduct], references: [slugProduct])
+  IdProduct Int         @unique
+  user      listProduct @relation(fields: [IdProduct], references: [id])
 }
 
 model imageProduct {
@@ -102,16 +102,16 @@ model imageProduct {
   original_filename String? // Original filename
   api_key           String? // API key used for upload
 
-  IdProduct String
-  user      listProduct @relation(fields: [IdProduct], references: [slugProduct])
+  IdProduct Int
+  user      listProduct @relation(fields: [IdProduct], references: [id])
 
   @@index([IdProduct])
 }
 
 model postArtikel {
-  id                  Int                   @default(autoincrement())
+  id                  Int                   @id @default(autoincrement())
   title               String
-  slug                String                @id @unique
+  slug                String                @unique
   content             String
   description         String? // Meta description for SEO
   tags                Json? // Array of tags for categorization
@@ -120,8 +120,8 @@ model postArtikel {
   saveDraf            Boolean               @default(true)
   imageProductArtikel imageProductArtikel[]
 
-  categoryArtikel   categoryArtikel? @relation(fields: [categoryArtikelId], references: [category])
-  categoryArtikelId String?
+  categoryArtikel   categoryArtikel @relation(fields: [categoryArtikelId], references: [id])
+  categoryArtikelId Int
 }
 
 model imageProductArtikel {
@@ -150,17 +150,17 @@ model imageProductArtikel {
   original_filename String? // Original filename
   api_key           String? // API key used for upload
 
-  IdProductArtikel String
-  userd            postArtikel @relation(fields: [IdProductArtikel], references: [slug])
+  IdProductArtikel Int
+  userd            postArtikel @relation(fields: [IdProductArtikel], references: [id])
 
   @@index([IdProductArtikel])
 }
 
 model categoryArtikel {
-  id          Int           @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   start       DateTime      @default(now())
   end         DateTime      @updatedAt
-  category    String        @id @unique
+  category    String        @unique
   image       String?
   urlYoutube  String?
   title       String?

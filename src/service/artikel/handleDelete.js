@@ -1,7 +1,9 @@
 'use server'
 import { revalidatePath } from 'next/cache';
 
-export const HandleDeleteArtikel = async (slug) => {
+export const HandleDeleteArtikel = async (id) => {
+    console.log(id);
+
     await fetch(`${process.env.NEXT_PUBLIC_URL}/api/a/deleteArtikel`, {
         method: 'DELETE',
         headers: {
@@ -9,7 +11,7 @@ export const HandleDeleteArtikel = async (slug) => {
             'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
         },
         body: JSON.stringify({
-            slugProduct: slug
+            id: id
         }),
         next: {
             revalidate: 0

@@ -56,6 +56,7 @@ export async function PUT(req) {
     const authorization = req.headers.get('authorization')
 
     const {
+        IdArtikel,
         title,
         slug,
         content,
@@ -63,29 +64,27 @@ export async function PUT(req) {
         tags,
         saveDraf,
         categoryArtikelId,
-
         dataImage
     } = await req.json()
-    console.log(slug);
 
 
     if (authorization == process.env.NEXT_PUBLIC_SECREET) {
         const data = await prisma.postArtikel.updateMany({
-            where: { slug: slug },
+            where: { id: IdArtikel },
             data: {
+                categoryArtikelId,
                 title,
                 slug,
                 content,
                 description,
                 tags,
                 saveDraf,
-                categoryArtikelId
             }
         })
 
         for (const image of dataImage) {
             await prisma.imageProductArtikel.create({
-                data: { ...image, IdProduct: slug }
+                data: { ...image, IdProductArtikel: IdArtikel }
             })
         }
         const res = await ResponseData(data, authorization)

@@ -82,7 +82,7 @@ export async function POST(req) {
 export async function PUT(req) {
     const authorization = req.headers.get('authorization')
 
-    const { slugProduct,
+    const { IdProduct, slugProduct,
         productName,
         saveDraf,
         productType,
@@ -113,7 +113,7 @@ export async function PUT(req) {
 
     if (authorization == process.env.NEXT_PUBLIC_SECREET) {
         const UpdateList = await prisma.listProduct.updateMany({
-            where: { slugProduct: slugProduct },
+            where: { id: IdProduct },
             data: {
                 slugProduct,
                 productName,
@@ -133,7 +133,7 @@ export async function PUT(req) {
         })
 
         const UpdateListSpec = await prisma.specProduct.updateMany({
-            where: { IdProduct: slugProduct },
+            where: { id: IdProduct },
             data: {
                 phase_spec,
                 frequency_spec,
@@ -150,7 +150,7 @@ export async function PUT(req) {
 
         for (const image of dataImage) {
             await prisma.imageProduct.create({
-                data: { ...image, IdProduct: slugProduct }
+                data: { ...image, IdProduct: IdProduct }
             })
         }
         const data = await prisma.$transaction([UpdateList, UpdateListSpec])
