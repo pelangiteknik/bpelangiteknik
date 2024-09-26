@@ -1,6 +1,19 @@
 import { prisma } from "@/controllers/prisma";
 import { ResponseData } from '@/components/api/ResponseData'
 
+export async function GET(req) {
+    const data = await prisma.categoryArtikel.findMany({
+        orderBy: {
+            id: 'desc'
+        }
+    })
+
+    const authorization = req.headers.get('authorization')
+    const res = await ResponseData(data, authorization)
+    return res
+}
+
+
 export async function POST(req) {
     const authorization = req.headers.get('authorization')
 
@@ -16,7 +29,7 @@ export async function POST(req) {
     };
 
     if (authorization == process.env.NEXT_PUBLIC_SECREET) {
-        const CreateList = await prisma.categoryProduct.create({
+        const CreateList = await prisma.categoryArtikel.create({
             data
         })
         const res = await ResponseData(CreateList, authorization)

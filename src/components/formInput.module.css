@@ -192,7 +192,7 @@
 }
 
 
-.bawah .detail .isi select {
+.bawah select {
     padding: 10px;
     border-radius: var(--border-radius);
     border: 2px solid var(--colorbggreyutama);
@@ -206,7 +206,7 @@
 }
 
 
-.bawah .detail .isi input {
+.bawah input {
     padding: 10px;
     border-radius: var(--border-radius);
     border: 2px solid var(--colorbggreyutama);

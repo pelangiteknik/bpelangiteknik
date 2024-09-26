@@ -124,6 +124,7 @@ exports.Prisma.CategoryProductScalarFieldEnum = {
   start: 'start',
   end: 'end',
   category: 'category',
+  image: 'image',
   urlYoutube: 'urlYoutube',
   title: 'title',
   desc: 'desc',
@@ -205,7 +206,8 @@ exports.Prisma.PostArtikelScalarFieldEnum = {
   tags: 'tags',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  saveDraf: 'saveDraf'
+  saveDraf: 'saveDraf',
+  categoryArtikelId: 'categoryArtikelId'
 };
 
 exports.Prisma.ImageProductArtikelScalarFieldEnum = {
@@ -234,6 +236,18 @@ exports.Prisma.ImageProductArtikelScalarFieldEnum = {
   original_filename: 'original_filename',
   api_key: 'api_key',
   IdProductArtikel: 'IdProductArtikel'
+};
+
+exports.Prisma.CategoryArtikelScalarFieldEnum = {
+  id: 'id',
+  start: 'start',
+  end: 'end',
+  category: 'category',
+  image: 'image',
+  urlYoutube: 'urlYoutube',
+  title: 'title',
+  desc: 'desc',
+  tags: 'tags'
 };
 
 exports.Prisma.SortOrder = {
@@ -269,7 +283,8 @@ exports.Prisma.ModelName = {
   specProduct: 'specProduct',
   imageProduct: 'imageProduct',
   postArtikel: 'postArtikel',
-  imageProductArtikel: 'imageProductArtikel'
+  imageProductArtikel: 'imageProductArtikel',
+  categoryArtikel: 'categoryArtikel'
 };
 
 /**

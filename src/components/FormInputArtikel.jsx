@@ -18,8 +18,11 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link';
 import Logout from './logout';
 import { HandleValidasiArtikel } from '@/service/artikel/handleValidasi';
+import { HandlePostCategory } from '@/service/handlePostCategory';
+import { HandlePostCategoryArtikel } from '@/service/artikel/handlePostKategori';
 
-export default function FormInputArtikel({ data, text }) {
+export default function FormInputArtikel({ data, text, dataKategori }) {
+    const [klikKategori, setKlikKategori] = useState(false);
 
     const pathname = usePathname()
     const setLayangArtikel = useCon((state) => state.setLayangArtikel)
@@ -100,9 +103,48 @@ export default function FormInputArtikel({ data, text }) {
 
     };
 
+    // State untuk menyimpan nilai input
+    const [kategori, setKategori] = useState('');
+    const [loadingKategori, setLoadingKategori] = useState(false);
+
+    // Fungsi untuk menangani perubahan input
+    const handleInputChangeKategori = (event) => {
+        setKategori(event?.target.value);
+    };
+
+    // Fungsi untuk submit form
+    const handleSubmitKategori = async (event) => {
+        event.preventDefault();
+        setLoadingKategori(true)
+
+        if (dataKategori?.filter((data) => data?.category == kategori).length) {
+            toast.error(`Produk kategori ${kategori} sudah ada, silakan pilih kategori lain.`);
+            setLoadingKategori(false)
+            return true
+        } else {
+            await HandlePostCategoryArtikel({
+                "category": kategori
+            })
+            setLoadingKategori(false)
+            setKlikKategori(false)
+            setKategori('')
+            toast.success(`kategori ${kategori} berhasil ditambahkan!`)
+            router.refresh()
+        }
+
+        // await HandlePostCategory({
+        //     "category": kategori    
+        //     "urlYoutube": null
+        //     "title": null
+        //     "desc": null
+        //     "tags": null
+        // })
+    };
+
 
     const initialValues = {
         title: data ? data?.title : '',
+        categoryArtikelId: data ? data?.categoryArtikelId : '',
         content: draftToHtml(convertToRaw(editorState.getCurrentContent())),
         description: data ? data?.description : '',
         tags: data ? data?.tags : '',
@@ -120,6 +162,8 @@ export default function FormInputArtikel({ data, text }) {
             .required('*'),
         tags: Yup.string()
             .max(150, 'Must be 15 characters or less')
+            .required('*'),
+        categoryArtikelId: Yup.string()
             .required('*'),
 
         images: Yup.mixed().required('At least one file is required')
@@ -253,6 +297,46 @@ export default function FormInputArtikel({ data, text }) {
                                         <div className={styles.judul}>Meta Tag Google</div>
                                         <hr />
                                         <div className={styles.isi}>
+                                            <div className={styles.bariskankategori} >
+                                                {klikKategori && <div className={styles.tambahkategori}>
+                                                    <div className={styles.ataskategori}>
+                                                        <label htmlFor="kategori">Tambah Kategori</label>
+                                                        {!loadingKategori && <div
+                                                            className={styles.closekategori}
+                                                            style={{ position: 'absolute', right: 0, top: '-25px', background: 'red', display: 'flex', justifyContent: 'center', color: 'white' }}
+                                                            onClick={() => setKlikKategori(!klikKategori)}>x</div>}
+                                                    </div>
+                                                    <div style={{ display: 'flex', gap: '5px' }}>
+                                                        <input
+                                                            style={{ width: '70%' }}
+                                                            type="text"
+                                                            id="kategori"
+                                                            value={kategori}
+                                                            onChange={handleInputChangeKategori}
+                                                            placeholder="Masukkan kategori"
+                                                            required
+                                                            disabled={loadingKategori}
+                                                        />
+                                                        <button onClick={handleSubmitKategori} type="submit">{loadingKategori ? 'Loading' : 'Tambah'}</button>
+                                                    </div>
+                                                </div>}
+
+                                                <label style={{ display: 'flex' }} htmlFor="categoryArtikelId">Kategori  <ErrorMessage name="categoryArtikelId" component="div" style={{ color: 'red' }} />
+                                                    &nbsp; <div className={styles.tambahkategoriklik} onClick={() => setKlikKategori(!klikKategori)}>(Tambah ? )</div>
+                                                </label>
+
+                                                <Field as="select" name="categoryArtikelId" id="categoryArtikelId">
+                                                    <option value="">Select a Kategori</option>
+                                                    {dataKategori?.map((data, i) => {
+                                                        return (
+                                                            <option key={i} value={data?.category}>{data?.category}</option>
+                                                        )
+                                                    })}
+
+                                                </Field>
+
+                                                {/* <Field type="text" name="productKategori" id="productKategori" /> */}
+                                            </div>
                                             <div className={styles.tag}>
                                                 <label htmlFor="tags">Tag <ErrorMessage name="tags" component="div" style={{ color: 'red' }} /></label>
                                                 <Field type="text"

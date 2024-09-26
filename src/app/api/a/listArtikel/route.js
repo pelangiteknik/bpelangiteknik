@@ -15,7 +15,6 @@ export async function GET(req) {
     return res
 }
 
-
 export async function POST(req) {
     const authorization = req.headers.get('authorization')
     const {
@@ -25,6 +24,7 @@ export async function POST(req) {
         description,
         tags,
         saveDraf,
+        categoryArtikelId,
 
         dataImage
     } = await req.json()
@@ -43,6 +43,7 @@ export async function POST(req) {
                 description,
                 tags,
                 saveDraf,
+                categoryArtikelId,
                 imageProductArtikel: { create: dataImage }
             }
         })
@@ -61,6 +62,7 @@ export async function PUT(req) {
         description,
         tags,
         saveDraf,
+        categoryArtikelId,
 
         dataImage
     } = await req.json()
@@ -76,7 +78,8 @@ export async function PUT(req) {
                 content,
                 description,
                 tags,
-                saveDraf
+                saveDraf,
+                categoryArtikelId
             }
         })
 

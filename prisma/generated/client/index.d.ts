@@ -43,6 +43,11 @@ export type postArtikel = $Result.DefaultSelection<Prisma.$postArtikelPayload>
  * 
  */
 export type imageProductArtikel = $Result.DefaultSelection<Prisma.$imageProductArtikelPayload>
+/**
+ * Model categoryArtikel
+ * 
+ */
+export type categoryArtikel = $Result.DefaultSelection<Prisma.$categoryArtikelPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -226,6 +231,16 @@ export class PrismaClient<
     * ```
     */
   get imageProductArtikel(): Prisma.imageProductArtikelDelegate<ExtArgs>;
+
+  /**
+   * `prisma.categoryArtikel`: Exposes CRUD operations for the **categoryArtikel** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CategoryArtikels
+    * const categoryArtikels = await prisma.categoryArtikel.findMany()
+    * ```
+    */
+  get categoryArtikel(): Prisma.categoryArtikelDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -670,7 +685,8 @@ export namespace Prisma {
     specProduct: 'specProduct',
     imageProduct: 'imageProduct',
     postArtikel: 'postArtikel',
-    imageProductArtikel: 'imageProductArtikel'
+    imageProductArtikel: 'imageProductArtikel',
+    categoryArtikel: 'categoryArtikel'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -686,7 +702,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "categoryProduct" | "listProduct" | "specProduct" | "imageProduct" | "postArtikel" | "imageProductArtikel"
+      modelProps: "categoryProduct" | "listProduct" | "specProduct" | "imageProduct" | "postArtikel" | "imageProductArtikel" | "categoryArtikel"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1110,6 +1126,76 @@ export namespace Prisma {
           }
         }
       }
+      categoryArtikel: {
+        payload: Prisma.$categoryArtikelPayload<ExtArgs>
+        fields: Prisma.categoryArtikelFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.categoryArtikelFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$categoryArtikelPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.categoryArtikelFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$categoryArtikelPayload>
+          }
+          findFirst: {
+            args: Prisma.categoryArtikelFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$categoryArtikelPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.categoryArtikelFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$categoryArtikelPayload>
+          }
+          findMany: {
+            args: Prisma.categoryArtikelFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$categoryArtikelPayload>[]
+          }
+          create: {
+            args: Prisma.categoryArtikelCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$categoryArtikelPayload>
+          }
+          createMany: {
+            args: Prisma.categoryArtikelCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.categoryArtikelCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$categoryArtikelPayload>[]
+          }
+          delete: {
+            args: Prisma.categoryArtikelDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$categoryArtikelPayload>
+          }
+          update: {
+            args: Prisma.categoryArtikelUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$categoryArtikelPayload>
+          }
+          deleteMany: {
+            args: Prisma.categoryArtikelDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.categoryArtikelUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.categoryArtikelUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$categoryArtikelPayload>
+          }
+          aggregate: {
+            args: Prisma.CategoryArtikelAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCategoryArtikel>
+          }
+          groupBy: {
+            args: Prisma.categoryArtikelGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CategoryArtikelGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.categoryArtikelCountArgs<ExtArgs>
+            result: $Utils.Optional<CategoryArtikelCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1360,6 +1446,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type CategoryArtikelCountOutputType
+   */
+
+  export type CategoryArtikelCountOutputType = {
+    postArtikel: number
+  }
+
+  export type CategoryArtikelCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    postArtikel?: boolean | CategoryArtikelCountOutputTypeCountPostArtikelArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CategoryArtikelCountOutputType without action
+   */
+  export type CategoryArtikelCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryArtikelCountOutputType
+     */
+    select?: CategoryArtikelCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CategoryArtikelCountOutputType without action
+   */
+  export type CategoryArtikelCountOutputTypeCountPostArtikelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: postArtikelWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -1388,6 +1505,7 @@ export namespace Prisma {
     start: Date | null
     end: Date | null
     category: string | null
+    image: string | null
     urlYoutube: string | null
     title: string | null
     desc: string | null
@@ -1399,6 +1517,7 @@ export namespace Prisma {
     start: Date | null
     end: Date | null
     category: string | null
+    image: string | null
     urlYoutube: string | null
     title: string | null
     desc: string | null
@@ -1410,6 +1529,7 @@ export namespace Prisma {
     start: number
     end: number
     category: number
+    image: number
     urlYoutube: number
     title: number
     desc: number
@@ -1431,6 +1551,7 @@ export namespace Prisma {
     start?: true
     end?: true
     category?: true
+    image?: true
     urlYoutube?: true
     title?: true
     desc?: true
@@ -1442,6 +1563,7 @@ export namespace Prisma {
     start?: true
     end?: true
     category?: true
+    image?: true
     urlYoutube?: true
     title?: true
     desc?: true
@@ -1453,6 +1575,7 @@ export namespace Prisma {
     start?: true
     end?: true
     category?: true
+    image?: true
     urlYoutube?: true
     title?: true
     desc?: true
@@ -1551,6 +1674,7 @@ export namespace Prisma {
     start: Date
     end: Date
     category: string
+    image: string | null
     urlYoutube: string | null
     title: string | null
     desc: string | null
@@ -1581,6 +1705,7 @@ export namespace Prisma {
     start?: boolean
     end?: boolean
     category?: boolean
+    image?: boolean
     urlYoutube?: boolean
     title?: boolean
     desc?: boolean
@@ -1594,6 +1719,7 @@ export namespace Prisma {
     start?: boolean
     end?: boolean
     category?: boolean
+    image?: boolean
     urlYoutube?: boolean
     title?: boolean
     desc?: boolean
@@ -1605,6 +1731,7 @@ export namespace Prisma {
     start?: boolean
     end?: boolean
     category?: boolean
+    image?: boolean
     urlYoutube?: boolean
     title?: boolean
     desc?: boolean
@@ -1627,6 +1754,7 @@ export namespace Prisma {
       start: Date
       end: Date
       category: string
+      image: string | null
       urlYoutube: string | null
       title: string | null
       desc: string | null
@@ -2029,6 +2157,7 @@ export namespace Prisma {
     readonly start: FieldRef<"categoryProduct", 'DateTime'>
     readonly end: FieldRef<"categoryProduct", 'DateTime'>
     readonly category: FieldRef<"categoryProduct", 'String'>
+    readonly image: FieldRef<"categoryProduct", 'String'>
     readonly urlYoutube: FieldRef<"categoryProduct", 'String'>
     readonly title: FieldRef<"categoryProduct", 'String'>
     readonly desc: FieldRef<"categoryProduct", 'String'>
@@ -5892,6 +6021,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     saveDraf: boolean | null
+    categoryArtikelId: string | null
   }
 
   export type PostArtikelMaxAggregateOutputType = {
@@ -5903,6 +6033,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     saveDraf: boolean | null
+    categoryArtikelId: string | null
   }
 
   export type PostArtikelCountAggregateOutputType = {
@@ -5915,6 +6046,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     saveDraf: number
+    categoryArtikelId: number
     _all: number
   }
 
@@ -5936,6 +6068,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     saveDraf?: true
+    categoryArtikelId?: true
   }
 
   export type PostArtikelMaxAggregateInputType = {
@@ -5947,6 +6080,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     saveDraf?: true
+    categoryArtikelId?: true
   }
 
   export type PostArtikelCountAggregateInputType = {
@@ -5959,6 +6093,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     saveDraf?: true
+    categoryArtikelId?: true
     _all?: true
   }
 
@@ -6058,6 +6193,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     saveDraf: boolean
+    categoryArtikelId: string | null
     _count: PostArtikelCountAggregateOutputType | null
     _avg: PostArtikelAvgAggregateOutputType | null
     _sum: PostArtikelSumAggregateOutputType | null
@@ -6089,7 +6225,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     saveDraf?: boolean
+    categoryArtikelId?: boolean
     imageProductArtikel?: boolean | postArtikel$imageProductArtikelArgs<ExtArgs>
+    categoryArtikel?: boolean | postArtikel$categoryArtikelArgs<ExtArgs>
     _count?: boolean | PostArtikelCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postArtikel"]>
 
@@ -6103,6 +6241,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     saveDraf?: boolean
+    categoryArtikelId?: boolean
+    categoryArtikel?: boolean | postArtikel$categoryArtikelArgs<ExtArgs>
   }, ExtArgs["result"]["postArtikel"]>
 
   export type postArtikelSelectScalar = {
@@ -6115,18 +6255,23 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     saveDraf?: boolean
+    categoryArtikelId?: boolean
   }
 
   export type postArtikelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     imageProductArtikel?: boolean | postArtikel$imageProductArtikelArgs<ExtArgs>
+    categoryArtikel?: boolean | postArtikel$categoryArtikelArgs<ExtArgs>
     _count?: boolean | PostArtikelCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type postArtikelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type postArtikelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    categoryArtikel?: boolean | postArtikel$categoryArtikelArgs<ExtArgs>
+  }
 
   export type $postArtikelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "postArtikel"
     objects: {
       imageProductArtikel: Prisma.$imageProductArtikelPayload<ExtArgs>[]
+      categoryArtikel: Prisma.$categoryArtikelPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -6138,6 +6283,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       saveDraf: boolean
+      categoryArtikelId: string | null
     }, ExtArgs["result"]["postArtikel"]>
     composites: {}
   }
@@ -6503,6 +6649,7 @@ export namespace Prisma {
   export interface Prisma__postArtikelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     imageProductArtikel<T extends postArtikel$imageProductArtikelArgs<ExtArgs> = {}>(args?: Subset<T, postArtikel$imageProductArtikelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$imageProductArtikelPayload<ExtArgs>, T, "findMany"> | Null>
+    categoryArtikel<T extends postArtikel$categoryArtikelArgs<ExtArgs> = {}>(args?: Subset<T, postArtikel$categoryArtikelArgs<ExtArgs>>): Prisma__categoryArtikelClient<$Result.GetResult<Prisma.$categoryArtikelPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6541,6 +6688,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"postArtikel", 'DateTime'>
     readonly updatedAt: FieldRef<"postArtikel", 'DateTime'>
     readonly saveDraf: FieldRef<"postArtikel", 'Boolean'>
+    readonly categoryArtikelId: FieldRef<"postArtikel", 'String'>
   }
     
 
@@ -6762,6 +6910,10 @@ export namespace Prisma {
      */
     data: postArtikelCreateManyInput | postArtikelCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: postArtikelIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6872,6 +7024,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ImageProductArtikelScalarFieldEnum | ImageProductArtikelScalarFieldEnum[]
+  }
+
+  /**
+   * postArtikel.categoryArtikel
+   */
+  export type postArtikel$categoryArtikelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: categoryArtikelInclude<ExtArgs> | null
+    where?: categoryArtikelWhereInput
   }
 
   /**
@@ -8109,6 +8276,1036 @@ export namespace Prisma {
 
 
   /**
+   * Model categoryArtikel
+   */
+
+  export type AggregateCategoryArtikel = {
+    _count: CategoryArtikelCountAggregateOutputType | null
+    _avg: CategoryArtikelAvgAggregateOutputType | null
+    _sum: CategoryArtikelSumAggregateOutputType | null
+    _min: CategoryArtikelMinAggregateOutputType | null
+    _max: CategoryArtikelMaxAggregateOutputType | null
+  }
+
+  export type CategoryArtikelAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CategoryArtikelSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CategoryArtikelMinAggregateOutputType = {
+    id: number | null
+    start: Date | null
+    end: Date | null
+    category: string | null
+    image: string | null
+    urlYoutube: string | null
+    title: string | null
+    desc: string | null
+    tags: string | null
+  }
+
+  export type CategoryArtikelMaxAggregateOutputType = {
+    id: number | null
+    start: Date | null
+    end: Date | null
+    category: string | null
+    image: string | null
+    urlYoutube: string | null
+    title: string | null
+    desc: string | null
+    tags: string | null
+  }
+
+  export type CategoryArtikelCountAggregateOutputType = {
+    id: number
+    start: number
+    end: number
+    category: number
+    image: number
+    urlYoutube: number
+    title: number
+    desc: number
+    tags: number
+    _all: number
+  }
+
+
+  export type CategoryArtikelAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type CategoryArtikelSumAggregateInputType = {
+    id?: true
+  }
+
+  export type CategoryArtikelMinAggregateInputType = {
+    id?: true
+    start?: true
+    end?: true
+    category?: true
+    image?: true
+    urlYoutube?: true
+    title?: true
+    desc?: true
+    tags?: true
+  }
+
+  export type CategoryArtikelMaxAggregateInputType = {
+    id?: true
+    start?: true
+    end?: true
+    category?: true
+    image?: true
+    urlYoutube?: true
+    title?: true
+    desc?: true
+    tags?: true
+  }
+
+  export type CategoryArtikelCountAggregateInputType = {
+    id?: true
+    start?: true
+    end?: true
+    category?: true
+    image?: true
+    urlYoutube?: true
+    title?: true
+    desc?: true
+    tags?: true
+    _all?: true
+  }
+
+  export type CategoryArtikelAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which categoryArtikel to aggregate.
+     */
+    where?: categoryArtikelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of categoryArtikels to fetch.
+     */
+    orderBy?: categoryArtikelOrderByWithRelationInput | categoryArtikelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: categoryArtikelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` categoryArtikels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` categoryArtikels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned categoryArtikels
+    **/
+    _count?: true | CategoryArtikelCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CategoryArtikelAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CategoryArtikelSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CategoryArtikelMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CategoryArtikelMaxAggregateInputType
+  }
+
+  export type GetCategoryArtikelAggregateType<T extends CategoryArtikelAggregateArgs> = {
+        [P in keyof T & keyof AggregateCategoryArtikel]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCategoryArtikel[P]>
+      : GetScalarType<T[P], AggregateCategoryArtikel[P]>
+  }
+
+
+
+
+  export type categoryArtikelGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: categoryArtikelWhereInput
+    orderBy?: categoryArtikelOrderByWithAggregationInput | categoryArtikelOrderByWithAggregationInput[]
+    by: CategoryArtikelScalarFieldEnum[] | CategoryArtikelScalarFieldEnum
+    having?: categoryArtikelScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CategoryArtikelCountAggregateInputType | true
+    _avg?: CategoryArtikelAvgAggregateInputType
+    _sum?: CategoryArtikelSumAggregateInputType
+    _min?: CategoryArtikelMinAggregateInputType
+    _max?: CategoryArtikelMaxAggregateInputType
+  }
+
+  export type CategoryArtikelGroupByOutputType = {
+    id: number
+    start: Date
+    end: Date
+    category: string
+    image: string | null
+    urlYoutube: string | null
+    title: string | null
+    desc: string | null
+    tags: string | null
+    _count: CategoryArtikelCountAggregateOutputType | null
+    _avg: CategoryArtikelAvgAggregateOutputType | null
+    _sum: CategoryArtikelSumAggregateOutputType | null
+    _min: CategoryArtikelMinAggregateOutputType | null
+    _max: CategoryArtikelMaxAggregateOutputType | null
+  }
+
+  type GetCategoryArtikelGroupByPayload<T extends categoryArtikelGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CategoryArtikelGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CategoryArtikelGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CategoryArtikelGroupByOutputType[P]>
+            : GetScalarType<T[P], CategoryArtikelGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type categoryArtikelSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    start?: boolean
+    end?: boolean
+    category?: boolean
+    image?: boolean
+    urlYoutube?: boolean
+    title?: boolean
+    desc?: boolean
+    tags?: boolean
+    postArtikel?: boolean | categoryArtikel$postArtikelArgs<ExtArgs>
+    _count?: boolean | CategoryArtikelCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["categoryArtikel"]>
+
+  export type categoryArtikelSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    start?: boolean
+    end?: boolean
+    category?: boolean
+    image?: boolean
+    urlYoutube?: boolean
+    title?: boolean
+    desc?: boolean
+    tags?: boolean
+  }, ExtArgs["result"]["categoryArtikel"]>
+
+  export type categoryArtikelSelectScalar = {
+    id?: boolean
+    start?: boolean
+    end?: boolean
+    category?: boolean
+    image?: boolean
+    urlYoutube?: boolean
+    title?: boolean
+    desc?: boolean
+    tags?: boolean
+  }
+
+  export type categoryArtikelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    postArtikel?: boolean | categoryArtikel$postArtikelArgs<ExtArgs>
+    _count?: boolean | CategoryArtikelCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type categoryArtikelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $categoryArtikelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "categoryArtikel"
+    objects: {
+      postArtikel: Prisma.$postArtikelPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      start: Date
+      end: Date
+      category: string
+      image: string | null
+      urlYoutube: string | null
+      title: string | null
+      desc: string | null
+      tags: string | null
+    }, ExtArgs["result"]["categoryArtikel"]>
+    composites: {}
+  }
+
+  type categoryArtikelGetPayload<S extends boolean | null | undefined | categoryArtikelDefaultArgs> = $Result.GetResult<Prisma.$categoryArtikelPayload, S>
+
+  type categoryArtikelCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<categoryArtikelFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CategoryArtikelCountAggregateInputType | true
+    }
+
+  export interface categoryArtikelDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['categoryArtikel'], meta: { name: 'categoryArtikel' } }
+    /**
+     * Find zero or one CategoryArtikel that matches the filter.
+     * @param {categoryArtikelFindUniqueArgs} args - Arguments to find a CategoryArtikel
+     * @example
+     * // Get one CategoryArtikel
+     * const categoryArtikel = await prisma.categoryArtikel.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends categoryArtikelFindUniqueArgs>(args: SelectSubset<T, categoryArtikelFindUniqueArgs<ExtArgs>>): Prisma__categoryArtikelClient<$Result.GetResult<Prisma.$categoryArtikelPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CategoryArtikel that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {categoryArtikelFindUniqueOrThrowArgs} args - Arguments to find a CategoryArtikel
+     * @example
+     * // Get one CategoryArtikel
+     * const categoryArtikel = await prisma.categoryArtikel.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends categoryArtikelFindUniqueOrThrowArgs>(args: SelectSubset<T, categoryArtikelFindUniqueOrThrowArgs<ExtArgs>>): Prisma__categoryArtikelClient<$Result.GetResult<Prisma.$categoryArtikelPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CategoryArtikel that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {categoryArtikelFindFirstArgs} args - Arguments to find a CategoryArtikel
+     * @example
+     * // Get one CategoryArtikel
+     * const categoryArtikel = await prisma.categoryArtikel.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends categoryArtikelFindFirstArgs>(args?: SelectSubset<T, categoryArtikelFindFirstArgs<ExtArgs>>): Prisma__categoryArtikelClient<$Result.GetResult<Prisma.$categoryArtikelPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CategoryArtikel that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {categoryArtikelFindFirstOrThrowArgs} args - Arguments to find a CategoryArtikel
+     * @example
+     * // Get one CategoryArtikel
+     * const categoryArtikel = await prisma.categoryArtikel.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends categoryArtikelFindFirstOrThrowArgs>(args?: SelectSubset<T, categoryArtikelFindFirstOrThrowArgs<ExtArgs>>): Prisma__categoryArtikelClient<$Result.GetResult<Prisma.$categoryArtikelPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CategoryArtikels that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {categoryArtikelFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CategoryArtikels
+     * const categoryArtikels = await prisma.categoryArtikel.findMany()
+     * 
+     * // Get first 10 CategoryArtikels
+     * const categoryArtikels = await prisma.categoryArtikel.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const categoryArtikelWithIdOnly = await prisma.categoryArtikel.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends categoryArtikelFindManyArgs>(args?: SelectSubset<T, categoryArtikelFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$categoryArtikelPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CategoryArtikel.
+     * @param {categoryArtikelCreateArgs} args - Arguments to create a CategoryArtikel.
+     * @example
+     * // Create one CategoryArtikel
+     * const CategoryArtikel = await prisma.categoryArtikel.create({
+     *   data: {
+     *     // ... data to create a CategoryArtikel
+     *   }
+     * })
+     * 
+     */
+    create<T extends categoryArtikelCreateArgs>(args: SelectSubset<T, categoryArtikelCreateArgs<ExtArgs>>): Prisma__categoryArtikelClient<$Result.GetResult<Prisma.$categoryArtikelPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CategoryArtikels.
+     * @param {categoryArtikelCreateManyArgs} args - Arguments to create many CategoryArtikels.
+     * @example
+     * // Create many CategoryArtikels
+     * const categoryArtikel = await prisma.categoryArtikel.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends categoryArtikelCreateManyArgs>(args?: SelectSubset<T, categoryArtikelCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CategoryArtikels and returns the data saved in the database.
+     * @param {categoryArtikelCreateManyAndReturnArgs} args - Arguments to create many CategoryArtikels.
+     * @example
+     * // Create many CategoryArtikels
+     * const categoryArtikel = await prisma.categoryArtikel.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CategoryArtikels and only return the `id`
+     * const categoryArtikelWithIdOnly = await prisma.categoryArtikel.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends categoryArtikelCreateManyAndReturnArgs>(args?: SelectSubset<T, categoryArtikelCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$categoryArtikelPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CategoryArtikel.
+     * @param {categoryArtikelDeleteArgs} args - Arguments to delete one CategoryArtikel.
+     * @example
+     * // Delete one CategoryArtikel
+     * const CategoryArtikel = await prisma.categoryArtikel.delete({
+     *   where: {
+     *     // ... filter to delete one CategoryArtikel
+     *   }
+     * })
+     * 
+     */
+    delete<T extends categoryArtikelDeleteArgs>(args: SelectSubset<T, categoryArtikelDeleteArgs<ExtArgs>>): Prisma__categoryArtikelClient<$Result.GetResult<Prisma.$categoryArtikelPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CategoryArtikel.
+     * @param {categoryArtikelUpdateArgs} args - Arguments to update one CategoryArtikel.
+     * @example
+     * // Update one CategoryArtikel
+     * const categoryArtikel = await prisma.categoryArtikel.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends categoryArtikelUpdateArgs>(args: SelectSubset<T, categoryArtikelUpdateArgs<ExtArgs>>): Prisma__categoryArtikelClient<$Result.GetResult<Prisma.$categoryArtikelPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CategoryArtikels.
+     * @param {categoryArtikelDeleteManyArgs} args - Arguments to filter CategoryArtikels to delete.
+     * @example
+     * // Delete a few CategoryArtikels
+     * const { count } = await prisma.categoryArtikel.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends categoryArtikelDeleteManyArgs>(args?: SelectSubset<T, categoryArtikelDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CategoryArtikels.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {categoryArtikelUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CategoryArtikels
+     * const categoryArtikel = await prisma.categoryArtikel.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends categoryArtikelUpdateManyArgs>(args: SelectSubset<T, categoryArtikelUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CategoryArtikel.
+     * @param {categoryArtikelUpsertArgs} args - Arguments to update or create a CategoryArtikel.
+     * @example
+     * // Update or create a CategoryArtikel
+     * const categoryArtikel = await prisma.categoryArtikel.upsert({
+     *   create: {
+     *     // ... data to create a CategoryArtikel
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CategoryArtikel we want to update
+     *   }
+     * })
+     */
+    upsert<T extends categoryArtikelUpsertArgs>(args: SelectSubset<T, categoryArtikelUpsertArgs<ExtArgs>>): Prisma__categoryArtikelClient<$Result.GetResult<Prisma.$categoryArtikelPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CategoryArtikels.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {categoryArtikelCountArgs} args - Arguments to filter CategoryArtikels to count.
+     * @example
+     * // Count the number of CategoryArtikels
+     * const count = await prisma.categoryArtikel.count({
+     *   where: {
+     *     // ... the filter for the CategoryArtikels we want to count
+     *   }
+     * })
+    **/
+    count<T extends categoryArtikelCountArgs>(
+      args?: Subset<T, categoryArtikelCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CategoryArtikelCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CategoryArtikel.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryArtikelAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CategoryArtikelAggregateArgs>(args: Subset<T, CategoryArtikelAggregateArgs>): Prisma.PrismaPromise<GetCategoryArtikelAggregateType<T>>
+
+    /**
+     * Group by CategoryArtikel.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {categoryArtikelGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends categoryArtikelGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: categoryArtikelGroupByArgs['orderBy'] }
+        : { orderBy?: categoryArtikelGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, categoryArtikelGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCategoryArtikelGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the categoryArtikel model
+   */
+  readonly fields: categoryArtikelFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for categoryArtikel.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__categoryArtikelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    postArtikel<T extends categoryArtikel$postArtikelArgs<ExtArgs> = {}>(args?: Subset<T, categoryArtikel$postArtikelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$postArtikelPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the categoryArtikel model
+   */ 
+  interface categoryArtikelFieldRefs {
+    readonly id: FieldRef<"categoryArtikel", 'Int'>
+    readonly start: FieldRef<"categoryArtikel", 'DateTime'>
+    readonly end: FieldRef<"categoryArtikel", 'DateTime'>
+    readonly category: FieldRef<"categoryArtikel", 'String'>
+    readonly image: FieldRef<"categoryArtikel", 'String'>
+    readonly urlYoutube: FieldRef<"categoryArtikel", 'String'>
+    readonly title: FieldRef<"categoryArtikel", 'String'>
+    readonly desc: FieldRef<"categoryArtikel", 'String'>
+    readonly tags: FieldRef<"categoryArtikel", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * categoryArtikel findUnique
+   */
+  export type categoryArtikelFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: categoryArtikelInclude<ExtArgs> | null
+    /**
+     * Filter, which categoryArtikel to fetch.
+     */
+    where: categoryArtikelWhereUniqueInput
+  }
+
+  /**
+   * categoryArtikel findUniqueOrThrow
+   */
+  export type categoryArtikelFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: categoryArtikelInclude<ExtArgs> | null
+    /**
+     * Filter, which categoryArtikel to fetch.
+     */
+    where: categoryArtikelWhereUniqueInput
+  }
+
+  /**
+   * categoryArtikel findFirst
+   */
+  export type categoryArtikelFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: categoryArtikelInclude<ExtArgs> | null
+    /**
+     * Filter, which categoryArtikel to fetch.
+     */
+    where?: categoryArtikelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of categoryArtikels to fetch.
+     */
+    orderBy?: categoryArtikelOrderByWithRelationInput | categoryArtikelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for categoryArtikels.
+     */
+    cursor?: categoryArtikelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` categoryArtikels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` categoryArtikels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of categoryArtikels.
+     */
+    distinct?: CategoryArtikelScalarFieldEnum | CategoryArtikelScalarFieldEnum[]
+  }
+
+  /**
+   * categoryArtikel findFirstOrThrow
+   */
+  export type categoryArtikelFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: categoryArtikelInclude<ExtArgs> | null
+    /**
+     * Filter, which categoryArtikel to fetch.
+     */
+    where?: categoryArtikelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of categoryArtikels to fetch.
+     */
+    orderBy?: categoryArtikelOrderByWithRelationInput | categoryArtikelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for categoryArtikels.
+     */
+    cursor?: categoryArtikelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` categoryArtikels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` categoryArtikels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of categoryArtikels.
+     */
+    distinct?: CategoryArtikelScalarFieldEnum | CategoryArtikelScalarFieldEnum[]
+  }
+
+  /**
+   * categoryArtikel findMany
+   */
+  export type categoryArtikelFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: categoryArtikelInclude<ExtArgs> | null
+    /**
+     * Filter, which categoryArtikels to fetch.
+     */
+    where?: categoryArtikelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of categoryArtikels to fetch.
+     */
+    orderBy?: categoryArtikelOrderByWithRelationInput | categoryArtikelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing categoryArtikels.
+     */
+    cursor?: categoryArtikelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` categoryArtikels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` categoryArtikels.
+     */
+    skip?: number
+    distinct?: CategoryArtikelScalarFieldEnum | CategoryArtikelScalarFieldEnum[]
+  }
+
+  /**
+   * categoryArtikel create
+   */
+  export type categoryArtikelCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: categoryArtikelInclude<ExtArgs> | null
+    /**
+     * The data needed to create a categoryArtikel.
+     */
+    data: XOR<categoryArtikelCreateInput, categoryArtikelUncheckedCreateInput>
+  }
+
+  /**
+   * categoryArtikel createMany
+   */
+  export type categoryArtikelCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many categoryArtikels.
+     */
+    data: categoryArtikelCreateManyInput | categoryArtikelCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * categoryArtikel createManyAndReturn
+   */
+  export type categoryArtikelCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many categoryArtikels.
+     */
+    data: categoryArtikelCreateManyInput | categoryArtikelCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * categoryArtikel update
+   */
+  export type categoryArtikelUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: categoryArtikelInclude<ExtArgs> | null
+    /**
+     * The data needed to update a categoryArtikel.
+     */
+    data: XOR<categoryArtikelUpdateInput, categoryArtikelUncheckedUpdateInput>
+    /**
+     * Choose, which categoryArtikel to update.
+     */
+    where: categoryArtikelWhereUniqueInput
+  }
+
+  /**
+   * categoryArtikel updateMany
+   */
+  export type categoryArtikelUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update categoryArtikels.
+     */
+    data: XOR<categoryArtikelUpdateManyMutationInput, categoryArtikelUncheckedUpdateManyInput>
+    /**
+     * Filter which categoryArtikels to update
+     */
+    where?: categoryArtikelWhereInput
+  }
+
+  /**
+   * categoryArtikel upsert
+   */
+  export type categoryArtikelUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: categoryArtikelInclude<ExtArgs> | null
+    /**
+     * The filter to search for the categoryArtikel to update in case it exists.
+     */
+    where: categoryArtikelWhereUniqueInput
+    /**
+     * In case the categoryArtikel found by the `where` argument doesn't exist, create a new categoryArtikel with this data.
+     */
+    create: XOR<categoryArtikelCreateInput, categoryArtikelUncheckedCreateInput>
+    /**
+     * In case the categoryArtikel was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<categoryArtikelUpdateInput, categoryArtikelUncheckedUpdateInput>
+  }
+
+  /**
+   * categoryArtikel delete
+   */
+  export type categoryArtikelDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: categoryArtikelInclude<ExtArgs> | null
+    /**
+     * Filter which categoryArtikel to delete.
+     */
+    where: categoryArtikelWhereUniqueInput
+  }
+
+  /**
+   * categoryArtikel deleteMany
+   */
+  export type categoryArtikelDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which categoryArtikels to delete
+     */
+    where?: categoryArtikelWhereInput
+  }
+
+  /**
+   * categoryArtikel.postArtikel
+   */
+  export type categoryArtikel$postArtikelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the postArtikel
+     */
+    select?: postArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: postArtikelInclude<ExtArgs> | null
+    where?: postArtikelWhereInput
+    orderBy?: postArtikelOrderByWithRelationInput | postArtikelOrderByWithRelationInput[]
+    cursor?: postArtikelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostArtikelScalarFieldEnum | PostArtikelScalarFieldEnum[]
+  }
+
+  /**
+   * categoryArtikel without action
+   */
+  export type categoryArtikelDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the categoryArtikel
+     */
+    select?: categoryArtikelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: categoryArtikelInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8127,6 +9324,7 @@ export namespace Prisma {
     start: 'start',
     end: 'end',
     category: 'category',
+    image: 'image',
     urlYoutube: 'urlYoutube',
     title: 'title',
     desc: 'desc',
@@ -8220,7 +9418,8 @@ export namespace Prisma {
     tags: 'tags',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    saveDraf: 'saveDraf'
+    saveDraf: 'saveDraf',
+    categoryArtikelId: 'categoryArtikelId'
   };
 
   export type PostArtikelScalarFieldEnum = (typeof PostArtikelScalarFieldEnum)[keyof typeof PostArtikelScalarFieldEnum]
@@ -8255,6 +9454,21 @@ export namespace Prisma {
   };
 
   export type ImageProductArtikelScalarFieldEnum = (typeof ImageProductArtikelScalarFieldEnum)[keyof typeof ImageProductArtikelScalarFieldEnum]
+
+
+  export const CategoryArtikelScalarFieldEnum: {
+    id: 'id',
+    start: 'start',
+    end: 'end',
+    category: 'category',
+    image: 'image',
+    urlYoutube: 'urlYoutube',
+    title: 'title',
+    desc: 'desc',
+    tags: 'tags'
+  };
+
+  export type CategoryArtikelScalarFieldEnum = (typeof CategoryArtikelScalarFieldEnum)[keyof typeof CategoryArtikelScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8398,6 +9612,7 @@ export namespace Prisma {
     start?: DateTimeFilter<"categoryProduct"> | Date | string
     end?: DateTimeFilter<"categoryProduct"> | Date | string
     category?: StringFilter<"categoryProduct"> | string
+    image?: StringNullableFilter<"categoryProduct"> | string | null
     urlYoutube?: StringNullableFilter<"categoryProduct"> | string | null
     title?: StringNullableFilter<"categoryProduct"> | string | null
     desc?: StringNullableFilter<"categoryProduct"> | string | null
@@ -8410,6 +9625,7 @@ export namespace Prisma {
     start?: SortOrder
     end?: SortOrder
     category?: SortOrder
+    image?: SortOrderInput | SortOrder
     urlYoutube?: SortOrderInput | SortOrder
     title?: SortOrderInput | SortOrder
     desc?: SortOrderInput | SortOrder
@@ -8418,25 +9634,27 @@ export namespace Prisma {
   }
 
   export type categoryProductWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
     category?: string
     AND?: categoryProductWhereInput | categoryProductWhereInput[]
     OR?: categoryProductWhereInput[]
     NOT?: categoryProductWhereInput | categoryProductWhereInput[]
+    id?: IntFilter<"categoryProduct"> | number
     start?: DateTimeFilter<"categoryProduct"> | Date | string
     end?: DateTimeFilter<"categoryProduct"> | Date | string
+    image?: StringNullableFilter<"categoryProduct"> | string | null
     urlYoutube?: StringNullableFilter<"categoryProduct"> | string | null
     title?: StringNullableFilter<"categoryProduct"> | string | null
     desc?: StringNullableFilter<"categoryProduct"> | string | null
     tags?: StringNullableFilter<"categoryProduct"> | string | null
     listProducts?: ListProductListRelationFilter
-  }, "id" | "category">
+  }, "category" | "category">
 
   export type categoryProductOrderByWithAggregationInput = {
     id?: SortOrder
     start?: SortOrder
     end?: SortOrder
     category?: SortOrder
+    image?: SortOrderInput | SortOrder
     urlYoutube?: SortOrderInput | SortOrder
     title?: SortOrderInput | SortOrder
     desc?: SortOrderInput | SortOrder
@@ -8456,6 +9674,7 @@ export namespace Prisma {
     start?: DateTimeWithAggregatesFilter<"categoryProduct"> | Date | string
     end?: DateTimeWithAggregatesFilter<"categoryProduct"> | Date | string
     category?: StringWithAggregatesFilter<"categoryProduct"> | string
+    image?: StringNullableWithAggregatesFilter<"categoryProduct"> | string | null
     urlYoutube?: StringNullableWithAggregatesFilter<"categoryProduct"> | string | null
     title?: StringNullableWithAggregatesFilter<"categoryProduct"> | string | null
     desc?: StringNullableWithAggregatesFilter<"categoryProduct"> | string | null
@@ -8862,7 +10081,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"postArtikel"> | Date | string
     updatedAt?: DateTimeFilter<"postArtikel"> | Date | string
     saveDraf?: BoolFilter<"postArtikel"> | boolean
+    categoryArtikelId?: StringNullableFilter<"postArtikel"> | string | null
     imageProductArtikel?: ImageProductArtikelListRelationFilter
+    categoryArtikel?: XOR<CategoryArtikelNullableRelationFilter, categoryArtikelWhereInput> | null
   }
 
   export type postArtikelOrderByWithRelationInput = {
@@ -8875,7 +10096,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     saveDraf?: SortOrder
+    categoryArtikelId?: SortOrderInput | SortOrder
     imageProductArtikel?: imageProductArtikelOrderByRelationAggregateInput
+    categoryArtikel?: categoryArtikelOrderByWithRelationInput
   }
 
   export type postArtikelWhereUniqueInput = Prisma.AtLeast<{
@@ -8891,7 +10114,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"postArtikel"> | Date | string
     updatedAt?: DateTimeFilter<"postArtikel"> | Date | string
     saveDraf?: BoolFilter<"postArtikel"> | boolean
+    categoryArtikelId?: StringNullableFilter<"postArtikel"> | string | null
     imageProductArtikel?: ImageProductArtikelListRelationFilter
+    categoryArtikel?: XOR<CategoryArtikelNullableRelationFilter, categoryArtikelWhereInput> | null
   }, "slug" | "slug">
 
   export type postArtikelOrderByWithAggregationInput = {
@@ -8904,6 +10129,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     saveDraf?: SortOrder
+    categoryArtikelId?: SortOrderInput | SortOrder
     _count?: postArtikelCountOrderByAggregateInput
     _avg?: postArtikelAvgOrderByAggregateInput
     _max?: postArtikelMaxOrderByAggregateInput
@@ -8924,6 +10150,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"postArtikel"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"postArtikel"> | Date | string
     saveDraf?: BoolWithAggregatesFilter<"postArtikel"> | boolean
+    categoryArtikelId?: StringNullableWithAggregatesFilter<"postArtikel"> | string | null
   }
 
   export type imageProductArtikelWhereInput = {
@@ -9083,10 +10310,89 @@ export namespace Prisma {
     IdProductArtikel?: StringWithAggregatesFilter<"imageProductArtikel"> | string
   }
 
+  export type categoryArtikelWhereInput = {
+    AND?: categoryArtikelWhereInput | categoryArtikelWhereInput[]
+    OR?: categoryArtikelWhereInput[]
+    NOT?: categoryArtikelWhereInput | categoryArtikelWhereInput[]
+    id?: IntFilter<"categoryArtikel"> | number
+    start?: DateTimeFilter<"categoryArtikel"> | Date | string
+    end?: DateTimeFilter<"categoryArtikel"> | Date | string
+    category?: StringFilter<"categoryArtikel"> | string
+    image?: StringNullableFilter<"categoryArtikel"> | string | null
+    urlYoutube?: StringNullableFilter<"categoryArtikel"> | string | null
+    title?: StringNullableFilter<"categoryArtikel"> | string | null
+    desc?: StringNullableFilter<"categoryArtikel"> | string | null
+    tags?: StringNullableFilter<"categoryArtikel"> | string | null
+    postArtikel?: PostArtikelListRelationFilter
+  }
+
+  export type categoryArtikelOrderByWithRelationInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    category?: SortOrder
+    image?: SortOrderInput | SortOrder
+    urlYoutube?: SortOrderInput | SortOrder
+    title?: SortOrderInput | SortOrder
+    desc?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
+    postArtikel?: postArtikelOrderByRelationAggregateInput
+  }
+
+  export type categoryArtikelWhereUniqueInput = Prisma.AtLeast<{
+    category?: string
+    AND?: categoryArtikelWhereInput | categoryArtikelWhereInput[]
+    OR?: categoryArtikelWhereInput[]
+    NOT?: categoryArtikelWhereInput | categoryArtikelWhereInput[]
+    id?: IntFilter<"categoryArtikel"> | number
+    start?: DateTimeFilter<"categoryArtikel"> | Date | string
+    end?: DateTimeFilter<"categoryArtikel"> | Date | string
+    image?: StringNullableFilter<"categoryArtikel"> | string | null
+    urlYoutube?: StringNullableFilter<"categoryArtikel"> | string | null
+    title?: StringNullableFilter<"categoryArtikel"> | string | null
+    desc?: StringNullableFilter<"categoryArtikel"> | string | null
+    tags?: StringNullableFilter<"categoryArtikel"> | string | null
+    postArtikel?: PostArtikelListRelationFilter
+  }, "category" | "category">
+
+  export type categoryArtikelOrderByWithAggregationInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    category?: SortOrder
+    image?: SortOrderInput | SortOrder
+    urlYoutube?: SortOrderInput | SortOrder
+    title?: SortOrderInput | SortOrder
+    desc?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
+    _count?: categoryArtikelCountOrderByAggregateInput
+    _avg?: categoryArtikelAvgOrderByAggregateInput
+    _max?: categoryArtikelMaxOrderByAggregateInput
+    _min?: categoryArtikelMinOrderByAggregateInput
+    _sum?: categoryArtikelSumOrderByAggregateInput
+  }
+
+  export type categoryArtikelScalarWhereWithAggregatesInput = {
+    AND?: categoryArtikelScalarWhereWithAggregatesInput | categoryArtikelScalarWhereWithAggregatesInput[]
+    OR?: categoryArtikelScalarWhereWithAggregatesInput[]
+    NOT?: categoryArtikelScalarWhereWithAggregatesInput | categoryArtikelScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"categoryArtikel"> | number
+    start?: DateTimeWithAggregatesFilter<"categoryArtikel"> | Date | string
+    end?: DateTimeWithAggregatesFilter<"categoryArtikel"> | Date | string
+    category?: StringWithAggregatesFilter<"categoryArtikel"> | string
+    image?: StringNullableWithAggregatesFilter<"categoryArtikel"> | string | null
+    urlYoutube?: StringNullableWithAggregatesFilter<"categoryArtikel"> | string | null
+    title?: StringNullableWithAggregatesFilter<"categoryArtikel"> | string | null
+    desc?: StringNullableWithAggregatesFilter<"categoryArtikel"> | string | null
+    tags?: StringNullableWithAggregatesFilter<"categoryArtikel"> | string | null
+  }
+
   export type categoryProductCreateInput = {
+    id?: number
     start?: Date | string
     end?: Date | string
     category: string
+    image?: string | null
     urlYoutube?: string | null
     title?: string | null
     desc?: string | null
@@ -9099,6 +10405,7 @@ export namespace Prisma {
     start?: Date | string
     end?: Date | string
     category: string
+    image?: string | null
     urlYoutube?: string | null
     title?: string | null
     desc?: string | null
@@ -9107,9 +10414,11 @@ export namespace Prisma {
   }
 
   export type categoryProductUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
     start?: DateTimeFieldUpdateOperationsInput | Date | string
     end?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9122,6 +10431,7 @@ export namespace Prisma {
     start?: DateTimeFieldUpdateOperationsInput | Date | string
     end?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9134,6 +10444,7 @@ export namespace Prisma {
     start?: Date | string
     end?: Date | string
     category: string
+    image?: string | null
     urlYoutube?: string | null
     title?: string | null
     desc?: string | null
@@ -9141,9 +10452,11 @@ export namespace Prisma {
   }
 
   export type categoryProductUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
     start?: DateTimeFieldUpdateOperationsInput | Date | string
     end?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9155,6 +10468,7 @@ export namespace Prisma {
     start?: DateTimeFieldUpdateOperationsInput | Date | string
     end?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9636,6 +10950,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     saveDraf?: boolean
     imageProductArtikel?: imageProductArtikelCreateNestedManyWithoutUserdInput
+    categoryArtikel?: categoryArtikelCreateNestedOneWithoutPostArtikelInput
   }
 
   export type postArtikelUncheckedCreateInput = {
@@ -9648,6 +10963,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     saveDraf?: boolean
+    categoryArtikelId?: string | null
     imageProductArtikel?: imageProductArtikelUncheckedCreateNestedManyWithoutUserdInput
   }
 
@@ -9662,6 +10978,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     saveDraf?: BoolFieldUpdateOperationsInput | boolean
     imageProductArtikel?: imageProductArtikelUpdateManyWithoutUserdNestedInput
+    categoryArtikel?: categoryArtikelUpdateOneWithoutPostArtikelNestedInput
   }
 
   export type postArtikelUncheckedUpdateInput = {
@@ -9674,6 +10991,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     saveDraf?: BoolFieldUpdateOperationsInput | boolean
+    categoryArtikelId?: NullableStringFieldUpdateOperationsInput | string | null
     imageProductArtikel?: imageProductArtikelUncheckedUpdateManyWithoutUserdNestedInput
   }
 
@@ -9687,6 +11005,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     saveDraf?: boolean
+    categoryArtikelId?: string | null
   }
 
   export type postArtikelUpdateManyMutationInput = {
@@ -9711,6 +11030,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     saveDraf?: BoolFieldUpdateOperationsInput | boolean
+    categoryArtikelId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type imageProductArtikelCreateInput = {
@@ -9905,6 +11225,94 @@ export namespace Prisma {
     IdProductArtikel?: StringFieldUpdateOperationsInput | string
   }
 
+  export type categoryArtikelCreateInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
+    category: string
+    image?: string | null
+    urlYoutube?: string | null
+    title?: string | null
+    desc?: string | null
+    tags?: string | null
+    postArtikel?: postArtikelCreateNestedManyWithoutCategoryArtikelInput
+  }
+
+  export type categoryArtikelUncheckedCreateInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
+    category: string
+    image?: string | null
+    urlYoutube?: string | null
+    title?: string | null
+    desc?: string | null
+    tags?: string | null
+    postArtikel?: postArtikelUncheckedCreateNestedManyWithoutCategoryArtikelInput
+  }
+
+  export type categoryArtikelUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    postArtikel?: postArtikelUpdateManyWithoutCategoryArtikelNestedInput
+  }
+
+  export type categoryArtikelUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    postArtikel?: postArtikelUncheckedUpdateManyWithoutCategoryArtikelNestedInput
+  }
+
+  export type categoryArtikelCreateManyInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
+    category: string
+    image?: string | null
+    urlYoutube?: string | null
+    title?: string | null
+    desc?: string | null
+    tags?: string | null
+  }
+
+  export type categoryArtikelUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type categoryArtikelUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -9977,6 +11385,7 @@ export namespace Prisma {
     start?: SortOrder
     end?: SortOrder
     category?: SortOrder
+    image?: SortOrder
     urlYoutube?: SortOrder
     title?: SortOrder
     desc?: SortOrder
@@ -9992,6 +11401,7 @@ export namespace Prisma {
     start?: SortOrder
     end?: SortOrder
     category?: SortOrder
+    image?: SortOrder
     urlYoutube?: SortOrder
     title?: SortOrder
     desc?: SortOrder
@@ -10003,6 +11413,7 @@ export namespace Prisma {
     start?: SortOrder
     end?: SortOrder
     category?: SortOrder
+    image?: SortOrder
     urlYoutube?: SortOrder
     title?: SortOrder
     desc?: SortOrder
@@ -10475,6 +11886,11 @@ export namespace Prisma {
     none?: imageProductArtikelWhereInput
   }
 
+  export type CategoryArtikelNullableRelationFilter = {
+    is?: categoryArtikelWhereInput | null
+    isNot?: categoryArtikelWhereInput | null
+  }
+
   export type imageProductArtikelOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -10489,6 +11905,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     saveDraf?: SortOrder
+    categoryArtikelId?: SortOrder
   }
 
   export type postArtikelAvgOrderByAggregateInput = {
@@ -10504,6 +11921,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     saveDraf?: SortOrder
+    categoryArtikelId?: SortOrder
   }
 
   export type postArtikelMinOrderByAggregateInput = {
@@ -10515,6 +11933,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     saveDraf?: SortOrder
+    categoryArtikelId?: SortOrder
   }
 
   export type postArtikelSumOrderByAggregateInput = {
@@ -10624,6 +12043,60 @@ export namespace Prisma {
     bytes?: SortOrder
   }
 
+  export type PostArtikelListRelationFilter = {
+    every?: postArtikelWhereInput
+    some?: postArtikelWhereInput
+    none?: postArtikelWhereInput
+  }
+
+  export type postArtikelOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type categoryArtikelCountOrderByAggregateInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    category?: SortOrder
+    image?: SortOrder
+    urlYoutube?: SortOrder
+    title?: SortOrder
+    desc?: SortOrder
+    tags?: SortOrder
+  }
+
+  export type categoryArtikelAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type categoryArtikelMaxOrderByAggregateInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    category?: SortOrder
+    image?: SortOrder
+    urlYoutube?: SortOrder
+    title?: SortOrder
+    desc?: SortOrder
+    tags?: SortOrder
+  }
+
+  export type categoryArtikelMinOrderByAggregateInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    category?: SortOrder
+    image?: SortOrder
+    urlYoutube?: SortOrder
+    title?: SortOrder
+    desc?: SortOrder
+    tags?: SortOrder
+  }
+
+  export type categoryArtikelSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type listProductCreateNestedManyWithoutUserInput = {
     create?: XOR<listProductCreateWithoutUserInput, listProductUncheckedCreateWithoutUserInput> | listProductCreateWithoutUserInput[] | listProductUncheckedCreateWithoutUserInput[]
     connectOrCreate?: listProductCreateOrConnectWithoutUserInput | listProductCreateOrConnectWithoutUserInput[]
@@ -10636,6 +12109,14 @@ export namespace Prisma {
     connectOrCreate?: listProductCreateOrConnectWithoutUserInput | listProductCreateOrConnectWithoutUserInput[]
     createMany?: listProductCreateManyUserInputEnvelope
     connect?: listProductWhereUniqueInput | listProductWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -10662,14 +12143,6 @@ export namespace Prisma {
     update?: listProductUpdateWithWhereUniqueWithoutUserInput | listProductUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: listProductUpdateManyWithWhereWithoutUserInput | listProductUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: listProductScalarWhereInput | listProductScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type listProductUncheckedUpdateManyWithoutUserNestedInput = {
@@ -10833,6 +12306,12 @@ export namespace Prisma {
     connect?: imageProductArtikelWhereUniqueInput | imageProductArtikelWhereUniqueInput[]
   }
 
+  export type categoryArtikelCreateNestedOneWithoutPostArtikelInput = {
+    create?: XOR<categoryArtikelCreateWithoutPostArtikelInput, categoryArtikelUncheckedCreateWithoutPostArtikelInput>
+    connectOrCreate?: categoryArtikelCreateOrConnectWithoutPostArtikelInput
+    connect?: categoryArtikelWhereUniqueInput
+  }
+
   export type imageProductArtikelUncheckedCreateNestedManyWithoutUserdInput = {
     create?: XOR<imageProductArtikelCreateWithoutUserdInput, imageProductArtikelUncheckedCreateWithoutUserdInput> | imageProductArtikelCreateWithoutUserdInput[] | imageProductArtikelUncheckedCreateWithoutUserdInput[]
     connectOrCreate?: imageProductArtikelCreateOrConnectWithoutUserdInput | imageProductArtikelCreateOrConnectWithoutUserdInput[]
@@ -10852,6 +12331,16 @@ export namespace Prisma {
     update?: imageProductArtikelUpdateWithWhereUniqueWithoutUserdInput | imageProductArtikelUpdateWithWhereUniqueWithoutUserdInput[]
     updateMany?: imageProductArtikelUpdateManyWithWhereWithoutUserdInput | imageProductArtikelUpdateManyWithWhereWithoutUserdInput[]
     deleteMany?: imageProductArtikelScalarWhereInput | imageProductArtikelScalarWhereInput[]
+  }
+
+  export type categoryArtikelUpdateOneWithoutPostArtikelNestedInput = {
+    create?: XOR<categoryArtikelCreateWithoutPostArtikelInput, categoryArtikelUncheckedCreateWithoutPostArtikelInput>
+    connectOrCreate?: categoryArtikelCreateOrConnectWithoutPostArtikelInput
+    upsert?: categoryArtikelUpsertWithoutPostArtikelInput
+    disconnect?: categoryArtikelWhereInput | boolean
+    delete?: categoryArtikelWhereInput | boolean
+    connect?: categoryArtikelWhereUniqueInput
+    update?: XOR<XOR<categoryArtikelUpdateToOneWithWhereWithoutPostArtikelInput, categoryArtikelUpdateWithoutPostArtikelInput>, categoryArtikelUncheckedUpdateWithoutPostArtikelInput>
   }
 
   export type imageProductArtikelUncheckedUpdateManyWithoutUserdNestedInput = {
@@ -10880,6 +12369,48 @@ export namespace Prisma {
     upsert?: postArtikelUpsertWithoutImageProductArtikelInput
     connect?: postArtikelWhereUniqueInput
     update?: XOR<XOR<postArtikelUpdateToOneWithWhereWithoutImageProductArtikelInput, postArtikelUpdateWithoutImageProductArtikelInput>, postArtikelUncheckedUpdateWithoutImageProductArtikelInput>
+  }
+
+  export type postArtikelCreateNestedManyWithoutCategoryArtikelInput = {
+    create?: XOR<postArtikelCreateWithoutCategoryArtikelInput, postArtikelUncheckedCreateWithoutCategoryArtikelInput> | postArtikelCreateWithoutCategoryArtikelInput[] | postArtikelUncheckedCreateWithoutCategoryArtikelInput[]
+    connectOrCreate?: postArtikelCreateOrConnectWithoutCategoryArtikelInput | postArtikelCreateOrConnectWithoutCategoryArtikelInput[]
+    createMany?: postArtikelCreateManyCategoryArtikelInputEnvelope
+    connect?: postArtikelWhereUniqueInput | postArtikelWhereUniqueInput[]
+  }
+
+  export type postArtikelUncheckedCreateNestedManyWithoutCategoryArtikelInput = {
+    create?: XOR<postArtikelCreateWithoutCategoryArtikelInput, postArtikelUncheckedCreateWithoutCategoryArtikelInput> | postArtikelCreateWithoutCategoryArtikelInput[] | postArtikelUncheckedCreateWithoutCategoryArtikelInput[]
+    connectOrCreate?: postArtikelCreateOrConnectWithoutCategoryArtikelInput | postArtikelCreateOrConnectWithoutCategoryArtikelInput[]
+    createMany?: postArtikelCreateManyCategoryArtikelInputEnvelope
+    connect?: postArtikelWhereUniqueInput | postArtikelWhereUniqueInput[]
+  }
+
+  export type postArtikelUpdateManyWithoutCategoryArtikelNestedInput = {
+    create?: XOR<postArtikelCreateWithoutCategoryArtikelInput, postArtikelUncheckedCreateWithoutCategoryArtikelInput> | postArtikelCreateWithoutCategoryArtikelInput[] | postArtikelUncheckedCreateWithoutCategoryArtikelInput[]
+    connectOrCreate?: postArtikelCreateOrConnectWithoutCategoryArtikelInput | postArtikelCreateOrConnectWithoutCategoryArtikelInput[]
+    upsert?: postArtikelUpsertWithWhereUniqueWithoutCategoryArtikelInput | postArtikelUpsertWithWhereUniqueWithoutCategoryArtikelInput[]
+    createMany?: postArtikelCreateManyCategoryArtikelInputEnvelope
+    set?: postArtikelWhereUniqueInput | postArtikelWhereUniqueInput[]
+    disconnect?: postArtikelWhereUniqueInput | postArtikelWhereUniqueInput[]
+    delete?: postArtikelWhereUniqueInput | postArtikelWhereUniqueInput[]
+    connect?: postArtikelWhereUniqueInput | postArtikelWhereUniqueInput[]
+    update?: postArtikelUpdateWithWhereUniqueWithoutCategoryArtikelInput | postArtikelUpdateWithWhereUniqueWithoutCategoryArtikelInput[]
+    updateMany?: postArtikelUpdateManyWithWhereWithoutCategoryArtikelInput | postArtikelUpdateManyWithWhereWithoutCategoryArtikelInput[]
+    deleteMany?: postArtikelScalarWhereInput | postArtikelScalarWhereInput[]
+  }
+
+  export type postArtikelUncheckedUpdateManyWithoutCategoryArtikelNestedInput = {
+    create?: XOR<postArtikelCreateWithoutCategoryArtikelInput, postArtikelUncheckedCreateWithoutCategoryArtikelInput> | postArtikelCreateWithoutCategoryArtikelInput[] | postArtikelUncheckedCreateWithoutCategoryArtikelInput[]
+    connectOrCreate?: postArtikelCreateOrConnectWithoutCategoryArtikelInput | postArtikelCreateOrConnectWithoutCategoryArtikelInput[]
+    upsert?: postArtikelUpsertWithWhereUniqueWithoutCategoryArtikelInput | postArtikelUpsertWithWhereUniqueWithoutCategoryArtikelInput[]
+    createMany?: postArtikelCreateManyCategoryArtikelInputEnvelope
+    set?: postArtikelWhereUniqueInput | postArtikelWhereUniqueInput[]
+    disconnect?: postArtikelWhereUniqueInput | postArtikelWhereUniqueInput[]
+    delete?: postArtikelWhereUniqueInput | postArtikelWhereUniqueInput[]
+    connect?: postArtikelWhereUniqueInput | postArtikelWhereUniqueInput[]
+    update?: postArtikelUpdateWithWhereUniqueWithoutCategoryArtikelInput | postArtikelUpdateWithWhereUniqueWithoutCategoryArtikelInput[]
+    updateMany?: postArtikelUpdateManyWithWhereWithoutCategoryArtikelInput | postArtikelUpdateManyWithWhereWithoutCategoryArtikelInput[]
+    deleteMany?: postArtikelScalarWhereInput | postArtikelScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -11215,9 +12746,11 @@ export namespace Prisma {
   }
 
   export type categoryProductCreateWithoutListProductsInput = {
+    id?: number
     start?: Date | string
     end?: Date | string
     category: string
+    image?: string | null
     urlYoutube?: string | null
     title?: string | null
     desc?: string | null
@@ -11229,6 +12762,7 @@ export namespace Prisma {
     start?: Date | string
     end?: Date | string
     category: string
+    image?: string | null
     urlYoutube?: string | null
     title?: string | null
     desc?: string | null
@@ -11352,9 +12886,11 @@ export namespace Prisma {
   }
 
   export type categoryProductUpdateWithoutListProductsInput = {
+    id?: IntFieldUpdateOperationsInput | number
     start?: DateTimeFieldUpdateOperationsInput | Date | string
     end?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11366,6 +12902,7 @@ export namespace Prisma {
     start?: DateTimeFieldUpdateOperationsInput | Date | string
     end?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
     title?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11733,6 +13270,35 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type categoryArtikelCreateWithoutPostArtikelInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
+    category: string
+    image?: string | null
+    urlYoutube?: string | null
+    title?: string | null
+    desc?: string | null
+    tags?: string | null
+  }
+
+  export type categoryArtikelUncheckedCreateWithoutPostArtikelInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
+    category: string
+    image?: string | null
+    urlYoutube?: string | null
+    title?: string | null
+    desc?: string | null
+    tags?: string | null
+  }
+
+  export type categoryArtikelCreateOrConnectWithoutPostArtikelInput = {
+    where: categoryArtikelWhereUniqueInput
+    create: XOR<categoryArtikelCreateWithoutPostArtikelInput, categoryArtikelUncheckedCreateWithoutPostArtikelInput>
+  }
+
   export type imageProductArtikelUpsertWithWhereUniqueWithoutUserdInput = {
     where: imageProductArtikelWhereUniqueInput
     update: XOR<imageProductArtikelUpdateWithoutUserdInput, imageProductArtikelUncheckedUpdateWithoutUserdInput>
@@ -11780,6 +13346,41 @@ export namespace Prisma {
     IdProductArtikel?: StringFilter<"imageProductArtikel"> | string
   }
 
+  export type categoryArtikelUpsertWithoutPostArtikelInput = {
+    update: XOR<categoryArtikelUpdateWithoutPostArtikelInput, categoryArtikelUncheckedUpdateWithoutPostArtikelInput>
+    create: XOR<categoryArtikelCreateWithoutPostArtikelInput, categoryArtikelUncheckedCreateWithoutPostArtikelInput>
+    where?: categoryArtikelWhereInput
+  }
+
+  export type categoryArtikelUpdateToOneWithWhereWithoutPostArtikelInput = {
+    where?: categoryArtikelWhereInput
+    data: XOR<categoryArtikelUpdateWithoutPostArtikelInput, categoryArtikelUncheckedUpdateWithoutPostArtikelInput>
+  }
+
+  export type categoryArtikelUpdateWithoutPostArtikelInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type categoryArtikelUncheckedUpdateWithoutPostArtikelInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type postArtikelCreateWithoutImageProductArtikelInput = {
     id?: number
     title: string
@@ -11790,6 +13391,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     saveDraf?: boolean
+    categoryArtikel?: categoryArtikelCreateNestedOneWithoutPostArtikelInput
   }
 
   export type postArtikelUncheckedCreateWithoutImageProductArtikelInput = {
@@ -11802,6 +13404,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     saveDraf?: boolean
+    categoryArtikelId?: string | null
   }
 
   export type postArtikelCreateOrConnectWithoutImageProductArtikelInput = {
@@ -11830,6 +13433,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     saveDraf?: BoolFieldUpdateOperationsInput | boolean
+    categoryArtikel?: categoryArtikelUpdateOneWithoutPostArtikelNestedInput
   }
 
   export type postArtikelUncheckedUpdateWithoutImageProductArtikelInput = {
@@ -11842,6 +13446,75 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     saveDraf?: BoolFieldUpdateOperationsInput | boolean
+    categoryArtikelId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type postArtikelCreateWithoutCategoryArtikelInput = {
+    id?: number
+    title: string
+    slug: string
+    content: string
+    description?: string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    saveDraf?: boolean
+    imageProductArtikel?: imageProductArtikelCreateNestedManyWithoutUserdInput
+  }
+
+  export type postArtikelUncheckedCreateWithoutCategoryArtikelInput = {
+    id?: number
+    title: string
+    slug: string
+    content: string
+    description?: string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    saveDraf?: boolean
+    imageProductArtikel?: imageProductArtikelUncheckedCreateNestedManyWithoutUserdInput
+  }
+
+  export type postArtikelCreateOrConnectWithoutCategoryArtikelInput = {
+    where: postArtikelWhereUniqueInput
+    create: XOR<postArtikelCreateWithoutCategoryArtikelInput, postArtikelUncheckedCreateWithoutCategoryArtikelInput>
+  }
+
+  export type postArtikelCreateManyCategoryArtikelInputEnvelope = {
+    data: postArtikelCreateManyCategoryArtikelInput | postArtikelCreateManyCategoryArtikelInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type postArtikelUpsertWithWhereUniqueWithoutCategoryArtikelInput = {
+    where: postArtikelWhereUniqueInput
+    update: XOR<postArtikelUpdateWithoutCategoryArtikelInput, postArtikelUncheckedUpdateWithoutCategoryArtikelInput>
+    create: XOR<postArtikelCreateWithoutCategoryArtikelInput, postArtikelUncheckedCreateWithoutCategoryArtikelInput>
+  }
+
+  export type postArtikelUpdateWithWhereUniqueWithoutCategoryArtikelInput = {
+    where: postArtikelWhereUniqueInput
+    data: XOR<postArtikelUpdateWithoutCategoryArtikelInput, postArtikelUncheckedUpdateWithoutCategoryArtikelInput>
+  }
+
+  export type postArtikelUpdateManyWithWhereWithoutCategoryArtikelInput = {
+    where: postArtikelScalarWhereInput
+    data: XOR<postArtikelUpdateManyMutationInput, postArtikelUncheckedUpdateManyWithoutCategoryArtikelInput>
+  }
+
+  export type postArtikelScalarWhereInput = {
+    AND?: postArtikelScalarWhereInput | postArtikelScalarWhereInput[]
+    OR?: postArtikelScalarWhereInput[]
+    NOT?: postArtikelScalarWhereInput | postArtikelScalarWhereInput[]
+    id?: IntFilter<"postArtikel"> | number
+    title?: StringFilter<"postArtikel"> | string
+    slug?: StringFilter<"postArtikel"> | string
+    content?: StringFilter<"postArtikel"> | string
+    description?: StringNullableFilter<"postArtikel"> | string | null
+    tags?: JsonNullableFilter<"postArtikel">
+    createdAt?: DateTimeFilter<"postArtikel"> | Date | string
+    updatedAt?: DateTimeFilter<"postArtikel"> | Date | string
+    saveDraf?: BoolFilter<"postArtikel"> | boolean
+    categoryArtikelId?: StringNullableFilter<"postArtikel"> | string | null
   }
 
   export type listProductCreateManyUserInput = {
@@ -12142,6 +13815,56 @@ export namespace Prisma {
     api_key?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type postArtikelCreateManyCategoryArtikelInput = {
+    id?: number
+    title: string
+    slug: string
+    content: string
+    description?: string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    saveDraf?: boolean
+  }
+
+  export type postArtikelUpdateWithoutCategoryArtikelInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    saveDraf?: BoolFieldUpdateOperationsInput | boolean
+    imageProductArtikel?: imageProductArtikelUpdateManyWithoutUserdNestedInput
+  }
+
+  export type postArtikelUncheckedUpdateWithoutCategoryArtikelInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    saveDraf?: BoolFieldUpdateOperationsInput | boolean
+    imageProductArtikel?: imageProductArtikelUncheckedUpdateManyWithoutUserdNestedInput
+  }
+
+  export type postArtikelUncheckedUpdateManyWithoutCategoryArtikelInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    saveDraf?: BoolFieldUpdateOperationsInput | boolean
+  }
+
 
 
   /**
@@ -12159,6 +13882,10 @@ export namespace Prisma {
      * @deprecated Use PostArtikelCountOutputTypeDefaultArgs instead
      */
     export type PostArtikelCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PostArtikelCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CategoryArtikelCountOutputTypeDefaultArgs instead
+     */
+    export type CategoryArtikelCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CategoryArtikelCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use categoryProductDefaultArgs instead
      */
@@ -12183,6 +13910,10 @@ export namespace Prisma {
      * @deprecated Use imageProductArtikelDefaultArgs instead
      */
     export type imageProductArtikelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = imageProductArtikelDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use categoryArtikelDefaultArgs instead
+     */
+    export type categoryArtikelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = categoryArtikelDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

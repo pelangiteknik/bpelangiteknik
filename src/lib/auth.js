@@ -23,11 +23,11 @@ export const authOptions = {
                 console.log(credentials);
 
 
-                if (credentials?.email !== 'rio@rio.com' && credentials?.password !== '12345')
+                if (credentials?.email !== 'waduh@waduh' && credentials?.password !== 'iniapa')
                     return null
 
-                const user = { id: "99999999", username: "Hallo", email: "rio@rio.com" }
-                if (credentials?.email == 'rio@rio.com' && credentials?.password == '12345')
+                const user = { id: "99999999", username: "Hallo", email: "waduh@waduh" }
+                if (credentials?.email == 'waduh@waduh' && credentials?.password == 'iniapa')
                     return user
             }
         }

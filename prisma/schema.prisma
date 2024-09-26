@@ -16,10 +16,11 @@ datasource db {
 }
 
 model categoryProduct {
-  id           Int           @id @default(autoincrement())
+  id           Int           @default(autoincrement())
   start        DateTime      @default(now())
   end          DateTime      @updatedAt
-  category     String        @unique
+  category     String        @id @unique
+  image        String?
   urlYoutube   String?
   title        String?
   desc         String?
@@ -118,6 +119,9 @@ model postArtikel {
   updatedAt           DateTime              @updatedAt
   saveDraf            Boolean               @default(true)
   imageProductArtikel imageProductArtikel[]
+
+  categoryArtikel   categoryArtikel? @relation(fields: [categoryArtikelId], references: [category])
+  categoryArtikelId String?
 }
 
 model imageProductArtikel {
@@ -150,4 +154,17 @@ model imageProductArtikel {
   userd            postArtikel @relation(fields: [IdProductArtikel], references: [slug])
 
   @@index([IdProductArtikel])
+}
+
+model categoryArtikel {
+  id          Int           @default(autoincrement())
+  start       DateTime      @default(now())
+  end         DateTime      @updatedAt
+  category    String        @id @unique
+  image       String?
+  urlYoutube  String?
+  title       String?
+  desc        String?
+  tags        String?
+  postArtikel postArtikel[]
 }

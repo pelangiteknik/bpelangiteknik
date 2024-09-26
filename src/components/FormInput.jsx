@@ -19,6 +19,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link';
 import { HandleValidasi } from '@/service/handleValidasi';
 import Logout from './logout';
+import { HandlePostCategory } from '@/service/handlePostCategory';
 
 export default function FormInput({ data, text, dataKategori }) {
 
