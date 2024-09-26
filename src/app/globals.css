@@ -80,7 +80,24 @@ hr {
   height: auto !important;
 }
 
+.mobile {
+  display: none;
+}
+
+.desktop {
+  display: block;
+}
+
 @media only screen and (max-width: 767px) {
+
+  .mobile {
+    display: block;
+  }
+
+  .desktop {
+    display: none;
+  }
+
   h1 {
     font-size: 0.7rem;
   }

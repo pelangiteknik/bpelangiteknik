@@ -111,153 +111,158 @@ export default function ListProduct({ dataList, query, dataKategori, dataArtikel
     }
 
     return (
-        <div className={styles.container}>
-            <div className={styles.dalamcontainer}>
-                <div className={styles.atas}>
-                    <Link href={'/'} className={styles.judul}><MdHome size={30} />PelangiTeknik</Link>
-                    <Link href={'/post'} onClick={() => setLoading(true)}> <button className={styles.searchP}>Posting Product <MdLibraryAdd />
-                    </button></Link>
-                    <Link href={'/postartikel'} onClick={() => setLoading(true)}> <button className={styles.searchP}>Posting Artikel <MdLibraryAdd />
-                    </button></Link>
-                    <div className={styles.ataskanan}>
-                        <div className={styles.search}>
-                            <form onSubmit={handleSearch}>
-                                <input
-                                    type="text"
-                                    placeholder="Search..."
-                                    onChange={(e) => setSearch(e.target.value)}
-                                    value={search}
-                                />
+        <>
+            <div className="mobile">hanya digunakan di laptop/komputer</div>
+            <div className="desktop">
+                <div className={styles.container}>
+                    <div className={styles.dalamcontainer}>
+                        <div className={styles.atas}>
+                            <Link href={'/'} className={styles.judul}><MdHome size={30} />PelangiTeknik</Link>
+                            <Link href={'/post'} onClick={() => setLoading(true)}> <button className={styles.searchP}>Posting Product <MdLibraryAdd />
+                            </button></Link>
+                            <Link href={'/postartikel'} onClick={() => setLoading(true)}> <button className={styles.searchP}>Posting Artikel <MdLibraryAdd />
+                            </button></Link>
+                            <div className={styles.ataskanan}>
+                                <div className={styles.search}>
+                                    <form onSubmit={handleSearch}>
+                                        <input
+                                            type="text"
+                                            placeholder="Search..."
+                                            onChange={(e) => setSearch(e.target.value)}
+                                            value={search}
+                                        />
 
-                                <button className={styles.searchB} type="submit">Search</button>
-                            </form>
+                                        <button className={styles.searchB} type="submit">Search</button>
+                                    </form>
+                                </div>
+                                <Logout />
+                            </div>
                         </div>
-                        <Logout />
+
+                        {/* //PRODUCT */}
+                        <div className={styles.bawah}>
+                            {
+                                KondisiPencarian &&
+                                <div className={styles.hasilpencarian}>
+                                    Hasil Pencarian: <b>
+                                        {query}
+                                    </b>
+                                </div>
+                            }
+                            <table
+                                style={KondisiPencarian ? { margin: 0 } : {}}
+                                className={styles.producttable}>
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Stock</th>
+                                        <th>Price</th>
+                                        <th>Discount (%)</th>
+                                        <th>Final Price</th>
+                                        <th>Publish</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {dataList?.map((product, index) => {
+
+                                        return (<tr key={index} >
+                                            <td onClick={() => GetDetailProduct(product?.slugProduct)}>{product?.productName}</td>
+                                            <td>{product?.stockProduct}</td>
+                                            <td>{FormatRupiah(product?.productPrice)}</td>
+                                            <td>{product?.productDiscount}%</td>
+                                            <td>{FormatRupiah(product?.productPriceFinal)}</td>
+                                            <td style={{ width: '100px' }}>
+                                                <label className={styles.switch}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={!product?.saveDraf}
+                                                        onChange={() => UpdatePublish(product?.slugProduct, !product?.saveDraf)}
+                                                    />
+                                                    <span className={styles.slider}></span>
+                                                </label>
+                                            </td>
+                                            <td style={{ width: '50px', cursor: 'pointer', color: 'var(--colormain)' }} onClick={() => HandleDeleteProducts(product?.id)}><MdDeleteOutline size={30} /></td>
+                                        </tr>)
+                                    }
+                                    )}
+                                </tbody>
+                            </table>
+
+                            {KondisiPencarian && !dataList.length && <div>Data Tidak ada</div>}
+                        </div>
+
+                        {/* ARTIKEL */}
+                        <div className={styles.bawah}>
+                            <table
+                                className={styles.producttable}>
+                                <thead>
+                                    <tr>
+                                        <th>Judul Artikel</th>
+                                        <th>Publish</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {dataArtikel?.map((artikel, index) => {
+
+                                        return (<tr key={index} >
+                                            <td onClick={() => GetDetailProductArtikel(artikel?.slug)}>{artikel?.title}</td>
+                                            <td style={{ width: '100px' }}>
+                                                <label className={styles.switch}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={!artikel?.saveDraf}
+                                                        onChange={() => UpdatePublishArtikel(artikel?.slug, !artikel?.saveDraf)}
+                                                    />
+                                                    <span className={styles.slider}></span>
+                                                </label>
+                                            </td>
+                                            <td style={{ width: '50px', cursor: 'pointer', color: 'var(--colormain)' }} onClick={() => HandleDeleteArtikels(artikel?.id)}><MdDeleteOutline size={30} /></td>
+                                        </tr>)
+                                    }
+                                    )}
+                                </tbody>
+                            </table>
+
+                            {KondisiPencarian && !dataList.length && <div>Data Tidak ada</div>}
+                        </div>
+
                     </div>
-                </div>
 
-                {/* //PRODUCT */}
-                <div className={styles.bawah}>
+
                     {
-                        KondisiPencarian &&
-                        <div className={styles.hasilpencarian}>
-                            Hasil Pencarian: <b>
-                                {query}
-                            </b>
-                        </div>
+                        loading ?
+                            <div className={styles.loading}>
+                                <div className={styles.kotak} >
+                                    LOADING...
+                                </div>
+                            </div> :
+                            layang &&
+                            <>
+                                <div className={styles.bghitam} onClick={() => setLayang()}></div>
+                                <div className={styles.containerupdate}>
+                                    <FormInput data={data} text={'Update Product'} dataKategori={dataKategori} />
+                                </div>
+                            </>
                     }
-                    <table
-                        style={KondisiPencarian ? { margin: 0 } : {}}
-                        className={styles.producttable}>
-                        <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Stock</th>
-                                <th>Price</th>
-                                <th>Discount (%)</th>
-                                <th>Final Price</th>
-                                <th>Publish</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {dataList?.map((product, index) => {
-
-                                return (<tr key={index} >
-                                    <td onClick={() => GetDetailProduct(product?.slugProduct)}>{product?.productName}</td>
-                                    <td>{product?.stockProduct}</td>
-                                    <td>{FormatRupiah(product?.productPrice)}</td>
-                                    <td>{product?.productDiscount}%</td>
-                                    <td>{FormatRupiah(product?.productPriceFinal)}</td>
-                                    <td style={{ width: '100px' }}>
-                                        <label className={styles.switch}>
-                                            <input
-                                                type="checkbox"
-                                                checked={!product?.saveDraf}
-                                                onChange={() => UpdatePublish(product?.slugProduct, !product?.saveDraf)}
-                                            />
-                                            <span className={styles.slider}></span>
-                                        </label>
-                                    </td>
-                                    <td style={{ width: '50px', cursor: 'pointer', color: 'var(--colormain)' }} onClick={() => HandleDeleteProducts(product?.id)}><MdDeleteOutline size={30} /></td>
-                                </tr>)
-                            }
-                            )}
-                        </tbody>
-                    </table>
-
-                    {KondisiPencarian && !dataList.length && <div>Data Tidak ada</div>}
-                </div>
-
-                {/* ARTIKEL */}
-                <div className={styles.bawah}>
-                    <table
-                        className={styles.producttable}>
-                        <thead>
-                            <tr>
-                                <th>Judul Artikel</th>
-                                <th>Publish</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {dataArtikel?.map((artikel, index) => {
-
-                                return (<tr key={index} >
-                                    <td onClick={() => GetDetailProductArtikel(artikel?.slug)}>{artikel?.title}</td>
-                                    <td style={{ width: '100px' }}>
-                                        <label className={styles.switch}>
-                                            <input
-                                                type="checkbox"
-                                                checked={!artikel?.saveDraf}
-                                                onChange={() => UpdatePublishArtikel(artikel?.slug, !artikel?.saveDraf)}
-                                            />
-                                            <span className={styles.slider}></span>
-                                        </label>
-                                    </td>
-                                    <td style={{ width: '50px', cursor: 'pointer', color: 'var(--colormain)' }} onClick={() => HandleDeleteArtikels(artikel?.id)}><MdDeleteOutline size={30} /></td>
-                                </tr>)
-                            }
-                            )}
-                        </tbody>
-                    </table>
-
-                    {KondisiPencarian && !dataList.length && <div>Data Tidak ada</div>}
-                </div>
-
+                    {
+                        loading ?
+                            <div className={styles.loading}>
+                                <div className={styles.kotak} >
+                                    LOADING...
+                                </div>
+                            </div> :
+                            layangArtikel &&
+                            <>
+                                <div className={styles.bghitam} onClick={() => setLayangArtikel()}></div>
+                                <div className={styles.containerupdate}>
+                                    <FormInputArtikel data={dataArtikelUpdate} dataKategori={dataKategoriArtikel} text={'Update Artikel'} />
+                                </div>
+                            </>
+                    }
+                </div >
             </div>
-
-
-            {
-                loading ?
-                    <div className={styles.loading}>
-                        <div className={styles.kotak} >
-                            LOADING...
-                        </div>
-                    </div> :
-                    layang &&
-                    <>
-                        <div className={styles.bghitam} onClick={() => setLayang()}></div>
-                        <div className={styles.containerupdate}>
-                            <FormInput data={data} text={'Update Product'} dataKategori={dataKategori} />
-                        </div>
-                    </>
-            }
-            {
-                loading ?
-                    <div className={styles.loading}>
-                        <div className={styles.kotak} >
-                            LOADING...
-                        </div>
-                    </div> :
-                    layangArtikel &&
-                    <>
-                        <div className={styles.bghitam} onClick={() => setLayangArtikel()}></div>
-                        <div className={styles.containerupdate}>
-                            <FormInputArtikel data={dataArtikelUpdate} dataKategori={dataKategoriArtikel} text={'Update Artikel'} />
-                        </div>
-                    </>
-            }
-        </div >
+        </>
     )
 }

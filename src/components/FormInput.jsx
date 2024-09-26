@@ -197,8 +197,8 @@ export default function FormInput({ data, text, dataKategori }) {
             .max(200, 'Must be 20 characters or less')
             .required('*'),
         productKategori: Yup.number().required('*'),
-        urlYoutube: Yup.string()
-            .required('*'),
+        // urlYoutube: Yup.string()
+        //     .required('*'),
         descMetaProduct: Yup.string()
             .min(100, 'Minimal 100huruf')
             .required('*'),
