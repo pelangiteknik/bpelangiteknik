@@ -21,7 +21,6 @@ export default function Login() {
                     email: email,
                     password: password
                 }
-
             )
             if (!res?.error) {
                 router.push('/')

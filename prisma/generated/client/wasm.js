@@ -124,7 +124,9 @@ exports.Prisma.CategoryProductScalarFieldEnum = {
   start: 'start',
   end: 'end',
   category: 'category',
+  slugCategory: 'slugCategory',
   image: 'image',
+  icon: 'icon',
   urlYoutube: 'urlYoutube',
   title: 'title',
   desc: 'desc',
@@ -243,11 +245,85 @@ exports.Prisma.CategoryArtikelScalarFieldEnum = {
   start: 'start',
   end: 'end',
   category: 'category',
+  slugCategory: 'slugCategory',
   image: 'image',
+  icon: 'icon',
   urlYoutube: 'urlYoutube',
   title: 'title',
   desc: 'desc',
   tags: 'tags'
+};
+
+exports.Prisma.CartScalarFieldEnum = {
+  IDCart: 'IDCart',
+  email: 'email',
+  name: 'name',
+  avatar: 'avatar',
+  id: 'id',
+  start: 'start',
+  end: 'end'
+};
+
+exports.Prisma.CartItemScalarFieldEnum = {
+  id: 'id',
+  start: 'start',
+  end: 'end',
+  cartId: 'cartId',
+  productId: 'productId',
+  quantity: 'quantity',
+  checkList: 'checkList',
+  note: 'note'
+};
+
+exports.Prisma.FormPembelianScalarFieldEnum = {
+  id: 'id',
+  start: 'start',
+  end: 'end',
+  nama_lengkap_user: 'nama_lengkap_user',
+  alamat_lengkap_user: 'alamat_lengkap_user',
+  kode_pos_user: 'kode_pos_user',
+  no_hp_user: 'no_hp_user',
+  catatan_pengiriman: 'catatan_pengiriman',
+  cartID: 'cartID'
+};
+
+exports.Prisma.OngkosKirimScalarFieldEnum = {
+  id: 'id',
+  start: 'start',
+  end: 'end',
+  productName: 'productName',
+  price: 'price',
+  quantity: 'quantity',
+  cartID: 'cartID'
+};
+
+exports.Prisma.DataPesananItemScalarFieldEnum = {
+  id: 'id',
+  start: 'start',
+  end: 'end',
+  note: 'note',
+  productName: 'productName',
+  price: 'price',
+  priceOriginal: 'priceOriginal',
+  quantity: 'quantity',
+  methodPayment: 'methodPayment',
+  image: 'image',
+  slugProduct: 'slugProduct',
+  merchantOrderId: 'merchantOrderId',
+  statusProses: 'statusProses',
+  statusKirim: 'statusKirim',
+  statusSelesai: 'statusSelesai',
+  dataPesananId: 'dataPesananId'
+};
+
+exports.Prisma.DataPesananScalarFieldEnum = {
+  id: 'id',
+  start: 'start',
+  end: 'end',
+  payment: 'payment',
+  reference: 'reference',
+  merchantOrderId: 'merchantOrderId',
+  cartID: 'cartID'
 };
 
 exports.Prisma.SortOrder = {
@@ -284,7 +360,13 @@ exports.Prisma.ModelName = {
   imageProduct: 'imageProduct',
   postArtikel: 'postArtikel',
   imageProductArtikel: 'imageProductArtikel',
-  categoryArtikel: 'categoryArtikel'
+  categoryArtikel: 'categoryArtikel',
+  cart: 'cart',
+  cartItem: 'cartItem',
+  formPembelian: 'formPembelian',
+  ongkosKirim: 'ongkosKirim',
+  dataPesananItem: 'dataPesananItem',
+  dataPesanan: 'dataPesanan'
 };
 
 /**

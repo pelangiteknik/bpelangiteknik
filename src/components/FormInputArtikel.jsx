@@ -123,7 +123,11 @@ export default function FormInputArtikel({ data, text, dataKategori }) {
             return true
         } else {
             await HandlePostCategoryArtikel({
-                "category": kategori
+                "category": kategori,
+                "slugCategory": kategori?.toLowerCase() // ubah jadi huruf kecil
+                    ?.replace(/[^a-z0-9\s]/g, '') // hapus karakter selain huruf, angka, dan spasi
+                    ?.trim() // hapus spasi di awal dan akhir
+                    ?.replace(/\s+/g, '-')
             })
             setLoadingKategori(false)
             setKlikKategori(false)

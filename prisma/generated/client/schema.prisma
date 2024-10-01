@@ -20,7 +20,9 @@ model categoryProduct {
   start        DateTime      @default(now())
   end          DateTime      @updatedAt
   category     String        @unique
+  slugCategory String        @unique
   image        String?
+  icon         String?
   urlYoutube   String?
   title        String?
   desc         String?
@@ -53,6 +55,7 @@ model listProduct {
 
   url_image_product imageProduct[]
   spec_product      specProduct?
+  cartItem          cartItem[]
 
   @@index([productKategori])
 }
@@ -157,14 +160,105 @@ model imageProductArtikel {
 }
 
 model categoryArtikel {
-  id          Int           @id @default(autoincrement())
-  start       DateTime      @default(now())
-  end         DateTime      @updatedAt
-  category    String        @unique
-  image       String?
-  urlYoutube  String?
-  title       String?
-  desc        String?
-  tags        String?
-  postArtikel postArtikel[]
+  id           Int           @id @default(autoincrement())
+  start        DateTime      @default(now())
+  end          DateTime      @updatedAt
+  category     String        @unique
+  slugCategory String        @unique
+  image        String?
+  icon         String?
+  urlYoutube   String?
+  title        String?
+  desc         String?
+  tags         String?
+  postArtikel  postArtikel[]
+}
+
+model cart {
+  IDCart      String         @id
+  email       String         @unique
+  name        String?
+  avatar      String?
+  id          Int            @default(autoincrement())
+  start       DateTime       @default(now())
+  end         DateTime?      @updatedAt
+  items       cartItem[] // Relasi ke item di keranjang
+  formData    formPembelian?
+  dataPesanan dataPesanan[]
+  ongkosKirim ongkosKirim?
+}
+
+model cartItem {
+  id        Int         @id @default(autoincrement())
+  start     DateTime    @default(now())
+  end       DateTime?   @updatedAt
+  cart      cart        @relation(fields: [cartId], references: [IDCart], onDelete: Cascade)
+  cartId    String
+  product   listProduct @relation(fields: [productId], references: [id])
+  productId Int
+  quantity  Int         @default(1)
+  checkList Boolean     @default(false)
+  note      String?
+}
+
+model formPembelian {
+  id                  Int       @id @default(autoincrement())
+  start               DateTime  @default(now())
+  end                 DateTime? @updatedAt
+  nama_lengkap_user   String?   @db.VarChar(200)
+  alamat_lengkap_user String?   @db.VarChar(200)
+  kode_pos_user       Int?
+  no_hp_user          BigInt?
+  catatan_pengiriman  String?   @db.VarChar(200)
+
+  cartID String @unique
+  user   cart   @relation(fields: [cartID], references: [IDCart])
+}
+
+model ongkosKirim {
+  id          Int       @id @default(autoincrement())
+  start       DateTime  @default(now())
+  end         DateTime? @updatedAt
+  productName String?
+  price       BigInt?
+  quantity    Int?
+
+  cartID String @unique
+  user   cart   @relation(fields: [cartID], references: [IDCart])
+}
+
+model dataPesananItem {
+  id              Int       @id @default(autoincrement())
+  start           DateTime  @default(now())
+  end             DateTime? @updatedAt
+  note            String?
+  productName     String?
+  price           BigInt?
+  priceOriginal   BigInt?
+  quantity        Int?
+  methodPayment   String?
+  image           String?
+  slugProduct     String?
+  merchantOrderId String?
+  statusProses    Boolean   @default(true)
+  statusKirim     Boolean   @default(false)
+  statusSelesai   Boolean   @default(false)
+
+  dataPesanan   dataPesanan? @relation(fields: [dataPesananId], references: [id])
+  dataPesananId Int?
+}
+
+model dataPesanan {
+  id               Int               @id @default(autoincrement())
+  start            DateTime          @default(now())
+  end              DateTime?         @updatedAt
+  payment          Boolean           @default(false)
+  reference        String?           @unique
+  merchantOrderId  String?           @unique
+  dataPesananItems dataPesananItem[]
+
+  cart   cart   @relation(fields: [cartID], references: [IDCart])
+  cartID String
+
+  @@index([cartID])
 }
