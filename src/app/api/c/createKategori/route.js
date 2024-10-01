@@ -4,11 +4,11 @@ import { ResponseData } from '@/components/api/ResponseData'
 export async function POST(req) {
     const authorization = req.headers.get('authorization')
 
-    const { category, urlYoutube, title, desc, tags, image
+    const { category, slugCategory, urlYoutube, title, desc, tags, image
     } = await req.json()
 
     const data = {
-        category, urlYoutube, title, desc, tags, image
+        category, slugCategory, urlYoutube, title, desc, tags, image
     }
 
     BigInt.prototype.toJSON = function () {
