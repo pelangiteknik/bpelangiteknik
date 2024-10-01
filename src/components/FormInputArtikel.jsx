@@ -20,7 +20,7 @@ import Logout from './logout';
 import { HandleValidasiArtikel } from '@/service/artikel/handleValidasi';
 import { HandlePostCategoryArtikel } from '@/service/artikel/handlePostKategori';
 
-export default function FormInputArtikel({ data, text, dataKategori }) {
+export default function FormInputArtikel({ data, text, dataKategori, kondisi }) {
 
     const [klikKategori, setKlikKategori] = useState(false);
 
@@ -302,7 +302,7 @@ export default function FormInputArtikel({ data, text, dataKategori }) {
                                     <div className={styles.kanan}>
                                         <button disabled={loading} type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
                                         <button disabled={loading} type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? text ? text : 'Save Artikel' : loading ? 'Loading...' : text ? text : 'Save Artikel'}</button>
-                                        <Logout />
+                                        {!kondisi && <Logout />}
                                     </div>
                                 </div>
                                 <div className={styles.bawah}>

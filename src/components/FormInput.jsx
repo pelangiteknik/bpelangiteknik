@@ -21,7 +21,7 @@ import { HandleValidasi } from '@/service/handleValidasi';
 import Logout from './logout';
 import { HandlePostCategory } from '@/service/handlePostCategory';
 
-export default function FormInput({ data, text, dataKategori }) {
+export default function FormInput({ data, text, dataKategori, kondisi }) {
 
     const pathname = usePathname()
     const setLayang = useCon((state) => state.setLayang)
@@ -391,7 +391,7 @@ export default function FormInput({ data, text, dataKategori }) {
                                     <div className={styles.kanan}>
                                         <button disabled={loading} type='submit' onClick={() => setDraf(true)} className={styles.draf} >{draf ? loading ? 'Loading...' : 'Save to Draf' : 'Save to Draf'}</button>
                                         <button disabled={loading} type='submit' onClick={() => setDraf(false)} className={styles.save}>{draf ? text ? text : 'Save Product' : loading ? 'Loading...' : text ? text : 'Save Product'}</button>
-                                        <Logout />
+                                        {!kondisi && <Logout />}
                                     </div>
                                 </div>
                                 <div className={styles.bawah}>
@@ -415,7 +415,7 @@ export default function FormInput({ data, text, dataKategori }) {
                                                     as="textarea"
                                                     name="descMetaProduct"
                                                     id="descMetaProduct"
-                                                    placeholder="ex: genset adalah perangkat yang digunakan untuk menghasilkan listrik saat sumber listrik utama tidak tersedia. "
+                                                    placeholder="ex: Genset Silent Diesel 9 Kva Tsuzumi TDG 10000 S dengan daya 7000 Watt, 1 Phase, cocok untuk rumah dan usaha. Desain silent, hemat bahan bakar, dan performa mesin diesel yang handal. "
                                                 />
 
                                             </div>

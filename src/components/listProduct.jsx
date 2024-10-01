@@ -242,7 +242,11 @@ export default function ListProduct({ dataList, query, dataKategori, dataArtikel
                             <>
                                 <div className={styles.bghitam} onClick={() => setLayang()}></div>
                                 <div className={styles.containerupdate}>
-                                    <FormInput data={data} text={'Update Product'} dataKategori={dataKategori} />
+                                    <FormInput
+                                        kondisi={true}
+                                        data={data}
+                                        text={'Update Product'}
+                                        dataKategori={dataKategori} />
                                 </div>
                             </>
                     }
@@ -257,7 +261,11 @@ export default function ListProduct({ dataList, query, dataKategori, dataArtikel
                             <>
                                 <div className={styles.bghitam} onClick={() => setLayangArtikel()}></div>
                                 <div className={styles.containerupdate}>
-                                    <FormInputArtikel data={dataArtikelUpdate} dataKategori={dataKategoriArtikel} text={'Update Artikel'} />
+                                    <FormInputArtikel
+                                        kondisi={true}
+                                        data={dataArtikelUpdate}
+                                        dataKategori={dataKategoriArtikel}
+                                        text={'Update Artikel'} />
                                 </div>
                             </>
                     }
