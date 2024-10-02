@@ -10,6 +10,7 @@ import { useCon } from '@/zustand/useCon';
 import toast from 'react-hot-toast';
 import { MdDeleteOutline } from "react-icons/md";
 import { MdLibraryAdd } from "react-icons/md";
+import { FaBorderAll } from "react-icons/fa";
 import { usePathname } from 'next/navigation'
 import { FormatRupiah } from '@/utils/formatRupiah';
 import Logout from './logout';
@@ -118,8 +119,13 @@ export default function ListProduct({ dataList, query, dataKategori, dataArtikel
                     <div className={styles.dalamcontainer}>
                         <div className={styles.atas}>
                             <Link href={'/'} className={styles.judul}><MdHome size={30} />PelangiTeknik</Link>
+
+                            <Link href={'/order'} onClick={() => setLoading(true)}> <button className={styles.searchP}>Orders<FaBorderAll />
+                            </button></Link>
+
                             <Link href={'/post'} onClick={() => setLoading(true)}> <button className={styles.searchP}>Posting Product <MdLibraryAdd />
                             </button></Link>
+
                             <Link href={'/postartikel'} onClick={() => setLoading(true)}> <button className={styles.searchP}>Posting Artikel <MdLibraryAdd />
                             </button></Link>
                             <div className={styles.ataskanan}>

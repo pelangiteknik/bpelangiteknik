@@ -240,9 +240,8 @@ model dataPesananItem {
   image           String?
   slugProduct     String?
   merchantOrderId String?
-  statusProses    Boolean   @default(true)
-  statusKirim     Boolean   @default(false)
-  statusSelesai   Boolean   @default(false)
+  status          String?
+  noResi          String?
 
   dataPesanan   dataPesanan? @relation(fields: [dataPesananId], references: [id])
   dataPesananId Int?

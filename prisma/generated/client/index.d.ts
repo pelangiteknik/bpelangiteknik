@@ -14126,9 +14126,8 @@ export namespace Prisma {
     image: string | null
     slugProduct: string | null
     merchantOrderId: string | null
-    statusProses: boolean | null
-    statusKirim: boolean | null
-    statusSelesai: boolean | null
+    status: string | null
+    noResi: string | null
     dataPesananId: number | null
   }
 
@@ -14145,9 +14144,8 @@ export namespace Prisma {
     image: string | null
     slugProduct: string | null
     merchantOrderId: string | null
-    statusProses: boolean | null
-    statusKirim: boolean | null
-    statusSelesai: boolean | null
+    status: string | null
+    noResi: string | null
     dataPesananId: number | null
   }
 
@@ -14164,9 +14162,8 @@ export namespace Prisma {
     image: number
     slugProduct: number
     merchantOrderId: number
-    statusProses: number
-    statusKirim: number
-    statusSelesai: number
+    status: number
+    noResi: number
     dataPesananId: number
     _all: number
   }
@@ -14201,9 +14198,8 @@ export namespace Prisma {
     image?: true
     slugProduct?: true
     merchantOrderId?: true
-    statusProses?: true
-    statusKirim?: true
-    statusSelesai?: true
+    status?: true
+    noResi?: true
     dataPesananId?: true
   }
 
@@ -14220,9 +14216,8 @@ export namespace Prisma {
     image?: true
     slugProduct?: true
     merchantOrderId?: true
-    statusProses?: true
-    statusKirim?: true
-    statusSelesai?: true
+    status?: true
+    noResi?: true
     dataPesananId?: true
   }
 
@@ -14239,9 +14234,8 @@ export namespace Prisma {
     image?: true
     slugProduct?: true
     merchantOrderId?: true
-    statusProses?: true
-    statusKirim?: true
-    statusSelesai?: true
+    status?: true
+    noResi?: true
     dataPesananId?: true
     _all?: true
   }
@@ -14345,9 +14339,8 @@ export namespace Prisma {
     image: string | null
     slugProduct: string | null
     merchantOrderId: string | null
-    statusProses: boolean
-    statusKirim: boolean
-    statusSelesai: boolean
+    status: string | null
+    noResi: string | null
     dataPesananId: number | null
     _count: DataPesananItemCountAggregateOutputType | null
     _avg: DataPesananItemAvgAggregateOutputType | null
@@ -14383,9 +14376,8 @@ export namespace Prisma {
     image?: boolean
     slugProduct?: boolean
     merchantOrderId?: boolean
-    statusProses?: boolean
-    statusKirim?: boolean
-    statusSelesai?: boolean
+    status?: boolean
+    noResi?: boolean
     dataPesananId?: boolean
     dataPesanan?: boolean | dataPesananItem$dataPesananArgs<ExtArgs>
   }, ExtArgs["result"]["dataPesananItem"]>
@@ -14403,9 +14395,8 @@ export namespace Prisma {
     image?: boolean
     slugProduct?: boolean
     merchantOrderId?: boolean
-    statusProses?: boolean
-    statusKirim?: boolean
-    statusSelesai?: boolean
+    status?: boolean
+    noResi?: boolean
     dataPesananId?: boolean
     dataPesanan?: boolean | dataPesananItem$dataPesananArgs<ExtArgs>
   }, ExtArgs["result"]["dataPesananItem"]>
@@ -14423,9 +14414,8 @@ export namespace Prisma {
     image?: boolean
     slugProduct?: boolean
     merchantOrderId?: boolean
-    statusProses?: boolean
-    statusKirim?: boolean
-    statusSelesai?: boolean
+    status?: boolean
+    noResi?: boolean
     dataPesananId?: boolean
   }
 
@@ -14454,9 +14444,8 @@ export namespace Prisma {
       image: string | null
       slugProduct: string | null
       merchantOrderId: string | null
-      statusProses: boolean
-      statusKirim: boolean
-      statusSelesai: boolean
+      status: string | null
+      noResi: string | null
       dataPesananId: number | null
     }, ExtArgs["result"]["dataPesananItem"]>
     composites: {}
@@ -14864,9 +14853,8 @@ export namespace Prisma {
     readonly image: FieldRef<"dataPesananItem", 'String'>
     readonly slugProduct: FieldRef<"dataPesananItem", 'String'>
     readonly merchantOrderId: FieldRef<"dataPesananItem", 'String'>
-    readonly statusProses: FieldRef<"dataPesananItem", 'Boolean'>
-    readonly statusKirim: FieldRef<"dataPesananItem", 'Boolean'>
-    readonly statusSelesai: FieldRef<"dataPesananItem", 'Boolean'>
+    readonly status: FieldRef<"dataPesananItem", 'String'>
+    readonly noResi: FieldRef<"dataPesananItem", 'String'>
     readonly dataPesananId: FieldRef<"dataPesananItem", 'Int'>
   }
     
@@ -16470,9 +16458,8 @@ export namespace Prisma {
     image: 'image',
     slugProduct: 'slugProduct',
     merchantOrderId: 'merchantOrderId',
-    statusProses: 'statusProses',
-    statusKirim: 'statusKirim',
-    statusSelesai: 'statusSelesai',
+    status: 'status',
+    noResi: 'noResi',
     dataPesananId: 'dataPesananId'
   };
 
@@ -17742,9 +17729,8 @@ export namespace Prisma {
     image?: StringNullableFilter<"dataPesananItem"> | string | null
     slugProduct?: StringNullableFilter<"dataPesananItem"> | string | null
     merchantOrderId?: StringNullableFilter<"dataPesananItem"> | string | null
-    statusProses?: BoolFilter<"dataPesananItem"> | boolean
-    statusKirim?: BoolFilter<"dataPesananItem"> | boolean
-    statusSelesai?: BoolFilter<"dataPesananItem"> | boolean
+    status?: StringNullableFilter<"dataPesananItem"> | string | null
+    noResi?: StringNullableFilter<"dataPesananItem"> | string | null
     dataPesananId?: IntNullableFilter<"dataPesananItem"> | number | null
     dataPesanan?: XOR<DataPesananNullableRelationFilter, dataPesananWhereInput> | null
   }
@@ -17762,9 +17748,8 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     slugProduct?: SortOrderInput | SortOrder
     merchantOrderId?: SortOrderInput | SortOrder
-    statusProses?: SortOrder
-    statusKirim?: SortOrder
-    statusSelesai?: SortOrder
+    status?: SortOrderInput | SortOrder
+    noResi?: SortOrderInput | SortOrder
     dataPesananId?: SortOrderInput | SortOrder
     dataPesanan?: dataPesananOrderByWithRelationInput
   }
@@ -17785,9 +17770,8 @@ export namespace Prisma {
     image?: StringNullableFilter<"dataPesananItem"> | string | null
     slugProduct?: StringNullableFilter<"dataPesananItem"> | string | null
     merchantOrderId?: StringNullableFilter<"dataPesananItem"> | string | null
-    statusProses?: BoolFilter<"dataPesananItem"> | boolean
-    statusKirim?: BoolFilter<"dataPesananItem"> | boolean
-    statusSelesai?: BoolFilter<"dataPesananItem"> | boolean
+    status?: StringNullableFilter<"dataPesananItem"> | string | null
+    noResi?: StringNullableFilter<"dataPesananItem"> | string | null
     dataPesananId?: IntNullableFilter<"dataPesananItem"> | number | null
     dataPesanan?: XOR<DataPesananNullableRelationFilter, dataPesananWhereInput> | null
   }, "id">
@@ -17805,9 +17789,8 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     slugProduct?: SortOrderInput | SortOrder
     merchantOrderId?: SortOrderInput | SortOrder
-    statusProses?: SortOrder
-    statusKirim?: SortOrder
-    statusSelesai?: SortOrder
+    status?: SortOrderInput | SortOrder
+    noResi?: SortOrderInput | SortOrder
     dataPesananId?: SortOrderInput | SortOrder
     _count?: dataPesananItemCountOrderByAggregateInput
     _avg?: dataPesananItemAvgOrderByAggregateInput
@@ -17832,9 +17815,8 @@ export namespace Prisma {
     image?: StringNullableWithAggregatesFilter<"dataPesananItem"> | string | null
     slugProduct?: StringNullableWithAggregatesFilter<"dataPesananItem"> | string | null
     merchantOrderId?: StringNullableWithAggregatesFilter<"dataPesananItem"> | string | null
-    statusProses?: BoolWithAggregatesFilter<"dataPesananItem"> | boolean
-    statusKirim?: BoolWithAggregatesFilter<"dataPesananItem"> | boolean
-    statusSelesai?: BoolWithAggregatesFilter<"dataPesananItem"> | boolean
+    status?: StringNullableWithAggregatesFilter<"dataPesananItem"> | string | null
+    noResi?: StringNullableWithAggregatesFilter<"dataPesananItem"> | string | null
     dataPesananId?: IntNullableWithAggregatesFilter<"dataPesananItem"> | number | null
   }
 
@@ -19170,9 +19152,8 @@ export namespace Prisma {
     image?: string | null
     slugProduct?: string | null
     merchantOrderId?: string | null
-    statusProses?: boolean
-    statusKirim?: boolean
-    statusSelesai?: boolean
+    status?: string | null
+    noResi?: string | null
     dataPesanan?: dataPesananCreateNestedOneWithoutDataPesananItemsInput
   }
 
@@ -19189,9 +19170,8 @@ export namespace Prisma {
     image?: string | null
     slugProduct?: string | null
     merchantOrderId?: string | null
-    statusProses?: boolean
-    statusKirim?: boolean
-    statusSelesai?: boolean
+    status?: string | null
+    noResi?: string | null
     dataPesananId?: number | null
   }
 
@@ -19207,9 +19187,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     slugProduct?: NullableStringFieldUpdateOperationsInput | string | null
     merchantOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    statusProses?: BoolFieldUpdateOperationsInput | boolean
-    statusKirim?: BoolFieldUpdateOperationsInput | boolean
-    statusSelesai?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    noResi?: NullableStringFieldUpdateOperationsInput | string | null
     dataPesanan?: dataPesananUpdateOneWithoutDataPesananItemsNestedInput
   }
 
@@ -19226,9 +19205,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     slugProduct?: NullableStringFieldUpdateOperationsInput | string | null
     merchantOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    statusProses?: BoolFieldUpdateOperationsInput | boolean
-    statusKirim?: BoolFieldUpdateOperationsInput | boolean
-    statusSelesai?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    noResi?: NullableStringFieldUpdateOperationsInput | string | null
     dataPesananId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -19245,9 +19223,8 @@ export namespace Prisma {
     image?: string | null
     slugProduct?: string | null
     merchantOrderId?: string | null
-    statusProses?: boolean
-    statusKirim?: boolean
-    statusSelesai?: boolean
+    status?: string | null
+    noResi?: string | null
     dataPesananId?: number | null
   }
 
@@ -19263,9 +19240,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     slugProduct?: NullableStringFieldUpdateOperationsInput | string | null
     merchantOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    statusProses?: BoolFieldUpdateOperationsInput | boolean
-    statusKirim?: BoolFieldUpdateOperationsInput | boolean
-    statusSelesai?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    noResi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type dataPesananItemUncheckedUpdateManyInput = {
@@ -19281,9 +19257,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     slugProduct?: NullableStringFieldUpdateOperationsInput | string | null
     merchantOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    statusProses?: BoolFieldUpdateOperationsInput | boolean
-    statusKirim?: BoolFieldUpdateOperationsInput | boolean
-    statusSelesai?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    noResi?: NullableStringFieldUpdateOperationsInput | string | null
     dataPesananId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -20414,9 +20389,8 @@ export namespace Prisma {
     image?: SortOrder
     slugProduct?: SortOrder
     merchantOrderId?: SortOrder
-    statusProses?: SortOrder
-    statusKirim?: SortOrder
-    statusSelesai?: SortOrder
+    status?: SortOrder
+    noResi?: SortOrder
     dataPesananId?: SortOrder
   }
 
@@ -20441,9 +20415,8 @@ export namespace Prisma {
     image?: SortOrder
     slugProduct?: SortOrder
     merchantOrderId?: SortOrder
-    statusProses?: SortOrder
-    statusKirim?: SortOrder
-    statusSelesai?: SortOrder
+    status?: SortOrder
+    noResi?: SortOrder
     dataPesananId?: SortOrder
   }
 
@@ -20460,9 +20433,8 @@ export namespace Prisma {
     image?: SortOrder
     slugProduct?: SortOrder
     merchantOrderId?: SortOrder
-    statusProses?: SortOrder
-    statusKirim?: SortOrder
-    statusSelesai?: SortOrder
+    status?: SortOrder
+    noResi?: SortOrder
     dataPesananId?: SortOrder
   }
 
@@ -22947,9 +22919,8 @@ export namespace Prisma {
     image?: string | null
     slugProduct?: string | null
     merchantOrderId?: string | null
-    statusProses?: boolean
-    statusKirim?: boolean
-    statusSelesai?: boolean
+    status?: string | null
+    noResi?: string | null
   }
 
   export type dataPesananItemUncheckedCreateWithoutDataPesananInput = {
@@ -22965,9 +22936,8 @@ export namespace Prisma {
     image?: string | null
     slugProduct?: string | null
     merchantOrderId?: string | null
-    statusProses?: boolean
-    statusKirim?: boolean
-    statusSelesai?: boolean
+    status?: string | null
+    noResi?: string | null
   }
 
   export type dataPesananItemCreateOrConnectWithoutDataPesananInput = {
@@ -23043,9 +23013,8 @@ export namespace Prisma {
     image?: StringNullableFilter<"dataPesananItem"> | string | null
     slugProduct?: StringNullableFilter<"dataPesananItem"> | string | null
     merchantOrderId?: StringNullableFilter<"dataPesananItem"> | string | null
-    statusProses?: BoolFilter<"dataPesananItem"> | boolean
-    statusKirim?: BoolFilter<"dataPesananItem"> | boolean
-    statusSelesai?: BoolFilter<"dataPesananItem"> | boolean
+    status?: StringNullableFilter<"dataPesananItem"> | string | null
+    noResi?: StringNullableFilter<"dataPesananItem"> | string | null
     dataPesananId?: IntNullableFilter<"dataPesananItem"> | number | null
   }
 
@@ -23562,9 +23531,8 @@ export namespace Prisma {
     image?: string | null
     slugProduct?: string | null
     merchantOrderId?: string | null
-    statusProses?: boolean
-    statusKirim?: boolean
-    statusSelesai?: boolean
+    status?: string | null
+    noResi?: string | null
   }
 
   export type dataPesananItemUpdateWithoutDataPesananInput = {
@@ -23579,9 +23547,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     slugProduct?: NullableStringFieldUpdateOperationsInput | string | null
     merchantOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    statusProses?: BoolFieldUpdateOperationsInput | boolean
-    statusKirim?: BoolFieldUpdateOperationsInput | boolean
-    statusSelesai?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    noResi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type dataPesananItemUncheckedUpdateWithoutDataPesananInput = {
@@ -23597,9 +23564,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     slugProduct?: NullableStringFieldUpdateOperationsInput | string | null
     merchantOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    statusProses?: BoolFieldUpdateOperationsInput | boolean
-    statusKirim?: BoolFieldUpdateOperationsInput | boolean
-    statusSelesai?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    noResi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type dataPesananItemUncheckedUpdateManyWithoutDataPesananInput = {
@@ -23615,9 +23581,8 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     slugProduct?: NullableStringFieldUpdateOperationsInput | string | null
     merchantOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    statusProses?: BoolFieldUpdateOperationsInput | boolean
-    statusKirim?: BoolFieldUpdateOperationsInput | boolean
-    statusSelesai?: BoolFieldUpdateOperationsInput | boolean
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    noResi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

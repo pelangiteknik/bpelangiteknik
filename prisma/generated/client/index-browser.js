@@ -310,9 +310,8 @@ exports.Prisma.DataPesananItemScalarFieldEnum = {
   image: 'image',
   slugProduct: 'slugProduct',
   merchantOrderId: 'merchantOrderId',
-  statusProses: 'statusProses',
-  statusKirim: 'statusKirim',
-  statusSelesai: 'statusSelesai',
+  status: 'status',
+  noResi: 'noResi',
   dataPesananId: 'dataPesananId'
 };
 

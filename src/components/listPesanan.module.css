@@ -1,0 +1,156 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.dalamcontainer {
+    width: var(--max-width);
+    background-color: var(--colorsekunder);
+}
+
+
+.atas {
+    display: flex;
+    padding: 0 30px;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    width: var(--max-width);
+    background-color: var(--colorsekunder);
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+
+.atas .judul {
+    font-weight: 1000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.atas .judul:hover {
+    opacity: 0.9;
+}
+
+.atas .judulkanan {
+    font-weight: 700;
+}
+
+.atas .search {
+    border: 1px solid var(--colorthrid);
+    border-radius: var(--border-radius);
+    padding: 1px;
+    display: flex;
+}
+
+.atas .search input {
+    padding: 10px;
+}
+
+.atas .search input:focus {
+    border: transparent;
+    outline: 0;
+}
+
+.atas .search .searchB {
+    height: 100%;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.atas .searchP {
+    height: 40px;
+    padding: 0 18px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.atas button {
+    background-color: var(--colorbggreyutama);
+}
+
+.atas button:hover {
+    background-color: var(--hovercolorbggreyutama);
+}
+
+.ataskanan {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+
+/* Styling untuk tabel */
+.bawah {
+    font-size: 0.7rem;
+}
+
+.orderTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    text-align: left;
+}
+
+.orderTable th,
+.orderTable td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.orderTable th {
+    background-color: #f4f4f4;
+}
+
+.orderTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.orderTable select {
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.orderTable button {
+    height: 40px;
+    width: fit-content;
+    padding: 0 18px;
+}
+
+.orderTable input {
+    height: 40px;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.orderTable span {
+    font-weight: 700;
+}
+
+/* LOADING */
+
+.loading {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.loading .kotak {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: var(--colorsekunder); */
+    font-size: 2rem;
+    font-weight: 1000;
+}
