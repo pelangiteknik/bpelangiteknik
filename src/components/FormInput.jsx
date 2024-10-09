@@ -198,7 +198,9 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
                 "slugCategory": kategori?.toLowerCase() // ubah jadi huruf kecil
                     ?.replace(/[^a-z0-9\s]/g, '') // hapus karakter selain huruf, angka, dan spasi
                     ?.trim() // hapus spasi di awal dan akhir
-                    ?.replace(/\s+/g, '-')
+                    ?.replace(/\s+/g, '-'),
+                "title": kategori,
+                "tags": kategori,
             })
             setLoadingKategori(false)
             setKlikKategori(false)
