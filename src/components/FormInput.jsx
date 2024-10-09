@@ -430,8 +430,8 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
 
 
                 setLoading(false)
-                // router.push('/')
-                // router.refresh()
+                router.push('/')
+                router.refresh()
                 pathname == '/' && setLayang()
                 toast.success('data berhasil ditambahkan!')
                 // handle the error

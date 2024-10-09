@@ -1,5 +1,6 @@
 import { prisma } from "@/controllers/prisma";
 import { ResponseData } from '@/components/api/ResponseData'
+import { HandleDeleteImageC } from '@/service/handleDeleteImageC';
 
 export async function DELETE(req) {
     const authorization = req.headers.get('authorization')
@@ -29,6 +30,27 @@ export async function DELETE(req) {
                 }
             }
         )
+
+
+        // Delete COULDINARY
+        const resImage = await prisma.imageProduct.findMany({
+            where: {
+                IdProduct: 16
+            }
+        })
+        const dataImage = resImage.map((data) => data.public_id)
+
+
+        const resImageUtama = await prisma.imageProductUtama.findMany({
+            where: {
+                IdProduct: 16
+            }
+        })
+        const dataImageUtama = resImageUtama.map((data) => data.public_id)
+
+
+        const GabungDataPublicID = [...dataImage, ...dataImageUtama]
+        await HandleDeleteImageC(GabungDataPublicID)
 
         const data = await prisma.$transaction([imageProduct, imageProductUtama, specProduct, listProduct])
         const res = await ResponseData(data, authorization)
