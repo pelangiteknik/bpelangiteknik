@@ -8,8 +8,6 @@ export async function POST(req) {
         return this.toString();
     };
 
-    console.log(fromItems);
-
     const authorization = req.headers.get('authorization')
     const data = await prisma.dataPesanan.create({
         data: {
@@ -20,7 +18,6 @@ export async function POST(req) {
         },
     });
 
-    console.log(data);
 
     const res = await ResponseData(data, authorization)
     return res

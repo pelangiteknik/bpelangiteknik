@@ -160,14 +160,11 @@ export async function PUT(req) {
         }
 
         // LIST GAMBAR UTAMA
-        await prisma.imageProductUtama.updateMany({
-            where: {
-                IdProduct: IdProduct,
-            },
-            data: imageProductUtama
+        await prisma.imageProductUtama.create({
+            data: { ...imageProductUtama, IdProduct: IdProduct }
         })
 
-        const data = await prisma.$transaction([UpdateList, UpdateListSpec])
+        const data = await prisma.$transaction([UpdateList, UpdateListSpec, UpdatImage])
         const res = await ResponseData(data, authorization)
         return res
     } else return Response.json({ status: 500, isCreated: false, contact: 'natanael rio wijaya 08971041460' })

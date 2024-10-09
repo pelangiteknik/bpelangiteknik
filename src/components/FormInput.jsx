@@ -23,7 +23,6 @@ import { HandlePostCategory } from '@/service/handlePostCategory';
 
 export default function FormInput({ data, text, dataKategori, kondisi }) {
 
-    console.log(data);
 
     const pathname = usePathname()
     const setLayang = useCon((state) => state.setLayang)
@@ -382,6 +381,25 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
                 const dataResUtama = await resUtama.json()
                 const dataImageUtama = dataResUtama?.results
 
+
+                //  LIST GAMBAR
+                for (const public_id of selectIDImage) {
+                    {
+                        selectIDImage.length && data &&
+                            await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+                                },
+                                body: JSON.stringify({ public_id: public_id }),
+                            })
+                    }
+                }
+
+                // delete image couldinary PRODUCT UTAMA
+                selectIDImageUtama.length && data && await HandleDeleteImageC(selectIDImageUtama)
+
                 await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
                     method: data ? 'PUT' : 'POST',
                     headers: {
@@ -412,23 +430,6 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
                 })
 
 
-                //  LIST GAMBAR
-                for (const public_id of selectIDImage) {
-                    {
-                        selectIDImage.length && data &&
-                            await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
-                                method: 'DELETE',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
-                                },
-                                body: JSON.stringify({ public_id: public_id }),
-                            })
-                    }
-                }
-
-                // delete image couldinary PRODUCT UTAMA
-                selectIDImageUtama.length && data && await HandleDeleteImageC(selectIDImageUtama)
 
 
                 setLoading(false)
@@ -599,8 +600,7 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
                                                             />
                                                         </>
                                                     )}
-                                                    {console.log(previews.images2 ? previews.images2?.url : previews.images2)
-                                                    }
+
                                                     {previews.images2 && (
                                                         <>
                                                             {
