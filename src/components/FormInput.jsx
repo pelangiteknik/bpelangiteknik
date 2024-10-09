@@ -23,6 +23,8 @@ import { HandlePostCategory } from '@/service/handlePostCategory';
 
 export default function FormInput({ data, text, dataKategori, kondisi }) {
 
+    console.log(data);
+
     const pathname = usePathname()
     const setLayang = useCon((state) => state.setLayang)
 
