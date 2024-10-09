@@ -14,6 +14,7 @@ export async function GET(req) {
             id: true,
             start: true,
             end: true,
+            productName: true,
             slugProduct: true,
             stockProduct: true,
             viewProduct: true,
