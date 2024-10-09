@@ -50,31 +50,51 @@ export default function ListProduct({ dataList, query, dataKategori, dataArtikel
     const [search, setSearch] = useState(query)
 
     const GetDetailProduct = async (id) => {
-        setLayang()
         setLoading(true)
-        const data = await handleDetailProduct(id)
-        setData(data?.data[0])
-        setLoading(false)
+        try {
+            setLayang()
+            const data = await handleDetailProduct(id)
+            setData(data?.data[0])
+            setLoading(false)
+        } catch {
+            setLoading(false)
+            toast.error(`Error Internet`);
+        }
     }
     const GetDetailProductArtikel = async (id) => {
-        setLayangArtikel()
         setLoading(true)
-        const data = await HandleDetailArtikel(id)
-        setDataArtikelUpdate(data?.data[0])
-        setLoading(false)
+        try {
+            setLayangArtikel()
+            const data = await HandleDetailArtikel(id)
+            setDataArtikelUpdate(data?.data[0])
+            setLoading(false)
+        } catch {
+            setLoading(false)
+            toast.error(`Error Internet`);
+        }
     }
 
     const UpdatePublish = async (slug, draf) => {
         setLoading(true)
-        await HandleDraf(slug, draf)
-        setLoading(false)
-        toast.success('Successfully!')
+        try {
+            await HandleDraf(slug, draf)
+            setLoading(false)
+            toast.success('Successfully!')
+        } catch {
+            setLoading(false)
+            toast.error(`Error Internet`);
+        }
     }
     const UpdatePublishArtikel = async (slug, draf) => {
         setLoading(true)
-        await HandleDrafArtikel(slug, draf)
-        setLoading(false)
-        toast.success('Successfully!')
+        try {
+            await HandleDrafArtikel(slug, draf)
+            setLoading(false)
+            toast.success('Successfully!')
+        } catch {
+            setLoading(false)
+            toast.error(`Error Internet`);
+        }
     }
 
     const handleSearch = (e) => {
@@ -89,9 +109,14 @@ export default function ListProduct({ dataList, query, dataKategori, dataArtikel
         if (confirm('Apakah yakin hapus?')) {
             // Save it!
             setLoading(true)
-            await HandleDeleteProduct(e)
-            setLoading(false)
-            toast.success('Successfully!')
+            try {
+                await HandleDeleteProduct(e)
+                setLoading(false)
+                toast.success('Successfully!')
+            } catch {
+                setLoading(false)
+                toast.error(`Error Internet`);
+            }
         } else {
             // Do nothing!
             console.log('Thing was not saved to the database.');
