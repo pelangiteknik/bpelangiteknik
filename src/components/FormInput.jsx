@@ -396,6 +396,20 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
                             })
                     }
                 }
+                //  LIST GAMBAR UTAMA
+                for (const public_id of selectIDImageUtama) {
+                    {
+                        selectIDImageUtama.length && data &&
+                            await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `${process.env.NEXT_PUBLIC_SECREET}`
+                                },
+                                body: JSON.stringify({ public_idUtama: public_id }),
+                            })
+                    }
+                }
 
                 // delete image couldinary PRODUCT UTAMA
                 selectIDImageUtama.length && data && await HandleDeleteImageC(selectIDImageUtama)

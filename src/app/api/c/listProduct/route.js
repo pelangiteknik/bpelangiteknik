@@ -161,7 +161,7 @@ export async function PUT(req) {
 
         // LIST GAMBAR UTAMA
         await prisma.imageProductUtama.create({
-            data: imageProductUtama
+            data: { ...imageProductUtama, IdProduct: IdProduct }
         })
 
         const data = await prisma.$transaction([UpdateList, UpdateListSpec, UpdatImage])
@@ -179,16 +179,24 @@ export async function DELETE(req) {
     };
 
     const {
-        public_id
+        public_id, public_idUtama
     } = await req.json()
 
 
     if (authorization == process.env.NEXT_PUBLIC_SECREET) {
+        if (public_idUtama) {
+            await prisma.imageProductUtama.delete({
+                where: {
+                    public_id: public_idUtama
+                },
+            })
+        }
         await prisma.imageProduct.delete({
             where: {
                 public_id
             },
         })
+
 
         const res = await ResponseData(CreateList, authorization)
         return res
