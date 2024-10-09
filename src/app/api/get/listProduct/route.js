@@ -6,8 +6,6 @@ export async function GET(req) {
         take: 10,
         orderBy: {
             id: 'desc'
-        }, include: {
-            imageProductUtama: true
         }
     })
 
