@@ -161,7 +161,7 @@ export async function PUT(req) {
 
         // LIST GAMBAR UTAMA
         await prisma.imageProductUtama.create({
-            data: { ...imageProductUtama, IdProduct: IdProduct }
+            data: imageProductUtama
         })
 
         const data = await prisma.$transaction([UpdateList, UpdateListSpec, UpdatImage])
