@@ -28,13 +28,6 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
 
     const [klikKategori, setKlikKategori] = useState(false);
 
-    const [selectedImages, setSelectedImages] = useState([]);
-    const [selectedImagesDB, setSelectedImagesDB] = useState(data?.url_image_product);
-
-    const [selectedImagesDBLocal, setSelectedImagesDBLocal] = useState([]);
-    const [alertIDDeleteImage, setalertIDDeleteImage] = useState('');
-
-    const [alertKondisi, setAlertKondisi] = useState(false);
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [draf, setDraf] = useState(null)
@@ -66,53 +59,118 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
     // }
 
 
-    const handleRemoveImageDB = (e, kondisi, kondisi2) => {
-        setalertIDDeleteImage(e)
-        setAlertKondisi(kondisi)
-        const remove = () => {
-            const updatedImages = selectedImagesDB.filter((data) => data?.public_id !== e); // Filter out the image
-            setSelectedImagesDB(updatedImages);
+    // UNTUK GAMBAR LIST PRODUCT
+    const [selectIDImage, setSelectIDImage] = useState([])
 
-            // simpanlocal
-            setSelectedImagesDBLocal([...selectedImagesDBLocal, e])
+    // State untuk menyimpan URL preview
+    const [previews, setPreviews] = useState({
+        images1: data?.url_image_product[0],
+        images2: data?.url_image_product[1],
+        images3: data?.url_image_product[2],
+        images4: data?.url_image_product[3],
+        images5: data?.url_image_product[4],
+        images6: data?.url_image_product[5],
+    });
+
+    const [files, setFiles] = useState({
+        images1: null,
+        images2: null,
+        images3: null,
+        images4: null,
+        images5: null,
+        images6: null,
+    });
+
+    // Fungsi untuk menangani perubahan file
+    const handleFileChange = (event, imageName) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            const previewUrl = URL.createObjectURL(file);
+            setPreviews((prevPreviews) => ({
+                ...prevPreviews,
+                [imageName]: previewUrl,
+            }));
+            setFiles((prevFiles) => ({
+                ...prevFiles,
+                [imageName]: file,
+            }));
         }
+    };
 
-        kondisi2 && remove()
-        router.refresh()
+    // Fungsi untuk menghapus gambar yang sudah diupload
+    const handleDelete = (imageName) => {
+        const confirmDelete = window.confirm("Apakah Anda yakin ingin menghapus gambar ini?");
+        if (confirmDelete) {
+            setPreviews((prevPreviews) => ({
+                ...prevPreviews,
+                [imageName]: null,
+            }));
+        }
+    };
+
+    const handleDeleteLocal = (e, imageName) => {
+        const confirmDelete = window.confirm("Apakah Anda yakin ingin menghapus gambar ini?");
+        if (confirmDelete) {
+            setSelectIDImage([...selectIDImage, e])
+            setPreviews((prevPreviews) => ({
+                ...prevPreviews,
+                [imageName]: null,
+            }));
+        }
     }
 
-    // Remove image by index
-    const handleRemoveImage = (e, kondisi, kondisi2) => {
-        setalertIDDeleteImage(e)
-        setAlertKondisi(kondisi)
-        const remove = () => {
-            const updatedImages = selectedImages.filter((_, i) => i !== e); // Filter out the image
-            setSelectedImages(updatedImages);
-            // simpanlocal
+    // UNTUK GAMBAR PRODUCT UTAMA
+    const [selectIDImageUtama, setSelectIDImageUtama] = useState([])
+
+
+    // State untuk menyimpan URL preview
+    const [previewsUtama, setPreviewsUtama] = useState({
+        imageUtama: data?.imageProductUtama
+    });
+
+    const [filesUtama, setFilesUtama] = useState({
+        imageUtama: null
+    });
+
+    // Fungsi untuk menangani perubahan file
+    const handleFileChangeUtama = (event, imageName) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            const previewUrl = URL.createObjectURL(file);
+            setPreviewsUtama((prevPreviews) => ({
+                ...prevPreviews,
+                [imageName]: previewUrl,
+            }));
+            setFilesUtama((prevFiles) => ({
+                ...prevFiles,
+                [imageName]: file,
+            }));
         }
-        kondisi2 && remove()
-        router.refresh()
     };
 
-    const handleFileChange = (event, setFieldValue) => {
-        const filesData = event.target.files;
-        setFieldValue('images', filesData);
-
-        const files = Array.from(event.target.files); // Convert FileList to an array
-        const imagePreviews = [];
-
-        files.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = () => {
-                imagePreviews.push({ file, preview: reader.result });
-                if (imagePreviews.length === files.length) {
-                    setSelectedImages(prevImages => [...prevImages, ...imagePreviews]); // Add new images to existing ones
-                }
-            };
-            reader.readAsDataURL(file); // Read file as a Data URL
-        });
-
+    // Fungsi untuk menghapus gambar yang sudah diupload
+    const handleDeleteUtama = (imageName) => {
+        const confirmDelete = window.confirm("Apakah Anda yakin ingin menghapus gambar ini?");
+        if (confirmDelete) {
+            setPreviewsUtama((prevPreviews) => ({
+                ...prevPreviews,
+                [imageName]: null,
+            }));
+        }
     };
+
+    const handleDeleteLocalUtama = (e, imageName) => {
+        const confirmDelete = window.confirm("Apakah Anda yakin ingin ganti gambar ini?");
+        if (confirmDelete) {
+            setSelectIDImageUtama([...selectIDImageUtama, e])
+            setPreviewsUtama((prevPreviews) => ({
+                ...prevPreviews,
+                [imageName]: null,
+            }));
+        }
+    }
 
 
     // State untuk menyimpan nilai input
@@ -123,7 +181,6 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
     const handleInputChangeKategori = (event) => {
         setKategori(event?.target.value);
     };
-
 
     // Fungsi untuk submit form
     const handleSubmitKategori = async (event) => {
@@ -271,7 +328,6 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
     });
 
     const handleSubmit = async (value) => {
-        console.log(value.productKategori)
 
         try {
             setKategori(false)
@@ -292,11 +348,15 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
                 setLoading(false);
                 return; // Stop further execution if slug exists
             } else {
-
                 const formData = new FormData();
-                selectedImages.forEach(image => {
-                    formData.append('files', image?.file); // Append each image file to formData
-                });
+                const formDataUtama = new FormData();
+
+                // LIST PRODUCT
+                for (const key in files) {
+                    if (files[key]) {
+                        formData.append('files', files[key]);
+                    }
+                }
 
                 const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cloudinary`, {
                     method: 'POST',
@@ -305,6 +365,20 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
                 const dataRes = await res.json()
                 const dataImage = dataRes?.results
 
+
+
+                //FOTO UTAMA
+                for (const key in filesUtama) {
+                    if (filesUtama[key]) {
+                        formDataUtama.append('files', filesUtama[key]);
+                    }
+                }
+                const resUtama = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cloudinary`, {
+                    method: 'POST',
+                    body: formDataUtama
+                })
+                const dataResUtama = await resUtama.json()
+                const dataImageUtama = dataResUtama?.results
 
                 await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
                     method: data ? 'PUT' : 'POST',
@@ -320,6 +394,7 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
                             slugProduct: slug,
                             saveDraf: draf,
                             dataImage: dataImage,
+                            imageProductUtama: dataImageUtama[0],
                             productKategori: Number(value.productKategori),
                             IdProduct: data.id
                         } : {
@@ -329,15 +404,16 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
                             slugProduct: slug,
                             saveDraf: draf,
                             dataImage: dataImage,
+                            imageProductUtama: dataImageUtama[0],
                             productKategori: Number(value.productKategori),
                         }),
                 })
 
 
-                // Menggunakan for...of untuk mengiterasi array dataImage supabase
-                for (const public_id of selectedImagesDBLocal) {
+                //  LIST GAMBAR
+                for (const public_id of selectIDImage) {
                     {
-                        selectedImagesDBLocal.length && data &&
+                        selectIDImage.length && data &&
                             await fetch(`${process.env.NEXT_PUBLIC_URL}/api/c/listProduct`, {
                                 method: 'DELETE',
                                 headers: {
@@ -349,14 +425,13 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
                     }
                 }
 
-                // delete image couldinary
-                selectedImagesDBLocal.length && data && await HandleDeleteImageC(selectedImagesDBLocal)
+                // delete image couldinary PRODUCT UTAMA
+                selectIDImageUtama.length && data && await HandleDeleteImageC(selectIDImageUtama)
+
 
                 setLoading(false)
-                router.push('/')
-                router.refresh()
-                // formik.resetForm()
-                // resetForm()
+                // router.push('/')
+                // router.refresh()
                 pathname == '/' && setLayang()
                 toast.success('data berhasil ditambahkan!')
                 // handle the error
@@ -370,6 +445,9 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
             console.error(e)
         }
     };
+
+
+
 
     return (
         <Formik
@@ -430,80 +508,247 @@ export default function FormInput({ data, text, dataKategori, kondisi }) {
 
                                             </div>
                                             <div className={styles.judulsamping}>Product Image</div>
-                                            <div className="image-preview">
-                                                {selectedImagesDB?.map((image, index) => (
-                                                    <div key={index} style={{ display: 'inline-block', position: 'relative', margin: '10px' }}>
-                                                        <img
-                                                            src={image?.url}
-                                                            alt={`Preview ${index}`}
-                                                            style={{ width: '90px', height: '90px', objectFit: 'cover' }}
-                                                        />
-                                                        {!loading && (
-                                                            <>
-                                                                {alertKondisi && alertIDDeleteImage === image?.public_id && (
-                                                                    <div className={styles.yesno}>
-                                                                        <div className={styles.tombol} onClick={() => handleRemoveImageDB(image?.public_id, false, true)}>YES</div>
-                                                                        <div className={styles.tombol} onClick={() => handleRemoveImageDB(image?.public_id, false)}>NO</div>
-                                                                    </div>
-                                                                )}
-                                                                {!alertKondisi && (
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={() => handleRemoveImageDB(image?.public_id, true)}
-                                                                        className={styles.tombolhapus}
-                                                                    >
-                                                                        X
-                                                                    </button>
-                                                                )}
-                                                            </>
-                                                        )}
-                                                    </div>
-                                                ))}
-                                                {selectedImages.map((image, index) => (
-                                                    <div key={index} style={{ display: 'inline-block', position: 'relative', margin: '10px' }}>
-                                                        <img
-                                                            src={image.preview}
-                                                            alt={`Preview ${index}`}
-                                                            style={{ width: '90px', height: '90px', objectFit: 'cover' }}
-                                                        />
-                                                        {!loading && (
-                                                            <>
-                                                                {alertKondisi && alertIDDeleteImage === index && (
-                                                                    <div className={styles.yesno}>
-                                                                        <div className={styles.tombol} onClick={() => handleRemoveImage(index, false, true)}>YES</div>
-                                                                        <div className={styles.tombol} onClick={() => handleRemoveImage(index, false)}>NO</div>
-                                                                    </div>
-                                                                )}
-                                                                {!alertKondisi && (
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={() => handleRemoveImage(index, true)}
-                                                                        className={styles.tombolhapus}
-                                                                    >
-                                                                        X
-                                                                    </button>
-                                                                )}
-                                                            </>
-                                                        )}
-                                                    </div>
-                                                ))}
-                                            </div>
-
-                                            <label
-                                                className={styles.labeltag}
-                                                htmlFor="images"><MdOutlineFileUpload /> &nbsp;Upload Image</label>
-                                            <input
-                                                style={{ display: 'none' }}
-                                                type="file"
-                                                id="images"
-                                                name="images"
-                                                accept="image/*"
-                                                multiple
-                                                onChange={(event) => handleFileChange(event, setFieldValue)}
-                                            />
-
                                             <ErrorMessage name="images" component="div" style={{ color: 'red' }} />
 
+
+
+                                            <div>
+                                                {!previewsUtama.imageUtama && (
+                                                    <>
+                                                        <label className={styles.gambarutama} htmlFor="imageUtama">
+                                                            <MdOutlineFileUpload /> &nbsp;Gambar Utama
+                                                        </label>
+                                                        <input
+                                                            style={{ display: 'none' }}
+                                                            type="file"
+                                                            id="imageUtama"
+                                                            name="imageUtama"
+                                                            accept="image/*"
+                                                            onChange={(e) => handleFileChangeUtama(e, 'imageUtama')}
+                                                        />
+                                                    </>
+                                                )}
+                                                {previewsUtama.imageUtama && (
+                                                    <div >
+                                                        {
+                                                            data ?
+                                                                <>
+                                                                    <img src={previewsUtama.imageUtama?.url ? previewsUtama.imageUtama?.url : previewsUtama.imageUtama} alt="Preview Gambar Utama" className={styles.previewImageUtama} />
+                                                                    <div className={styles.deleteButton} onClick={() => handleDeleteLocalUtama(previewsUtama.imageUtama.public_id, 'imageUtama')}>Ganti</div>
+                                                                </>
+                                                                :
+                                                                <>
+                                                                    <img src={previewsUtama.imageUtama} alt="Preview Gambar Utama" className={styles.previewImageUtama} />
+                                                                    <div className={styles.deleteButtonutama} onClick={() => handleDeleteUtama('imageUtama')}>Ganti</div>
+                                                                </>
+                                                        }
+                                                    </div>
+                                                )}
+                                            </div>
+
+
+                                            <div className={styles.listgambar}>
+                                                <div>
+                                                    {!previews.images1 && (
+                                                        <>
+                                                            <label className={styles.gambarnew} htmlFor="images1">
+                                                                <MdOutlineFileUpload /> &nbsp;Gambar Utama
+                                                            </label>
+                                                            <input
+                                                                style={{ display: 'none' }}
+                                                                type="file"
+                                                                id="images1"
+                                                                name="images1"
+                                                                accept="image/*"
+                                                                onChange={(e) => handleFileChange(e, 'images1')}
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {previews.images1 && (
+                                                        <div >
+                                                            {
+                                                                data ?
+                                                                    <>
+                                                                        <img src={previews.images1?.url ? previews.images1?.url : previews.images1} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDeleteLocal(previews.images1.public_id, 'images1')}>Hapus</div>
+                                                                    </>
+                                                                    :
+                                                                    <>
+                                                                        <img src={previews.images1} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDelete('images1')}>Hapus</div>
+                                                                    </>
+                                                            }
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    {!previews.images2 && (
+                                                        <>
+                                                            <label className={styles.gambarnew} htmlFor="images2">
+                                                                <MdOutlineFileUpload /> &nbsp;Upload Gambar
+                                                            </label>
+                                                            <input
+                                                                style={{ display: 'none' }}
+                                                                type="file"
+                                                                id="images2"
+                                                                name="images2"
+                                                                accept="image/*"
+                                                                onChange={(e) => handleFileChange(e, 'images2')}
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {console.log(previews.images2 ? previews.images2?.url : previews.images2)
+                                                    }
+                                                    {previews.images2 && (
+                                                        <>
+                                                            {
+                                                                data ?
+                                                                    <>
+                                                                        <img src={previews.images2?.url ? previews.images2?.url : previews.images2} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDeleteLocal(previews.images2.public_id, 'images2')}>Hapus</div>
+                                                                    </>
+                                                                    :
+                                                                    <>
+                                                                        <img src={previews.images2} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDelete('images2')}>Hapus</div>
+                                                                    </>
+                                                            }
+                                                        </>
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    {!previews.images3 && (
+                                                        <>
+                                                            <label className={styles.gambarnew} htmlFor="images3">
+                                                                <MdOutlineFileUpload /> &nbsp;Upload Gambar
+                                                            </label>
+                                                            <input
+                                                                style={{ display: 'none' }}
+                                                                type="file"
+                                                                id="images3"
+                                                                name="images3"
+                                                                accept="image/*"
+                                                                onChange={(e) => handleFileChange(e, 'images3')}
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {previews.images3 && (
+                                                        <>
+                                                            {
+                                                                data ?
+                                                                    <>
+                                                                        <img src={previews.images3?.url ? previews.images3?.url : previews.images3} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDeleteLocal(previews.images3.public_id, 'images3')}>Hapus</div>
+                                                                    </>
+                                                                    :
+                                                                    <>
+                                                                        <img src={previews.images3} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDelete('images3')}>Hapus</div>
+                                                                    </>
+                                                            }
+                                                        </>
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    {!previews.images4 && (
+                                                        <>
+                                                            <label className={styles.gambarnew} htmlFor="images4">
+                                                                <MdOutlineFileUpload /> &nbsp;Upload Gambar
+                                                            </label>
+                                                            <input
+                                                                style={{ display: 'none' }}
+                                                                type="file"
+                                                                id="images4"
+                                                                name="images4"
+                                                                accept="image/*"
+                                                                onChange={(e) => handleFileChange(e, 'images4')}
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {previews.images4 && (
+                                                        <>
+                                                            {
+                                                                data ?
+                                                                    <>
+                                                                        <img src={previews.images4?.url ? previews.images4?.url : previews.images4} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDeleteLocal(previews.images4.public_id, 'images4')}>Hapus</div>
+                                                                    </>
+                                                                    :
+                                                                    <>
+                                                                        <img src={previews.images4} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDelete('images4')}>Hapus</div>
+                                                                    </>
+                                                            }
+                                                        </>
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    {!previews.images5 && (
+                                                        <>
+                                                            <label className={styles.gambarnew} htmlFor="images5">
+                                                                <MdOutlineFileUpload /> &nbsp;Upload Gambar
+                                                            </label>
+                                                            <input
+                                                                style={{ display: 'none' }}
+                                                                type="file"
+                                                                id="images5"
+                                                                name="images5"
+                                                                accept="image/*"
+                                                                onChange={(e) => handleFileChange(e, 'images5')}
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {previews.images5 && (
+                                                        <>
+                                                            {
+                                                                data ?
+                                                                    <>
+                                                                        <img src={previews.images5?.url ? previews.images5?.url : previews.images5} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDeleteLocal(previews.images5.public_id, 'images5')}>Hapus</div>
+                                                                    </>
+                                                                    :
+                                                                    <>
+                                                                        <img src={previews.images5} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDelete('images5')}>Hapus</div>
+                                                                    </>
+                                                            }
+                                                        </>
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    {!previews.images6 && (
+                                                        <>
+                                                            <label className={styles.gambarnew} htmlFor="images6">
+                                                                <MdOutlineFileUpload /> &nbsp;Upload Gambar
+                                                            </label>
+                                                            <input
+                                                                style={{ display: 'none' }}
+                                                                type="file"
+                                                                id="images6"
+                                                                name="images6"
+                                                                accept="image/*"
+                                                                onChange={(e) => handleFileChange(e, 'images6')}
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {previews.images6 && (
+                                                        <>
+                                                            {
+                                                                data ?
+                                                                    <>
+                                                                        <img src={previews.images6?.url ? previews.images6?.url : previews.images6} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDeleteLocal(previews.images6.public_id, 'images6')}>Hapus</div>
+                                                                    </>
+                                                                    :
+                                                                    <>
+                                                                        <img src={previews.images6} alt="Preview Gambar Utama" className={styles.previewImage} />
+                                                                        <div className={styles.deleteButton} onClick={() => handleDelete('images6')}>Hapus</div>
+                                                                    </>
+                                                            }
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>

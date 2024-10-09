@@ -56,6 +56,7 @@ model listProduct {
   url_image_product imageProduct[]
   spec_product      specProduct?
   cartItem          cartItem[]
+  imageProductUtama imageProductUtama?
 
   @@index([productKategori])
 }
@@ -79,6 +80,37 @@ model specProduct {
   user      listProduct @relation(fields: [IdProduct], references: [id])
 }
 
+model imageProductUtama {
+  id                Int      @id @default(autoincrement())
+  start             DateTime @default(now())
+  end               DateTime @updatedAt
+  asset_id          String?  @unique // Asset ID
+  public_id         String?  @unique // Public ID
+  version           Int? // Version
+  version_id        String? // Version ID
+  signature         String? // Signature
+  width             Int? // Image width
+  height            Int? // Image height
+  format            String? // Image format (e.g., jpg, png)
+  resource_type     String? // Resource type (e.g., image, video)
+  created_at        DateTime @default(now()) // Time of creation
+  pages             Int? // Time of creation
+  tags              Json? // Tags associated with the image
+  bytes             Int? // Size of the file in bytes
+  type              String? // Upload type
+  etag              String? // ETag for cache control
+  placeholder       Boolean? // Whether the image is a placeholder
+  url               String? // URL to access the image
+  secure_url        String? // Secure URL for access
+  asset_folder      String? // Asset folder (nullable)
+  display_name      String? // Display name of the file (nullable)
+  original_filename String? // Original filename
+  api_key           String? // API key used for upload
+
+  IdProduct Int         @unique
+  user      listProduct @relation(fields: [IdProduct], references: [id])
+}
+
 model imageProduct {
   id                Int      @id @default(autoincrement())
   start             DateTime @default(now())
@@ -93,6 +125,7 @@ model imageProduct {
   format            String? // Image format (e.g., jpg, png)
   resource_type     String? // Resource type (e.g., image, video)
   created_at        DateTime @default(now()) // Time of creation
+  pages             Int? // Time of creation
   tags              Json? // Tags associated with the image
   bytes             Int? // Size of the file in bytes
   type              String? // Upload type
@@ -141,6 +174,7 @@ model imageProductArtikel {
   format            String? // Image format (e.g., jpg, png)
   resource_type     String? // Resource type (e.g., image, video)
   created_at        DateTime @default(now()) // Time of creation
+  pages             Int? // Time of creation
   tags              Json? // Tags associated with the image
   bytes             Int? // Size of the file in bytes
   type              String? // Upload type
@@ -177,6 +211,7 @@ model categoryArtikel {
 model cart {
   IDCart      String         @id
   email       String         @unique
+  clerkUserId String         @unique
   name        String?
   avatar      String?
   id          Int            @default(autoincrement())

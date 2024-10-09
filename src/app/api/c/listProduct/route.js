@@ -32,7 +32,8 @@ export async function POST(req) {
         weight_spec,
         dimension_spec,
 
-        dataImage
+        dataImage,
+        imageProductUtama
     } = await req.json()
 
 
@@ -71,7 +72,8 @@ export async function POST(req) {
                         dimension_spec,
                     }
                 },
-                url_image_product: { create: dataImage }
+                url_image_product: { create: dataImage },
+                imageProductUtama: { create: imageProductUtama }
             }
         })
         const res = await ResponseData(CreateList, authorization)
@@ -108,8 +110,10 @@ export async function PUT(req) {
         weight_spec,
         dimension_spec,
 
-        dataImage
+        dataImage,
+        imageProductUtama
     } = await req.json()
+
 
     if (authorization == process.env.NEXT_PUBLIC_SECREET) {
         const UpdateList = await prisma.listProduct.updateMany({
@@ -148,11 +152,21 @@ export async function PUT(req) {
             }
         })
 
+        //LIST GAMBAR
         for (const image of dataImage) {
             await prisma.imageProduct.create({
                 data: { ...image, IdProduct: IdProduct }
             })
         }
+
+        // LIST GAMBAR UTAMA
+        await prisma.imageProductUtama.updateMany({
+            where: {
+                IdProduct: IdProduct,
+            },
+            data: imageProductUtama
+        })
+
         const data = await prisma.$transaction([UpdateList, UpdateListSpec])
         const res = await ResponseData(data, authorization)
         return res
@@ -168,16 +182,17 @@ export async function DELETE(req) {
     };
 
     const {
-        public_id,
+        public_id
     } = await req.json()
 
 
     if (authorization == process.env.NEXT_PUBLIC_SECREET) {
-        const CreateList = await prisma.imageProduct.delete({
+        await prisma.imageProduct.delete({
             where: {
                 public_id
             },
         })
+
         const res = await ResponseData(CreateList, authorization)
         return res
     } else return Response.json({ status: 500, isCreated: false, contact: 'natanael rio wijaya 08971041460' })

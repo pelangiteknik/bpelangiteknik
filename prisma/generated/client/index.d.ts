@@ -29,6 +29,11 @@ export type listProduct = $Result.DefaultSelection<Prisma.$listProductPayload>
  */
 export type specProduct = $Result.DefaultSelection<Prisma.$specProductPayload>
 /**
+ * Model imageProductUtama
+ * 
+ */
+export type imageProductUtama = $Result.DefaultSelection<Prisma.$imageProductUtamaPayload>
+/**
  * Model imageProduct
  * 
  */
@@ -231,6 +236,16 @@ export class PrismaClient<
     * ```
     */
   get specProduct(): Prisma.specProductDelegate<ExtArgs>;
+
+  /**
+   * `prisma.imageProductUtama`: Exposes CRUD operations for the **imageProductUtama** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ImageProductUtamas
+    * const imageProductUtamas = await prisma.imageProductUtama.findMany()
+    * ```
+    */
+  get imageProductUtama(): Prisma.imageProductUtamaDelegate<ExtArgs>;
 
   /**
    * `prisma.imageProduct`: Exposes CRUD operations for the **imageProduct** model.
@@ -773,6 +788,7 @@ export namespace Prisma {
     categoryProduct: 'categoryProduct',
     listProduct: 'listProduct',
     specProduct: 'specProduct',
+    imageProductUtama: 'imageProductUtama',
     imageProduct: 'imageProduct',
     postArtikel: 'postArtikel',
     imageProductArtikel: 'imageProductArtikel',
@@ -798,7 +814,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "categoryProduct" | "listProduct" | "specProduct" | "imageProduct" | "postArtikel" | "imageProductArtikel" | "categoryArtikel" | "cart" | "cartItem" | "formPembelian" | "ongkosKirim" | "dataPesananItem" | "dataPesanan"
+      modelProps: "categoryProduct" | "listProduct" | "specProduct" | "imageProductUtama" | "imageProduct" | "postArtikel" | "imageProductArtikel" | "categoryArtikel" | "cart" | "cartItem" | "formPembelian" | "ongkosKirim" | "dataPesananItem" | "dataPesanan"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1009,6 +1025,76 @@ export namespace Prisma {
           count: {
             args: Prisma.specProductCountArgs<ExtArgs>
             result: $Utils.Optional<SpecProductCountAggregateOutputType> | number
+          }
+        }
+      }
+      imageProductUtama: {
+        payload: Prisma.$imageProductUtamaPayload<ExtArgs>
+        fields: Prisma.imageProductUtamaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.imageProductUtamaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imageProductUtamaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.imageProductUtamaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imageProductUtamaPayload>
+          }
+          findFirst: {
+            args: Prisma.imageProductUtamaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imageProductUtamaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.imageProductUtamaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imageProductUtamaPayload>
+          }
+          findMany: {
+            args: Prisma.imageProductUtamaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imageProductUtamaPayload>[]
+          }
+          create: {
+            args: Prisma.imageProductUtamaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imageProductUtamaPayload>
+          }
+          createMany: {
+            args: Prisma.imageProductUtamaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.imageProductUtamaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imageProductUtamaPayload>[]
+          }
+          delete: {
+            args: Prisma.imageProductUtamaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imageProductUtamaPayload>
+          }
+          update: {
+            args: Prisma.imageProductUtamaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imageProductUtamaPayload>
+          }
+          deleteMany: {
+            args: Prisma.imageProductUtamaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.imageProductUtamaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.imageProductUtamaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imageProductUtamaPayload>
+          }
+          aggregate: {
+            args: Prisma.ImageProductUtamaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateImageProductUtama>
+          }
+          groupBy: {
+            args: Prisma.imageProductUtamaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ImageProductUtamaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.imageProductUtamaCountArgs<ExtArgs>
+            result: $Utils.Optional<ImageProductUtamaCountAggregateOutputType> | number
           }
         }
       }
@@ -3456,6 +3542,7 @@ export namespace Prisma {
     url_image_product?: boolean | listProduct$url_image_productArgs<ExtArgs>
     spec_product?: boolean | listProduct$spec_productArgs<ExtArgs>
     cartItem?: boolean | listProduct$cartItemArgs<ExtArgs>
+    imageProductUtama?: boolean | listProduct$imageProductUtamaArgs<ExtArgs>
     _count?: boolean | ListProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["listProduct"]>
 
@@ -3507,6 +3594,7 @@ export namespace Prisma {
     url_image_product?: boolean | listProduct$url_image_productArgs<ExtArgs>
     spec_product?: boolean | listProduct$spec_productArgs<ExtArgs>
     cartItem?: boolean | listProduct$cartItemArgs<ExtArgs>
+    imageProductUtama?: boolean | listProduct$imageProductUtamaArgs<ExtArgs>
     _count?: boolean | ListProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type listProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3520,6 +3608,7 @@ export namespace Prisma {
       url_image_product: Prisma.$imageProductPayload<ExtArgs>[]
       spec_product: Prisma.$specProductPayload<ExtArgs> | null
       cartItem: Prisma.$cartItemPayload<ExtArgs>[]
+      imageProductUtama: Prisma.$imageProductUtamaPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3908,6 +3997,7 @@ export namespace Prisma {
     url_image_product<T extends listProduct$url_image_productArgs<ExtArgs> = {}>(args?: Subset<T, listProduct$url_image_productArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$imageProductPayload<ExtArgs>, T, "findMany"> | Null>
     spec_product<T extends listProduct$spec_productArgs<ExtArgs> = {}>(args?: Subset<T, listProduct$spec_productArgs<ExtArgs>>): Prisma__specProductClient<$Result.GetResult<Prisma.$specProductPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     cartItem<T extends listProduct$cartItemArgs<ExtArgs> = {}>(args?: Subset<T, listProduct$cartItemArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$cartItemPayload<ExtArgs>, T, "findMany"> | Null>
+    imageProductUtama<T extends listProduct$imageProductUtamaArgs<ExtArgs> = {}>(args?: Subset<T, listProduct$imageProductUtamaArgs<ExtArgs>>): Prisma__imageProductUtamaClient<$Result.GetResult<Prisma.$imageProductUtamaPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4325,6 +4415,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CartItemScalarFieldEnum | CartItemScalarFieldEnum[]
+  }
+
+  /**
+   * listProduct.imageProductUtama
+   */
+  export type listProduct$imageProductUtamaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaInclude<ExtArgs> | null
+    where?: imageProductUtamaWhereInput
   }
 
   /**
@@ -5426,6 +5531,1245 @@ export namespace Prisma {
 
 
   /**
+   * Model imageProductUtama
+   */
+
+  export type AggregateImageProductUtama = {
+    _count: ImageProductUtamaCountAggregateOutputType | null
+    _avg: ImageProductUtamaAvgAggregateOutputType | null
+    _sum: ImageProductUtamaSumAggregateOutputType | null
+    _min: ImageProductUtamaMinAggregateOutputType | null
+    _max: ImageProductUtamaMaxAggregateOutputType | null
+  }
+
+  export type ImageProductUtamaAvgAggregateOutputType = {
+    id: number | null
+    version: number | null
+    width: number | null
+    height: number | null
+    pages: number | null
+    bytes: number | null
+    IdProduct: number | null
+  }
+
+  export type ImageProductUtamaSumAggregateOutputType = {
+    id: number | null
+    version: number | null
+    width: number | null
+    height: number | null
+    pages: number | null
+    bytes: number | null
+    IdProduct: number | null
+  }
+
+  export type ImageProductUtamaMinAggregateOutputType = {
+    id: number | null
+    start: Date | null
+    end: Date | null
+    asset_id: string | null
+    public_id: string | null
+    version: number | null
+    version_id: string | null
+    signature: string | null
+    width: number | null
+    height: number | null
+    format: string | null
+    resource_type: string | null
+    created_at: Date | null
+    pages: number | null
+    bytes: number | null
+    type: string | null
+    etag: string | null
+    placeholder: boolean | null
+    url: string | null
+    secure_url: string | null
+    asset_folder: string | null
+    display_name: string | null
+    original_filename: string | null
+    api_key: string | null
+    IdProduct: number | null
+  }
+
+  export type ImageProductUtamaMaxAggregateOutputType = {
+    id: number | null
+    start: Date | null
+    end: Date | null
+    asset_id: string | null
+    public_id: string | null
+    version: number | null
+    version_id: string | null
+    signature: string | null
+    width: number | null
+    height: number | null
+    format: string | null
+    resource_type: string | null
+    created_at: Date | null
+    pages: number | null
+    bytes: number | null
+    type: string | null
+    etag: string | null
+    placeholder: boolean | null
+    url: string | null
+    secure_url: string | null
+    asset_folder: string | null
+    display_name: string | null
+    original_filename: string | null
+    api_key: string | null
+    IdProduct: number | null
+  }
+
+  export type ImageProductUtamaCountAggregateOutputType = {
+    id: number
+    start: number
+    end: number
+    asset_id: number
+    public_id: number
+    version: number
+    version_id: number
+    signature: number
+    width: number
+    height: number
+    format: number
+    resource_type: number
+    created_at: number
+    pages: number
+    tags: number
+    bytes: number
+    type: number
+    etag: number
+    placeholder: number
+    url: number
+    secure_url: number
+    asset_folder: number
+    display_name: number
+    original_filename: number
+    api_key: number
+    IdProduct: number
+    _all: number
+  }
+
+
+  export type ImageProductUtamaAvgAggregateInputType = {
+    id?: true
+    version?: true
+    width?: true
+    height?: true
+    pages?: true
+    bytes?: true
+    IdProduct?: true
+  }
+
+  export type ImageProductUtamaSumAggregateInputType = {
+    id?: true
+    version?: true
+    width?: true
+    height?: true
+    pages?: true
+    bytes?: true
+    IdProduct?: true
+  }
+
+  export type ImageProductUtamaMinAggregateInputType = {
+    id?: true
+    start?: true
+    end?: true
+    asset_id?: true
+    public_id?: true
+    version?: true
+    version_id?: true
+    signature?: true
+    width?: true
+    height?: true
+    format?: true
+    resource_type?: true
+    created_at?: true
+    pages?: true
+    bytes?: true
+    type?: true
+    etag?: true
+    placeholder?: true
+    url?: true
+    secure_url?: true
+    asset_folder?: true
+    display_name?: true
+    original_filename?: true
+    api_key?: true
+    IdProduct?: true
+  }
+
+  export type ImageProductUtamaMaxAggregateInputType = {
+    id?: true
+    start?: true
+    end?: true
+    asset_id?: true
+    public_id?: true
+    version?: true
+    version_id?: true
+    signature?: true
+    width?: true
+    height?: true
+    format?: true
+    resource_type?: true
+    created_at?: true
+    pages?: true
+    bytes?: true
+    type?: true
+    etag?: true
+    placeholder?: true
+    url?: true
+    secure_url?: true
+    asset_folder?: true
+    display_name?: true
+    original_filename?: true
+    api_key?: true
+    IdProduct?: true
+  }
+
+  export type ImageProductUtamaCountAggregateInputType = {
+    id?: true
+    start?: true
+    end?: true
+    asset_id?: true
+    public_id?: true
+    version?: true
+    version_id?: true
+    signature?: true
+    width?: true
+    height?: true
+    format?: true
+    resource_type?: true
+    created_at?: true
+    pages?: true
+    tags?: true
+    bytes?: true
+    type?: true
+    etag?: true
+    placeholder?: true
+    url?: true
+    secure_url?: true
+    asset_folder?: true
+    display_name?: true
+    original_filename?: true
+    api_key?: true
+    IdProduct?: true
+    _all?: true
+  }
+
+  export type ImageProductUtamaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which imageProductUtama to aggregate.
+     */
+    where?: imageProductUtamaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of imageProductUtamas to fetch.
+     */
+    orderBy?: imageProductUtamaOrderByWithRelationInput | imageProductUtamaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: imageProductUtamaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` imageProductUtamas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` imageProductUtamas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned imageProductUtamas
+    **/
+    _count?: true | ImageProductUtamaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ImageProductUtamaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ImageProductUtamaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ImageProductUtamaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ImageProductUtamaMaxAggregateInputType
+  }
+
+  export type GetImageProductUtamaAggregateType<T extends ImageProductUtamaAggregateArgs> = {
+        [P in keyof T & keyof AggregateImageProductUtama]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateImageProductUtama[P]>
+      : GetScalarType<T[P], AggregateImageProductUtama[P]>
+  }
+
+
+
+
+  export type imageProductUtamaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: imageProductUtamaWhereInput
+    orderBy?: imageProductUtamaOrderByWithAggregationInput | imageProductUtamaOrderByWithAggregationInput[]
+    by: ImageProductUtamaScalarFieldEnum[] | ImageProductUtamaScalarFieldEnum
+    having?: imageProductUtamaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ImageProductUtamaCountAggregateInputType | true
+    _avg?: ImageProductUtamaAvgAggregateInputType
+    _sum?: ImageProductUtamaSumAggregateInputType
+    _min?: ImageProductUtamaMinAggregateInputType
+    _max?: ImageProductUtamaMaxAggregateInputType
+  }
+
+  export type ImageProductUtamaGroupByOutputType = {
+    id: number
+    start: Date
+    end: Date
+    asset_id: string | null
+    public_id: string | null
+    version: number | null
+    version_id: string | null
+    signature: string | null
+    width: number | null
+    height: number | null
+    format: string | null
+    resource_type: string | null
+    created_at: Date
+    pages: number | null
+    tags: JsonValue | null
+    bytes: number | null
+    type: string | null
+    etag: string | null
+    placeholder: boolean | null
+    url: string | null
+    secure_url: string | null
+    asset_folder: string | null
+    display_name: string | null
+    original_filename: string | null
+    api_key: string | null
+    IdProduct: number
+    _count: ImageProductUtamaCountAggregateOutputType | null
+    _avg: ImageProductUtamaAvgAggregateOutputType | null
+    _sum: ImageProductUtamaSumAggregateOutputType | null
+    _min: ImageProductUtamaMinAggregateOutputType | null
+    _max: ImageProductUtamaMaxAggregateOutputType | null
+  }
+
+  type GetImageProductUtamaGroupByPayload<T extends imageProductUtamaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ImageProductUtamaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ImageProductUtamaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ImageProductUtamaGroupByOutputType[P]>
+            : GetScalarType<T[P], ImageProductUtamaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type imageProductUtamaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    start?: boolean
+    end?: boolean
+    asset_id?: boolean
+    public_id?: boolean
+    version?: boolean
+    version_id?: boolean
+    signature?: boolean
+    width?: boolean
+    height?: boolean
+    format?: boolean
+    resource_type?: boolean
+    created_at?: boolean
+    pages?: boolean
+    tags?: boolean
+    bytes?: boolean
+    type?: boolean
+    etag?: boolean
+    placeholder?: boolean
+    url?: boolean
+    secure_url?: boolean
+    asset_folder?: boolean
+    display_name?: boolean
+    original_filename?: boolean
+    api_key?: boolean
+    IdProduct?: boolean
+    user?: boolean | listProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["imageProductUtama"]>
+
+  export type imageProductUtamaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    start?: boolean
+    end?: boolean
+    asset_id?: boolean
+    public_id?: boolean
+    version?: boolean
+    version_id?: boolean
+    signature?: boolean
+    width?: boolean
+    height?: boolean
+    format?: boolean
+    resource_type?: boolean
+    created_at?: boolean
+    pages?: boolean
+    tags?: boolean
+    bytes?: boolean
+    type?: boolean
+    etag?: boolean
+    placeholder?: boolean
+    url?: boolean
+    secure_url?: boolean
+    asset_folder?: boolean
+    display_name?: boolean
+    original_filename?: boolean
+    api_key?: boolean
+    IdProduct?: boolean
+    user?: boolean | listProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["imageProductUtama"]>
+
+  export type imageProductUtamaSelectScalar = {
+    id?: boolean
+    start?: boolean
+    end?: boolean
+    asset_id?: boolean
+    public_id?: boolean
+    version?: boolean
+    version_id?: boolean
+    signature?: boolean
+    width?: boolean
+    height?: boolean
+    format?: boolean
+    resource_type?: boolean
+    created_at?: boolean
+    pages?: boolean
+    tags?: boolean
+    bytes?: boolean
+    type?: boolean
+    etag?: boolean
+    placeholder?: boolean
+    url?: boolean
+    secure_url?: boolean
+    asset_folder?: boolean
+    display_name?: boolean
+    original_filename?: boolean
+    api_key?: boolean
+    IdProduct?: boolean
+  }
+
+  export type imageProductUtamaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | listProductDefaultArgs<ExtArgs>
+  }
+  export type imageProductUtamaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | listProductDefaultArgs<ExtArgs>
+  }
+
+  export type $imageProductUtamaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "imageProductUtama"
+    objects: {
+      user: Prisma.$listProductPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      start: Date
+      end: Date
+      asset_id: string | null
+      public_id: string | null
+      version: number | null
+      version_id: string | null
+      signature: string | null
+      width: number | null
+      height: number | null
+      format: string | null
+      resource_type: string | null
+      created_at: Date
+      pages: number | null
+      tags: Prisma.JsonValue | null
+      bytes: number | null
+      type: string | null
+      etag: string | null
+      placeholder: boolean | null
+      url: string | null
+      secure_url: string | null
+      asset_folder: string | null
+      display_name: string | null
+      original_filename: string | null
+      api_key: string | null
+      IdProduct: number
+    }, ExtArgs["result"]["imageProductUtama"]>
+    composites: {}
+  }
+
+  type imageProductUtamaGetPayload<S extends boolean | null | undefined | imageProductUtamaDefaultArgs> = $Result.GetResult<Prisma.$imageProductUtamaPayload, S>
+
+  type imageProductUtamaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<imageProductUtamaFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ImageProductUtamaCountAggregateInputType | true
+    }
+
+  export interface imageProductUtamaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['imageProductUtama'], meta: { name: 'imageProductUtama' } }
+    /**
+     * Find zero or one ImageProductUtama that matches the filter.
+     * @param {imageProductUtamaFindUniqueArgs} args - Arguments to find a ImageProductUtama
+     * @example
+     * // Get one ImageProductUtama
+     * const imageProductUtama = await prisma.imageProductUtama.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends imageProductUtamaFindUniqueArgs>(args: SelectSubset<T, imageProductUtamaFindUniqueArgs<ExtArgs>>): Prisma__imageProductUtamaClient<$Result.GetResult<Prisma.$imageProductUtamaPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ImageProductUtama that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {imageProductUtamaFindUniqueOrThrowArgs} args - Arguments to find a ImageProductUtama
+     * @example
+     * // Get one ImageProductUtama
+     * const imageProductUtama = await prisma.imageProductUtama.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends imageProductUtamaFindUniqueOrThrowArgs>(args: SelectSubset<T, imageProductUtamaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__imageProductUtamaClient<$Result.GetResult<Prisma.$imageProductUtamaPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ImageProductUtama that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imageProductUtamaFindFirstArgs} args - Arguments to find a ImageProductUtama
+     * @example
+     * // Get one ImageProductUtama
+     * const imageProductUtama = await prisma.imageProductUtama.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends imageProductUtamaFindFirstArgs>(args?: SelectSubset<T, imageProductUtamaFindFirstArgs<ExtArgs>>): Prisma__imageProductUtamaClient<$Result.GetResult<Prisma.$imageProductUtamaPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ImageProductUtama that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imageProductUtamaFindFirstOrThrowArgs} args - Arguments to find a ImageProductUtama
+     * @example
+     * // Get one ImageProductUtama
+     * const imageProductUtama = await prisma.imageProductUtama.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends imageProductUtamaFindFirstOrThrowArgs>(args?: SelectSubset<T, imageProductUtamaFindFirstOrThrowArgs<ExtArgs>>): Prisma__imageProductUtamaClient<$Result.GetResult<Prisma.$imageProductUtamaPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ImageProductUtamas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imageProductUtamaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ImageProductUtamas
+     * const imageProductUtamas = await prisma.imageProductUtama.findMany()
+     * 
+     * // Get first 10 ImageProductUtamas
+     * const imageProductUtamas = await prisma.imageProductUtama.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const imageProductUtamaWithIdOnly = await prisma.imageProductUtama.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends imageProductUtamaFindManyArgs>(args?: SelectSubset<T, imageProductUtamaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$imageProductUtamaPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ImageProductUtama.
+     * @param {imageProductUtamaCreateArgs} args - Arguments to create a ImageProductUtama.
+     * @example
+     * // Create one ImageProductUtama
+     * const ImageProductUtama = await prisma.imageProductUtama.create({
+     *   data: {
+     *     // ... data to create a ImageProductUtama
+     *   }
+     * })
+     * 
+     */
+    create<T extends imageProductUtamaCreateArgs>(args: SelectSubset<T, imageProductUtamaCreateArgs<ExtArgs>>): Prisma__imageProductUtamaClient<$Result.GetResult<Prisma.$imageProductUtamaPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ImageProductUtamas.
+     * @param {imageProductUtamaCreateManyArgs} args - Arguments to create many ImageProductUtamas.
+     * @example
+     * // Create many ImageProductUtamas
+     * const imageProductUtama = await prisma.imageProductUtama.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends imageProductUtamaCreateManyArgs>(args?: SelectSubset<T, imageProductUtamaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ImageProductUtamas and returns the data saved in the database.
+     * @param {imageProductUtamaCreateManyAndReturnArgs} args - Arguments to create many ImageProductUtamas.
+     * @example
+     * // Create many ImageProductUtamas
+     * const imageProductUtama = await prisma.imageProductUtama.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ImageProductUtamas and only return the `id`
+     * const imageProductUtamaWithIdOnly = await prisma.imageProductUtama.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends imageProductUtamaCreateManyAndReturnArgs>(args?: SelectSubset<T, imageProductUtamaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$imageProductUtamaPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ImageProductUtama.
+     * @param {imageProductUtamaDeleteArgs} args - Arguments to delete one ImageProductUtama.
+     * @example
+     * // Delete one ImageProductUtama
+     * const ImageProductUtama = await prisma.imageProductUtama.delete({
+     *   where: {
+     *     // ... filter to delete one ImageProductUtama
+     *   }
+     * })
+     * 
+     */
+    delete<T extends imageProductUtamaDeleteArgs>(args: SelectSubset<T, imageProductUtamaDeleteArgs<ExtArgs>>): Prisma__imageProductUtamaClient<$Result.GetResult<Prisma.$imageProductUtamaPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ImageProductUtama.
+     * @param {imageProductUtamaUpdateArgs} args - Arguments to update one ImageProductUtama.
+     * @example
+     * // Update one ImageProductUtama
+     * const imageProductUtama = await prisma.imageProductUtama.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends imageProductUtamaUpdateArgs>(args: SelectSubset<T, imageProductUtamaUpdateArgs<ExtArgs>>): Prisma__imageProductUtamaClient<$Result.GetResult<Prisma.$imageProductUtamaPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ImageProductUtamas.
+     * @param {imageProductUtamaDeleteManyArgs} args - Arguments to filter ImageProductUtamas to delete.
+     * @example
+     * // Delete a few ImageProductUtamas
+     * const { count } = await prisma.imageProductUtama.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends imageProductUtamaDeleteManyArgs>(args?: SelectSubset<T, imageProductUtamaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ImageProductUtamas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imageProductUtamaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ImageProductUtamas
+     * const imageProductUtama = await prisma.imageProductUtama.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends imageProductUtamaUpdateManyArgs>(args: SelectSubset<T, imageProductUtamaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ImageProductUtama.
+     * @param {imageProductUtamaUpsertArgs} args - Arguments to update or create a ImageProductUtama.
+     * @example
+     * // Update or create a ImageProductUtama
+     * const imageProductUtama = await prisma.imageProductUtama.upsert({
+     *   create: {
+     *     // ... data to create a ImageProductUtama
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ImageProductUtama we want to update
+     *   }
+     * })
+     */
+    upsert<T extends imageProductUtamaUpsertArgs>(args: SelectSubset<T, imageProductUtamaUpsertArgs<ExtArgs>>): Prisma__imageProductUtamaClient<$Result.GetResult<Prisma.$imageProductUtamaPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ImageProductUtamas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imageProductUtamaCountArgs} args - Arguments to filter ImageProductUtamas to count.
+     * @example
+     * // Count the number of ImageProductUtamas
+     * const count = await prisma.imageProductUtama.count({
+     *   where: {
+     *     // ... the filter for the ImageProductUtamas we want to count
+     *   }
+     * })
+    **/
+    count<T extends imageProductUtamaCountArgs>(
+      args?: Subset<T, imageProductUtamaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ImageProductUtamaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ImageProductUtama.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageProductUtamaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ImageProductUtamaAggregateArgs>(args: Subset<T, ImageProductUtamaAggregateArgs>): Prisma.PrismaPromise<GetImageProductUtamaAggregateType<T>>
+
+    /**
+     * Group by ImageProductUtama.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imageProductUtamaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends imageProductUtamaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: imageProductUtamaGroupByArgs['orderBy'] }
+        : { orderBy?: imageProductUtamaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, imageProductUtamaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetImageProductUtamaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the imageProductUtama model
+   */
+  readonly fields: imageProductUtamaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for imageProductUtama.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__imageProductUtamaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends listProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, listProductDefaultArgs<ExtArgs>>): Prisma__listProductClient<$Result.GetResult<Prisma.$listProductPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the imageProductUtama model
+   */ 
+  interface imageProductUtamaFieldRefs {
+    readonly id: FieldRef<"imageProductUtama", 'Int'>
+    readonly start: FieldRef<"imageProductUtama", 'DateTime'>
+    readonly end: FieldRef<"imageProductUtama", 'DateTime'>
+    readonly asset_id: FieldRef<"imageProductUtama", 'String'>
+    readonly public_id: FieldRef<"imageProductUtama", 'String'>
+    readonly version: FieldRef<"imageProductUtama", 'Int'>
+    readonly version_id: FieldRef<"imageProductUtama", 'String'>
+    readonly signature: FieldRef<"imageProductUtama", 'String'>
+    readonly width: FieldRef<"imageProductUtama", 'Int'>
+    readonly height: FieldRef<"imageProductUtama", 'Int'>
+    readonly format: FieldRef<"imageProductUtama", 'String'>
+    readonly resource_type: FieldRef<"imageProductUtama", 'String'>
+    readonly created_at: FieldRef<"imageProductUtama", 'DateTime'>
+    readonly pages: FieldRef<"imageProductUtama", 'Int'>
+    readonly tags: FieldRef<"imageProductUtama", 'Json'>
+    readonly bytes: FieldRef<"imageProductUtama", 'Int'>
+    readonly type: FieldRef<"imageProductUtama", 'String'>
+    readonly etag: FieldRef<"imageProductUtama", 'String'>
+    readonly placeholder: FieldRef<"imageProductUtama", 'Boolean'>
+    readonly url: FieldRef<"imageProductUtama", 'String'>
+    readonly secure_url: FieldRef<"imageProductUtama", 'String'>
+    readonly asset_folder: FieldRef<"imageProductUtama", 'String'>
+    readonly display_name: FieldRef<"imageProductUtama", 'String'>
+    readonly original_filename: FieldRef<"imageProductUtama", 'String'>
+    readonly api_key: FieldRef<"imageProductUtama", 'String'>
+    readonly IdProduct: FieldRef<"imageProductUtama", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * imageProductUtama findUnique
+   */
+  export type imageProductUtamaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaInclude<ExtArgs> | null
+    /**
+     * Filter, which imageProductUtama to fetch.
+     */
+    where: imageProductUtamaWhereUniqueInput
+  }
+
+  /**
+   * imageProductUtama findUniqueOrThrow
+   */
+  export type imageProductUtamaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaInclude<ExtArgs> | null
+    /**
+     * Filter, which imageProductUtama to fetch.
+     */
+    where: imageProductUtamaWhereUniqueInput
+  }
+
+  /**
+   * imageProductUtama findFirst
+   */
+  export type imageProductUtamaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaInclude<ExtArgs> | null
+    /**
+     * Filter, which imageProductUtama to fetch.
+     */
+    where?: imageProductUtamaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of imageProductUtamas to fetch.
+     */
+    orderBy?: imageProductUtamaOrderByWithRelationInput | imageProductUtamaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for imageProductUtamas.
+     */
+    cursor?: imageProductUtamaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` imageProductUtamas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` imageProductUtamas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of imageProductUtamas.
+     */
+    distinct?: ImageProductUtamaScalarFieldEnum | ImageProductUtamaScalarFieldEnum[]
+  }
+
+  /**
+   * imageProductUtama findFirstOrThrow
+   */
+  export type imageProductUtamaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaInclude<ExtArgs> | null
+    /**
+     * Filter, which imageProductUtama to fetch.
+     */
+    where?: imageProductUtamaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of imageProductUtamas to fetch.
+     */
+    orderBy?: imageProductUtamaOrderByWithRelationInput | imageProductUtamaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for imageProductUtamas.
+     */
+    cursor?: imageProductUtamaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` imageProductUtamas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` imageProductUtamas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of imageProductUtamas.
+     */
+    distinct?: ImageProductUtamaScalarFieldEnum | ImageProductUtamaScalarFieldEnum[]
+  }
+
+  /**
+   * imageProductUtama findMany
+   */
+  export type imageProductUtamaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaInclude<ExtArgs> | null
+    /**
+     * Filter, which imageProductUtamas to fetch.
+     */
+    where?: imageProductUtamaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of imageProductUtamas to fetch.
+     */
+    orderBy?: imageProductUtamaOrderByWithRelationInput | imageProductUtamaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing imageProductUtamas.
+     */
+    cursor?: imageProductUtamaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` imageProductUtamas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` imageProductUtamas.
+     */
+    skip?: number
+    distinct?: ImageProductUtamaScalarFieldEnum | ImageProductUtamaScalarFieldEnum[]
+  }
+
+  /**
+   * imageProductUtama create
+   */
+  export type imageProductUtamaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a imageProductUtama.
+     */
+    data: XOR<imageProductUtamaCreateInput, imageProductUtamaUncheckedCreateInput>
+  }
+
+  /**
+   * imageProductUtama createMany
+   */
+  export type imageProductUtamaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many imageProductUtamas.
+     */
+    data: imageProductUtamaCreateManyInput | imageProductUtamaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * imageProductUtama createManyAndReturn
+   */
+  export type imageProductUtamaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many imageProductUtamas.
+     */
+    data: imageProductUtamaCreateManyInput | imageProductUtamaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * imageProductUtama update
+   */
+  export type imageProductUtamaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a imageProductUtama.
+     */
+    data: XOR<imageProductUtamaUpdateInput, imageProductUtamaUncheckedUpdateInput>
+    /**
+     * Choose, which imageProductUtama to update.
+     */
+    where: imageProductUtamaWhereUniqueInput
+  }
+
+  /**
+   * imageProductUtama updateMany
+   */
+  export type imageProductUtamaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update imageProductUtamas.
+     */
+    data: XOR<imageProductUtamaUpdateManyMutationInput, imageProductUtamaUncheckedUpdateManyInput>
+    /**
+     * Filter which imageProductUtamas to update
+     */
+    where?: imageProductUtamaWhereInput
+  }
+
+  /**
+   * imageProductUtama upsert
+   */
+  export type imageProductUtamaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the imageProductUtama to update in case it exists.
+     */
+    where: imageProductUtamaWhereUniqueInput
+    /**
+     * In case the imageProductUtama found by the `where` argument doesn't exist, create a new imageProductUtama with this data.
+     */
+    create: XOR<imageProductUtamaCreateInput, imageProductUtamaUncheckedCreateInput>
+    /**
+     * In case the imageProductUtama was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<imageProductUtamaUpdateInput, imageProductUtamaUncheckedUpdateInput>
+  }
+
+  /**
+   * imageProductUtama delete
+   */
+  export type imageProductUtamaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaInclude<ExtArgs> | null
+    /**
+     * Filter which imageProductUtama to delete.
+     */
+    where: imageProductUtamaWhereUniqueInput
+  }
+
+  /**
+   * imageProductUtama deleteMany
+   */
+  export type imageProductUtamaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which imageProductUtamas to delete
+     */
+    where?: imageProductUtamaWhereInput
+  }
+
+  /**
+   * imageProductUtama without action
+   */
+  export type imageProductUtamaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the imageProductUtama
+     */
+    select?: imageProductUtamaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imageProductUtamaInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model imageProduct
    */
 
@@ -5442,6 +6786,7 @@ export namespace Prisma {
     version: number | null
     width: number | null
     height: number | null
+    pages: number | null
     bytes: number | null
     IdProduct: number | null
   }
@@ -5451,6 +6796,7 @@ export namespace Prisma {
     version: number | null
     width: number | null
     height: number | null
+    pages: number | null
     bytes: number | null
     IdProduct: number | null
   }
@@ -5469,6 +6815,7 @@ export namespace Prisma {
     format: string | null
     resource_type: string | null
     created_at: Date | null
+    pages: number | null
     bytes: number | null
     type: string | null
     etag: string | null
@@ -5496,6 +6843,7 @@ export namespace Prisma {
     format: string | null
     resource_type: string | null
     created_at: Date | null
+    pages: number | null
     bytes: number | null
     type: string | null
     etag: string | null
@@ -5523,6 +6871,7 @@ export namespace Prisma {
     format: number
     resource_type: number
     created_at: number
+    pages: number
     tags: number
     bytes: number
     type: number
@@ -5544,6 +6893,7 @@ export namespace Prisma {
     version?: true
     width?: true
     height?: true
+    pages?: true
     bytes?: true
     IdProduct?: true
   }
@@ -5553,6 +6903,7 @@ export namespace Prisma {
     version?: true
     width?: true
     height?: true
+    pages?: true
     bytes?: true
     IdProduct?: true
   }
@@ -5571,6 +6922,7 @@ export namespace Prisma {
     format?: true
     resource_type?: true
     created_at?: true
+    pages?: true
     bytes?: true
     type?: true
     etag?: true
@@ -5598,6 +6950,7 @@ export namespace Prisma {
     format?: true
     resource_type?: true
     created_at?: true
+    pages?: true
     bytes?: true
     type?: true
     etag?: true
@@ -5625,6 +6978,7 @@ export namespace Prisma {
     format?: true
     resource_type?: true
     created_at?: true
+    pages?: true
     tags?: true
     bytes?: true
     type?: true
@@ -5740,6 +7094,7 @@ export namespace Prisma {
     format: string | null
     resource_type: string | null
     created_at: Date
+    pages: number | null
     tags: JsonValue | null
     bytes: number | null
     type: string | null
@@ -5787,6 +7142,7 @@ export namespace Prisma {
     format?: boolean
     resource_type?: boolean
     created_at?: boolean
+    pages?: boolean
     tags?: boolean
     bytes?: boolean
     type?: boolean
@@ -5816,6 +7172,7 @@ export namespace Prisma {
     format?: boolean
     resource_type?: boolean
     created_at?: boolean
+    pages?: boolean
     tags?: boolean
     bytes?: boolean
     type?: boolean
@@ -5845,6 +7202,7 @@ export namespace Prisma {
     format?: boolean
     resource_type?: boolean
     created_at?: boolean
+    pages?: boolean
     tags?: boolean
     bytes?: boolean
     type?: boolean
@@ -5885,6 +7243,7 @@ export namespace Prisma {
       format: string | null
       resource_type: string | null
       created_at: Date
+      pages: number | null
       tags: Prisma.JsonValue | null
       bytes: number | null
       type: string | null
@@ -6304,6 +7663,7 @@ export namespace Prisma {
     readonly format: FieldRef<"imageProduct", 'String'>
     readonly resource_type: FieldRef<"imageProduct", 'String'>
     readonly created_at: FieldRef<"imageProduct", 'DateTime'>
+    readonly pages: FieldRef<"imageProduct", 'Int'>
     readonly tags: FieldRef<"imageProduct", 'Json'>
     readonly bytes: FieldRef<"imageProduct", 'Int'>
     readonly type: FieldRef<"imageProduct", 'String'>
@@ -7718,6 +9078,7 @@ export namespace Prisma {
     version: number | null
     width: number | null
     height: number | null
+    pages: number | null
     bytes: number | null
     IdProductArtikel: number | null
   }
@@ -7727,6 +9088,7 @@ export namespace Prisma {
     version: number | null
     width: number | null
     height: number | null
+    pages: number | null
     bytes: number | null
     IdProductArtikel: number | null
   }
@@ -7745,6 +9107,7 @@ export namespace Prisma {
     format: string | null
     resource_type: string | null
     created_at: Date | null
+    pages: number | null
     bytes: number | null
     type: string | null
     etag: string | null
@@ -7772,6 +9135,7 @@ export namespace Prisma {
     format: string | null
     resource_type: string | null
     created_at: Date | null
+    pages: number | null
     bytes: number | null
     type: string | null
     etag: string | null
@@ -7799,6 +9163,7 @@ export namespace Prisma {
     format: number
     resource_type: number
     created_at: number
+    pages: number
     tags: number
     bytes: number
     type: number
@@ -7820,6 +9185,7 @@ export namespace Prisma {
     version?: true
     width?: true
     height?: true
+    pages?: true
     bytes?: true
     IdProductArtikel?: true
   }
@@ -7829,6 +9195,7 @@ export namespace Prisma {
     version?: true
     width?: true
     height?: true
+    pages?: true
     bytes?: true
     IdProductArtikel?: true
   }
@@ -7847,6 +9214,7 @@ export namespace Prisma {
     format?: true
     resource_type?: true
     created_at?: true
+    pages?: true
     bytes?: true
     type?: true
     etag?: true
@@ -7874,6 +9242,7 @@ export namespace Prisma {
     format?: true
     resource_type?: true
     created_at?: true
+    pages?: true
     bytes?: true
     type?: true
     etag?: true
@@ -7901,6 +9270,7 @@ export namespace Prisma {
     format?: true
     resource_type?: true
     created_at?: true
+    pages?: true
     tags?: true
     bytes?: true
     type?: true
@@ -8016,6 +9386,7 @@ export namespace Prisma {
     format: string | null
     resource_type: string | null
     created_at: Date
+    pages: number | null
     tags: JsonValue | null
     bytes: number | null
     type: string | null
@@ -8063,6 +9434,7 @@ export namespace Prisma {
     format?: boolean
     resource_type?: boolean
     created_at?: boolean
+    pages?: boolean
     tags?: boolean
     bytes?: boolean
     type?: boolean
@@ -8092,6 +9464,7 @@ export namespace Prisma {
     format?: boolean
     resource_type?: boolean
     created_at?: boolean
+    pages?: boolean
     tags?: boolean
     bytes?: boolean
     type?: boolean
@@ -8121,6 +9494,7 @@ export namespace Prisma {
     format?: boolean
     resource_type?: boolean
     created_at?: boolean
+    pages?: boolean
     tags?: boolean
     bytes?: boolean
     type?: boolean
@@ -8161,6 +9535,7 @@ export namespace Prisma {
       format: string | null
       resource_type: string | null
       created_at: Date
+      pages: number | null
       tags: Prisma.JsonValue | null
       bytes: number | null
       type: string | null
@@ -8580,6 +9955,7 @@ export namespace Prisma {
     readonly format: FieldRef<"imageProductArtikel", 'String'>
     readonly resource_type: FieldRef<"imageProductArtikel", 'String'>
     readonly created_at: FieldRef<"imageProductArtikel", 'DateTime'>
+    readonly pages: FieldRef<"imageProductArtikel", 'Int'>
     readonly tags: FieldRef<"imageProductArtikel", 'Json'>
     readonly bytes: FieldRef<"imageProductArtikel", 'Int'>
     readonly type: FieldRef<"imageProductArtikel", 'String'>
@@ -10001,6 +11377,7 @@ export namespace Prisma {
   export type CartMinAggregateOutputType = {
     IDCart: string | null
     email: string | null
+    clerkUserId: string | null
     name: string | null
     avatar: string | null
     id: number | null
@@ -10011,6 +11388,7 @@ export namespace Prisma {
   export type CartMaxAggregateOutputType = {
     IDCart: string | null
     email: string | null
+    clerkUserId: string | null
     name: string | null
     avatar: string | null
     id: number | null
@@ -10021,6 +11399,7 @@ export namespace Prisma {
   export type CartCountAggregateOutputType = {
     IDCart: number
     email: number
+    clerkUserId: number
     name: number
     avatar: number
     id: number
@@ -10041,6 +11420,7 @@ export namespace Prisma {
   export type CartMinAggregateInputType = {
     IDCart?: true
     email?: true
+    clerkUserId?: true
     name?: true
     avatar?: true
     id?: true
@@ -10051,6 +11431,7 @@ export namespace Prisma {
   export type CartMaxAggregateInputType = {
     IDCart?: true
     email?: true
+    clerkUserId?: true
     name?: true
     avatar?: true
     id?: true
@@ -10061,6 +11442,7 @@ export namespace Prisma {
   export type CartCountAggregateInputType = {
     IDCart?: true
     email?: true
+    clerkUserId?: true
     name?: true
     avatar?: true
     id?: true
@@ -10158,6 +11540,7 @@ export namespace Prisma {
   export type CartGroupByOutputType = {
     IDCart: string
     email: string
+    clerkUserId: string
     name: string | null
     avatar: string | null
     id: number
@@ -10187,6 +11570,7 @@ export namespace Prisma {
   export type cartSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     IDCart?: boolean
     email?: boolean
+    clerkUserId?: boolean
     name?: boolean
     avatar?: boolean
     id?: boolean
@@ -10202,6 +11586,7 @@ export namespace Prisma {
   export type cartSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     IDCart?: boolean
     email?: boolean
+    clerkUserId?: boolean
     name?: boolean
     avatar?: boolean
     id?: boolean
@@ -10212,6 +11597,7 @@ export namespace Prisma {
   export type cartSelectScalar = {
     IDCart?: boolean
     email?: boolean
+    clerkUserId?: boolean
     name?: boolean
     avatar?: boolean
     id?: boolean
@@ -10239,6 +11625,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       IDCart: string
       email: string
+      clerkUserId: string
       name: string | null
       avatar: string | null
       id: number
@@ -10643,6 +12030,7 @@ export namespace Prisma {
   interface cartFieldRefs {
     readonly IDCart: FieldRef<"cart", 'String'>
     readonly email: FieldRef<"cart", 'String'>
+    readonly clerkUserId: FieldRef<"cart", 'String'>
     readonly name: FieldRef<"cart", 'String'>
     readonly avatar: FieldRef<"cart", 'String'>
     readonly id: FieldRef<"cart", 'Int'>
@@ -16295,6 +17683,38 @@ export namespace Prisma {
   export type SpecProductScalarFieldEnum = (typeof SpecProductScalarFieldEnum)[keyof typeof SpecProductScalarFieldEnum]
 
 
+  export const ImageProductUtamaScalarFieldEnum: {
+    id: 'id',
+    start: 'start',
+    end: 'end',
+    asset_id: 'asset_id',
+    public_id: 'public_id',
+    version: 'version',
+    version_id: 'version_id',
+    signature: 'signature',
+    width: 'width',
+    height: 'height',
+    format: 'format',
+    resource_type: 'resource_type',
+    created_at: 'created_at',
+    pages: 'pages',
+    tags: 'tags',
+    bytes: 'bytes',
+    type: 'type',
+    etag: 'etag',
+    placeholder: 'placeholder',
+    url: 'url',
+    secure_url: 'secure_url',
+    asset_folder: 'asset_folder',
+    display_name: 'display_name',
+    original_filename: 'original_filename',
+    api_key: 'api_key',
+    IdProduct: 'IdProduct'
+  };
+
+  export type ImageProductUtamaScalarFieldEnum = (typeof ImageProductUtamaScalarFieldEnum)[keyof typeof ImageProductUtamaScalarFieldEnum]
+
+
   export const ImageProductScalarFieldEnum: {
     id: 'id',
     start: 'start',
@@ -16309,6 +17729,7 @@ export namespace Prisma {
     format: 'format',
     resource_type: 'resource_type',
     created_at: 'created_at',
+    pages: 'pages',
     tags: 'tags',
     bytes: 'bytes',
     type: 'type',
@@ -16356,6 +17777,7 @@ export namespace Prisma {
     format: 'format',
     resource_type: 'resource_type',
     created_at: 'created_at',
+    pages: 'pages',
     tags: 'tags',
     bytes: 'bytes',
     type: 'type',
@@ -16393,6 +17815,7 @@ export namespace Prisma {
   export const CartScalarFieldEnum: {
     IDCart: 'IDCart',
     email: 'email',
+    clerkUserId: 'clerkUserId',
     name: 'name',
     avatar: 'avatar',
     id: 'id',
@@ -16725,6 +18148,7 @@ export namespace Prisma {
     url_image_product?: ImageProductListRelationFilter
     spec_product?: XOR<SpecProductNullableRelationFilter, specProductWhereInput> | null
     cartItem?: CartItemListRelationFilter
+    imageProductUtama?: XOR<ImageProductUtamaNullableRelationFilter, imageProductUtamaWhereInput> | null
   }
 
   export type listProductOrderByWithRelationInput = {
@@ -16750,6 +18174,7 @@ export namespace Prisma {
     url_image_product?: imageProductOrderByRelationAggregateInput
     spec_product?: specProductOrderByWithRelationInput
     cartItem?: cartItemOrderByRelationAggregateInput
+    imageProductUtama?: imageProductUtamaOrderByWithRelationInput
   }
 
   export type listProductWhereUniqueInput = Prisma.AtLeast<{
@@ -16778,6 +18203,7 @@ export namespace Prisma {
     url_image_product?: ImageProductListRelationFilter
     spec_product?: XOR<SpecProductNullableRelationFilter, specProductWhereInput> | null
     cartItem?: CartItemListRelationFilter
+    imageProductUtama?: XOR<ImageProductUtamaNullableRelationFilter, imageProductUtamaWhereInput> | null
   }, "id" | "slugProduct">
 
   export type listProductOrderByWithAggregationInput = {
@@ -16932,6 +18358,168 @@ export namespace Prisma {
     IdProduct?: IntWithAggregatesFilter<"specProduct"> | number
   }
 
+  export type imageProductUtamaWhereInput = {
+    AND?: imageProductUtamaWhereInput | imageProductUtamaWhereInput[]
+    OR?: imageProductUtamaWhereInput[]
+    NOT?: imageProductUtamaWhereInput | imageProductUtamaWhereInput[]
+    id?: IntFilter<"imageProductUtama"> | number
+    start?: DateTimeFilter<"imageProductUtama"> | Date | string
+    end?: DateTimeFilter<"imageProductUtama"> | Date | string
+    asset_id?: StringNullableFilter<"imageProductUtama"> | string | null
+    public_id?: StringNullableFilter<"imageProductUtama"> | string | null
+    version?: IntNullableFilter<"imageProductUtama"> | number | null
+    version_id?: StringNullableFilter<"imageProductUtama"> | string | null
+    signature?: StringNullableFilter<"imageProductUtama"> | string | null
+    width?: IntNullableFilter<"imageProductUtama"> | number | null
+    height?: IntNullableFilter<"imageProductUtama"> | number | null
+    format?: StringNullableFilter<"imageProductUtama"> | string | null
+    resource_type?: StringNullableFilter<"imageProductUtama"> | string | null
+    created_at?: DateTimeFilter<"imageProductUtama"> | Date | string
+    pages?: IntNullableFilter<"imageProductUtama"> | number | null
+    tags?: JsonNullableFilter<"imageProductUtama">
+    bytes?: IntNullableFilter<"imageProductUtama"> | number | null
+    type?: StringNullableFilter<"imageProductUtama"> | string | null
+    etag?: StringNullableFilter<"imageProductUtama"> | string | null
+    placeholder?: BoolNullableFilter<"imageProductUtama"> | boolean | null
+    url?: StringNullableFilter<"imageProductUtama"> | string | null
+    secure_url?: StringNullableFilter<"imageProductUtama"> | string | null
+    asset_folder?: StringNullableFilter<"imageProductUtama"> | string | null
+    display_name?: StringNullableFilter<"imageProductUtama"> | string | null
+    original_filename?: StringNullableFilter<"imageProductUtama"> | string | null
+    api_key?: StringNullableFilter<"imageProductUtama"> | string | null
+    IdProduct?: IntFilter<"imageProductUtama"> | number
+    user?: XOR<ListProductRelationFilter, listProductWhereInput>
+  }
+
+  export type imageProductUtamaOrderByWithRelationInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    asset_id?: SortOrderInput | SortOrder
+    public_id?: SortOrderInput | SortOrder
+    version?: SortOrderInput | SortOrder
+    version_id?: SortOrderInput | SortOrder
+    signature?: SortOrderInput | SortOrder
+    width?: SortOrderInput | SortOrder
+    height?: SortOrderInput | SortOrder
+    format?: SortOrderInput | SortOrder
+    resource_type?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    pages?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
+    bytes?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
+    etag?: SortOrderInput | SortOrder
+    placeholder?: SortOrderInput | SortOrder
+    url?: SortOrderInput | SortOrder
+    secure_url?: SortOrderInput | SortOrder
+    asset_folder?: SortOrderInput | SortOrder
+    display_name?: SortOrderInput | SortOrder
+    original_filename?: SortOrderInput | SortOrder
+    api_key?: SortOrderInput | SortOrder
+    IdProduct?: SortOrder
+    user?: listProductOrderByWithRelationInput
+  }
+
+  export type imageProductUtamaWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    asset_id?: string
+    public_id?: string
+    IdProduct?: number
+    AND?: imageProductUtamaWhereInput | imageProductUtamaWhereInput[]
+    OR?: imageProductUtamaWhereInput[]
+    NOT?: imageProductUtamaWhereInput | imageProductUtamaWhereInput[]
+    start?: DateTimeFilter<"imageProductUtama"> | Date | string
+    end?: DateTimeFilter<"imageProductUtama"> | Date | string
+    version?: IntNullableFilter<"imageProductUtama"> | number | null
+    version_id?: StringNullableFilter<"imageProductUtama"> | string | null
+    signature?: StringNullableFilter<"imageProductUtama"> | string | null
+    width?: IntNullableFilter<"imageProductUtama"> | number | null
+    height?: IntNullableFilter<"imageProductUtama"> | number | null
+    format?: StringNullableFilter<"imageProductUtama"> | string | null
+    resource_type?: StringNullableFilter<"imageProductUtama"> | string | null
+    created_at?: DateTimeFilter<"imageProductUtama"> | Date | string
+    pages?: IntNullableFilter<"imageProductUtama"> | number | null
+    tags?: JsonNullableFilter<"imageProductUtama">
+    bytes?: IntNullableFilter<"imageProductUtama"> | number | null
+    type?: StringNullableFilter<"imageProductUtama"> | string | null
+    etag?: StringNullableFilter<"imageProductUtama"> | string | null
+    placeholder?: BoolNullableFilter<"imageProductUtama"> | boolean | null
+    url?: StringNullableFilter<"imageProductUtama"> | string | null
+    secure_url?: StringNullableFilter<"imageProductUtama"> | string | null
+    asset_folder?: StringNullableFilter<"imageProductUtama"> | string | null
+    display_name?: StringNullableFilter<"imageProductUtama"> | string | null
+    original_filename?: StringNullableFilter<"imageProductUtama"> | string | null
+    api_key?: StringNullableFilter<"imageProductUtama"> | string | null
+    user?: XOR<ListProductRelationFilter, listProductWhereInput>
+  }, "id" | "asset_id" | "public_id" | "IdProduct">
+
+  export type imageProductUtamaOrderByWithAggregationInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    asset_id?: SortOrderInput | SortOrder
+    public_id?: SortOrderInput | SortOrder
+    version?: SortOrderInput | SortOrder
+    version_id?: SortOrderInput | SortOrder
+    signature?: SortOrderInput | SortOrder
+    width?: SortOrderInput | SortOrder
+    height?: SortOrderInput | SortOrder
+    format?: SortOrderInput | SortOrder
+    resource_type?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    pages?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
+    bytes?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
+    etag?: SortOrderInput | SortOrder
+    placeholder?: SortOrderInput | SortOrder
+    url?: SortOrderInput | SortOrder
+    secure_url?: SortOrderInput | SortOrder
+    asset_folder?: SortOrderInput | SortOrder
+    display_name?: SortOrderInput | SortOrder
+    original_filename?: SortOrderInput | SortOrder
+    api_key?: SortOrderInput | SortOrder
+    IdProduct?: SortOrder
+    _count?: imageProductUtamaCountOrderByAggregateInput
+    _avg?: imageProductUtamaAvgOrderByAggregateInput
+    _max?: imageProductUtamaMaxOrderByAggregateInput
+    _min?: imageProductUtamaMinOrderByAggregateInput
+    _sum?: imageProductUtamaSumOrderByAggregateInput
+  }
+
+  export type imageProductUtamaScalarWhereWithAggregatesInput = {
+    AND?: imageProductUtamaScalarWhereWithAggregatesInput | imageProductUtamaScalarWhereWithAggregatesInput[]
+    OR?: imageProductUtamaScalarWhereWithAggregatesInput[]
+    NOT?: imageProductUtamaScalarWhereWithAggregatesInput | imageProductUtamaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"imageProductUtama"> | number
+    start?: DateTimeWithAggregatesFilter<"imageProductUtama"> | Date | string
+    end?: DateTimeWithAggregatesFilter<"imageProductUtama"> | Date | string
+    asset_id?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    public_id?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    version?: IntNullableWithAggregatesFilter<"imageProductUtama"> | number | null
+    version_id?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    signature?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    width?: IntNullableWithAggregatesFilter<"imageProductUtama"> | number | null
+    height?: IntNullableWithAggregatesFilter<"imageProductUtama"> | number | null
+    format?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    resource_type?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"imageProductUtama"> | Date | string
+    pages?: IntNullableWithAggregatesFilter<"imageProductUtama"> | number | null
+    tags?: JsonNullableWithAggregatesFilter<"imageProductUtama">
+    bytes?: IntNullableWithAggregatesFilter<"imageProductUtama"> | number | null
+    type?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    etag?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    placeholder?: BoolNullableWithAggregatesFilter<"imageProductUtama"> | boolean | null
+    url?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    secure_url?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    asset_folder?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    display_name?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    original_filename?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    api_key?: StringNullableWithAggregatesFilter<"imageProductUtama"> | string | null
+    IdProduct?: IntWithAggregatesFilter<"imageProductUtama"> | number
+  }
+
   export type imageProductWhereInput = {
     AND?: imageProductWhereInput | imageProductWhereInput[]
     OR?: imageProductWhereInput[]
@@ -16949,6 +18537,7 @@ export namespace Prisma {
     format?: StringNullableFilter<"imageProduct"> | string | null
     resource_type?: StringNullableFilter<"imageProduct"> | string | null
     created_at?: DateTimeFilter<"imageProduct"> | Date | string
+    pages?: IntNullableFilter<"imageProduct"> | number | null
     tags?: JsonNullableFilter<"imageProduct">
     bytes?: IntNullableFilter<"imageProduct"> | number | null
     type?: StringNullableFilter<"imageProduct"> | string | null
@@ -16978,6 +18567,7 @@ export namespace Prisma {
     format?: SortOrderInput | SortOrder
     resource_type?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    pages?: SortOrderInput | SortOrder
     tags?: SortOrderInput | SortOrder
     bytes?: SortOrderInput | SortOrder
     type?: SortOrderInput | SortOrder
@@ -17010,6 +18600,7 @@ export namespace Prisma {
     format?: StringNullableFilter<"imageProduct"> | string | null
     resource_type?: StringNullableFilter<"imageProduct"> | string | null
     created_at?: DateTimeFilter<"imageProduct"> | Date | string
+    pages?: IntNullableFilter<"imageProduct"> | number | null
     tags?: JsonNullableFilter<"imageProduct">
     bytes?: IntNullableFilter<"imageProduct"> | number | null
     type?: StringNullableFilter<"imageProduct"> | string | null
@@ -17039,6 +18630,7 @@ export namespace Prisma {
     format?: SortOrderInput | SortOrder
     resource_type?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    pages?: SortOrderInput | SortOrder
     tags?: SortOrderInput | SortOrder
     bytes?: SortOrderInput | SortOrder
     type?: SortOrderInput | SortOrder
@@ -17075,6 +18667,7 @@ export namespace Prisma {
     format?: StringNullableWithAggregatesFilter<"imageProduct"> | string | null
     resource_type?: StringNullableWithAggregatesFilter<"imageProduct"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"imageProduct"> | Date | string
+    pages?: IntNullableWithAggregatesFilter<"imageProduct"> | number | null
     tags?: JsonNullableWithAggregatesFilter<"imageProduct">
     bytes?: IntNullableWithAggregatesFilter<"imageProduct"> | number | null
     type?: StringNullableWithAggregatesFilter<"imageProduct"> | string | null
@@ -17191,6 +18784,7 @@ export namespace Prisma {
     format?: StringNullableFilter<"imageProductArtikel"> | string | null
     resource_type?: StringNullableFilter<"imageProductArtikel"> | string | null
     created_at?: DateTimeFilter<"imageProductArtikel"> | Date | string
+    pages?: IntNullableFilter<"imageProductArtikel"> | number | null
     tags?: JsonNullableFilter<"imageProductArtikel">
     bytes?: IntNullableFilter<"imageProductArtikel"> | number | null
     type?: StringNullableFilter<"imageProductArtikel"> | string | null
@@ -17220,6 +18814,7 @@ export namespace Prisma {
     format?: SortOrderInput | SortOrder
     resource_type?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    pages?: SortOrderInput | SortOrder
     tags?: SortOrderInput | SortOrder
     bytes?: SortOrderInput | SortOrder
     type?: SortOrderInput | SortOrder
@@ -17252,6 +18847,7 @@ export namespace Prisma {
     format?: StringNullableFilter<"imageProductArtikel"> | string | null
     resource_type?: StringNullableFilter<"imageProductArtikel"> | string | null
     created_at?: DateTimeFilter<"imageProductArtikel"> | Date | string
+    pages?: IntNullableFilter<"imageProductArtikel"> | number | null
     tags?: JsonNullableFilter<"imageProductArtikel">
     bytes?: IntNullableFilter<"imageProductArtikel"> | number | null
     type?: StringNullableFilter<"imageProductArtikel"> | string | null
@@ -17281,6 +18877,7 @@ export namespace Prisma {
     format?: SortOrderInput | SortOrder
     resource_type?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    pages?: SortOrderInput | SortOrder
     tags?: SortOrderInput | SortOrder
     bytes?: SortOrderInput | SortOrder
     type?: SortOrderInput | SortOrder
@@ -17317,6 +18914,7 @@ export namespace Prisma {
     format?: StringNullableWithAggregatesFilter<"imageProductArtikel"> | string | null
     resource_type?: StringNullableWithAggregatesFilter<"imageProductArtikel"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"imageProductArtikel"> | Date | string
+    pages?: IntNullableWithAggregatesFilter<"imageProductArtikel"> | number | null
     tags?: JsonNullableWithAggregatesFilter<"imageProductArtikel">
     bytes?: IntNullableWithAggregatesFilter<"imageProductArtikel"> | number | null
     type?: StringNullableWithAggregatesFilter<"imageProductArtikel"> | string | null
@@ -17424,6 +19022,7 @@ export namespace Prisma {
     NOT?: cartWhereInput | cartWhereInput[]
     IDCart?: StringFilter<"cart"> | string
     email?: StringFilter<"cart"> | string
+    clerkUserId?: StringFilter<"cart"> | string
     name?: StringNullableFilter<"cart"> | string | null
     avatar?: StringNullableFilter<"cart"> | string | null
     id?: IntFilter<"cart"> | number
@@ -17438,6 +19037,7 @@ export namespace Prisma {
   export type cartOrderByWithRelationInput = {
     IDCart?: SortOrder
     email?: SortOrder
+    clerkUserId?: SortOrder
     name?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     id?: SortOrder
@@ -17452,6 +19052,7 @@ export namespace Prisma {
   export type cartWhereUniqueInput = Prisma.AtLeast<{
     IDCart?: string
     email?: string
+    clerkUserId?: string
     AND?: cartWhereInput | cartWhereInput[]
     OR?: cartWhereInput[]
     NOT?: cartWhereInput | cartWhereInput[]
@@ -17464,11 +19065,12 @@ export namespace Prisma {
     formData?: XOR<FormPembelianNullableRelationFilter, formPembelianWhereInput> | null
     dataPesanan?: DataPesananListRelationFilter
     ongkosKirim?: XOR<OngkosKirimNullableRelationFilter, ongkosKirimWhereInput> | null
-  }, "IDCart" | "email">
+  }, "IDCart" | "email" | "clerkUserId">
 
   export type cartOrderByWithAggregationInput = {
     IDCart?: SortOrder
     email?: SortOrder
+    clerkUserId?: SortOrder
     name?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     id?: SortOrder
@@ -17487,6 +19089,7 @@ export namespace Prisma {
     NOT?: cartScalarWhereWithAggregatesInput | cartScalarWhereWithAggregatesInput[]
     IDCart?: StringWithAggregatesFilter<"cart"> | string
     email?: StringWithAggregatesFilter<"cart"> | string
+    clerkUserId?: StringWithAggregatesFilter<"cart"> | string
     name?: StringNullableWithAggregatesFilter<"cart"> | string | null
     avatar?: StringNullableWithAggregatesFilter<"cart"> | string | null
     id?: IntWithAggregatesFilter<"cart"> | number
@@ -18010,6 +19613,7 @@ export namespace Prisma {
     url_image_product?: imageProductCreateNestedManyWithoutUserInput
     spec_product?: specProductCreateNestedOneWithoutUserInput
     cartItem?: cartItemCreateNestedManyWithoutProductInput
+    imageProductUtama?: imageProductUtamaCreateNestedOneWithoutUserInput
   }
 
   export type listProductUncheckedCreateInput = {
@@ -18034,6 +19638,7 @@ export namespace Prisma {
     url_image_product?: imageProductUncheckedCreateNestedManyWithoutUserInput
     spec_product?: specProductUncheckedCreateNestedOneWithoutUserInput
     cartItem?: cartItemUncheckedCreateNestedManyWithoutProductInput
+    imageProductUtama?: imageProductUtamaUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type listProductUpdateInput = {
@@ -18057,6 +19662,7 @@ export namespace Prisma {
     url_image_product?: imageProductUpdateManyWithoutUserNestedInput
     spec_product?: specProductUpdateOneWithoutUserNestedInput
     cartItem?: cartItemUpdateManyWithoutProductNestedInput
+    imageProductUtama?: imageProductUtamaUpdateOneWithoutUserNestedInput
   }
 
   export type listProductUncheckedUpdateInput = {
@@ -18081,6 +19687,7 @@ export namespace Prisma {
     url_image_product?: imageProductUncheckedUpdateManyWithoutUserNestedInput
     spec_product?: specProductUncheckedUpdateOneWithoutUserNestedInput
     cartItem?: cartItemUncheckedUpdateManyWithoutProductNestedInput
+    imageProductUtama?: imageProductUtamaUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type listProductCreateManyInput = {
@@ -18262,6 +19869,205 @@ export namespace Prisma {
     IdProduct?: IntFieldUpdateOperationsInput | number
   }
 
+  export type imageProductUtamaCreateInput = {
+    start?: Date | string
+    end?: Date | string
+    asset_id?: string | null
+    public_id?: string | null
+    version?: number | null
+    version_id?: string | null
+    signature?: string | null
+    width?: number | null
+    height?: number | null
+    format?: string | null
+    resource_type?: string | null
+    created_at?: Date | string
+    pages?: number | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    bytes?: number | null
+    type?: string | null
+    etag?: string | null
+    placeholder?: boolean | null
+    url?: string | null
+    secure_url?: string | null
+    asset_folder?: string | null
+    display_name?: string | null
+    original_filename?: string | null
+    api_key?: string | null
+    user: listProductCreateNestedOneWithoutImageProductUtamaInput
+  }
+
+  export type imageProductUtamaUncheckedCreateInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
+    asset_id?: string | null
+    public_id?: string | null
+    version?: number | null
+    version_id?: string | null
+    signature?: string | null
+    width?: number | null
+    height?: number | null
+    format?: string | null
+    resource_type?: string | null
+    created_at?: Date | string
+    pages?: number | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    bytes?: number | null
+    type?: string | null
+    etag?: string | null
+    placeholder?: boolean | null
+    url?: string | null
+    secure_url?: string | null
+    asset_folder?: string | null
+    display_name?: string | null
+    original_filename?: string | null
+    api_key?: string | null
+    IdProduct: number
+  }
+
+  export type imageProductUtamaUpdateInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset_id?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    width?: NullableIntFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    format?: NullableStringFieldUpdateOperationsInput | string | null
+    resource_type?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    bytes?: NullableIntFieldUpdateOperationsInput | number | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    etag?: NullableStringFieldUpdateOperationsInput | string | null
+    placeholder?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    secure_url?: NullableStringFieldUpdateOperationsInput | string | null
+    asset_folder?: NullableStringFieldUpdateOperationsInput | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    original_filename?: NullableStringFieldUpdateOperationsInput | string | null
+    api_key?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: listProductUpdateOneRequiredWithoutImageProductUtamaNestedInput
+  }
+
+  export type imageProductUtamaUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset_id?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    width?: NullableIntFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    format?: NullableStringFieldUpdateOperationsInput | string | null
+    resource_type?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    bytes?: NullableIntFieldUpdateOperationsInput | number | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    etag?: NullableStringFieldUpdateOperationsInput | string | null
+    placeholder?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    secure_url?: NullableStringFieldUpdateOperationsInput | string | null
+    asset_folder?: NullableStringFieldUpdateOperationsInput | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    original_filename?: NullableStringFieldUpdateOperationsInput | string | null
+    api_key?: NullableStringFieldUpdateOperationsInput | string | null
+    IdProduct?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type imageProductUtamaCreateManyInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
+    asset_id?: string | null
+    public_id?: string | null
+    version?: number | null
+    version_id?: string | null
+    signature?: string | null
+    width?: number | null
+    height?: number | null
+    format?: string | null
+    resource_type?: string | null
+    created_at?: Date | string
+    pages?: number | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    bytes?: number | null
+    type?: string | null
+    etag?: string | null
+    placeholder?: boolean | null
+    url?: string | null
+    secure_url?: string | null
+    asset_folder?: string | null
+    display_name?: string | null
+    original_filename?: string | null
+    api_key?: string | null
+    IdProduct: number
+  }
+
+  export type imageProductUtamaUpdateManyMutationInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset_id?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    width?: NullableIntFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    format?: NullableStringFieldUpdateOperationsInput | string | null
+    resource_type?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    bytes?: NullableIntFieldUpdateOperationsInput | number | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    etag?: NullableStringFieldUpdateOperationsInput | string | null
+    placeholder?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    secure_url?: NullableStringFieldUpdateOperationsInput | string | null
+    asset_folder?: NullableStringFieldUpdateOperationsInput | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    original_filename?: NullableStringFieldUpdateOperationsInput | string | null
+    api_key?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type imageProductUtamaUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset_id?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    width?: NullableIntFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    format?: NullableStringFieldUpdateOperationsInput | string | null
+    resource_type?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    bytes?: NullableIntFieldUpdateOperationsInput | number | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    etag?: NullableStringFieldUpdateOperationsInput | string | null
+    placeholder?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    secure_url?: NullableStringFieldUpdateOperationsInput | string | null
+    asset_folder?: NullableStringFieldUpdateOperationsInput | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    original_filename?: NullableStringFieldUpdateOperationsInput | string | null
+    api_key?: NullableStringFieldUpdateOperationsInput | string | null
+    IdProduct?: IntFieldUpdateOperationsInput | number
+  }
+
   export type imageProductCreateInput = {
     start?: Date | string
     end?: Date | string
@@ -18275,6 +20081,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -18303,6 +20110,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -18330,6 +20138,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18358,6 +20167,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18386,6 +20196,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -18413,6 +20224,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18440,6 +20252,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18558,6 +20371,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -18586,6 +20400,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -18613,6 +20428,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18641,6 +20457,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18669,6 +20486,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -18696,6 +20514,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18723,6 +20542,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18839,6 +20659,7 @@ export namespace Prisma {
   export type cartCreateInput = {
     IDCart: string
     email: string
+    clerkUserId: string
     name?: string | null
     avatar?: string | null
     id?: number
@@ -18853,6 +20674,7 @@ export namespace Prisma {
   export type cartUncheckedCreateInput = {
     IDCart: string
     email: string
+    clerkUserId: string
     name?: string | null
     avatar?: string | null
     id?: number
@@ -18867,6 +20689,7 @@ export namespace Prisma {
   export type cartUpdateInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -18881,6 +20704,7 @@ export namespace Prisma {
   export type cartUncheckedUpdateInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -18895,6 +20719,7 @@ export namespace Prisma {
   export type cartCreateManyInput = {
     IDCart: string
     email: string
+    clerkUserId: string
     name?: string | null
     avatar?: string | null
     id?: number
@@ -18905,6 +20730,7 @@ export namespace Prisma {
   export type cartUpdateManyMutationInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -18915,6 +20741,7 @@ export namespace Prisma {
   export type cartUncheckedUpdateManyInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -19586,6 +21413,11 @@ export namespace Prisma {
     none?: cartItemWhereInput
   }
 
+  export type ImageProductUtamaNullableRelationFilter = {
+    is?: imageProductUtamaWhereInput | null
+    isNot?: imageProductUtamaWhereInput | null
+  }
+
   export type imageProductOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -19813,6 +21645,119 @@ export namespace Prisma {
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
+  export type imageProductUtamaCountOrderByAggregateInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    asset_id?: SortOrder
+    public_id?: SortOrder
+    version?: SortOrder
+    version_id?: SortOrder
+    signature?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+    format?: SortOrder
+    resource_type?: SortOrder
+    created_at?: SortOrder
+    pages?: SortOrder
+    tags?: SortOrder
+    bytes?: SortOrder
+    type?: SortOrder
+    etag?: SortOrder
+    placeholder?: SortOrder
+    url?: SortOrder
+    secure_url?: SortOrder
+    asset_folder?: SortOrder
+    display_name?: SortOrder
+    original_filename?: SortOrder
+    api_key?: SortOrder
+    IdProduct?: SortOrder
+  }
+
+  export type imageProductUtamaAvgOrderByAggregateInput = {
+    id?: SortOrder
+    version?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+    pages?: SortOrder
+    bytes?: SortOrder
+    IdProduct?: SortOrder
+  }
+
+  export type imageProductUtamaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    asset_id?: SortOrder
+    public_id?: SortOrder
+    version?: SortOrder
+    version_id?: SortOrder
+    signature?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+    format?: SortOrder
+    resource_type?: SortOrder
+    created_at?: SortOrder
+    pages?: SortOrder
+    bytes?: SortOrder
+    type?: SortOrder
+    etag?: SortOrder
+    placeholder?: SortOrder
+    url?: SortOrder
+    secure_url?: SortOrder
+    asset_folder?: SortOrder
+    display_name?: SortOrder
+    original_filename?: SortOrder
+    api_key?: SortOrder
+    IdProduct?: SortOrder
+  }
+
+  export type imageProductUtamaMinOrderByAggregateInput = {
+    id?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    asset_id?: SortOrder
+    public_id?: SortOrder
+    version?: SortOrder
+    version_id?: SortOrder
+    signature?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+    format?: SortOrder
+    resource_type?: SortOrder
+    created_at?: SortOrder
+    pages?: SortOrder
+    bytes?: SortOrder
+    type?: SortOrder
+    etag?: SortOrder
+    placeholder?: SortOrder
+    url?: SortOrder
+    secure_url?: SortOrder
+    asset_folder?: SortOrder
+    display_name?: SortOrder
+    original_filename?: SortOrder
+    api_key?: SortOrder
+    IdProduct?: SortOrder
+  }
+
+  export type imageProductUtamaSumOrderByAggregateInput = {
+    id?: SortOrder
+    version?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+    pages?: SortOrder
+    bytes?: SortOrder
+    IdProduct?: SortOrder
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type imageProductCountOrderByAggregateInput = {
     id?: SortOrder
     start?: SortOrder
@@ -19827,6 +21772,7 @@ export namespace Prisma {
     format?: SortOrder
     resource_type?: SortOrder
     created_at?: SortOrder
+    pages?: SortOrder
     tags?: SortOrder
     bytes?: SortOrder
     type?: SortOrder
@@ -19846,6 +21792,7 @@ export namespace Prisma {
     version?: SortOrder
     width?: SortOrder
     height?: SortOrder
+    pages?: SortOrder
     bytes?: SortOrder
     IdProduct?: SortOrder
   }
@@ -19864,6 +21811,7 @@ export namespace Prisma {
     format?: SortOrder
     resource_type?: SortOrder
     created_at?: SortOrder
+    pages?: SortOrder
     bytes?: SortOrder
     type?: SortOrder
     etag?: SortOrder
@@ -19891,6 +21839,7 @@ export namespace Prisma {
     format?: SortOrder
     resource_type?: SortOrder
     created_at?: SortOrder
+    pages?: SortOrder
     bytes?: SortOrder
     type?: SortOrder
     etag?: SortOrder
@@ -19909,16 +21858,9 @@ export namespace Prisma {
     version?: SortOrder
     width?: SortOrder
     height?: SortOrder
+    pages?: SortOrder
     bytes?: SortOrder
     IdProduct?: SortOrder
-  }
-
-  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type ImageProductArtikelListRelationFilter = {
@@ -20002,6 +21944,7 @@ export namespace Prisma {
     format?: SortOrder
     resource_type?: SortOrder
     created_at?: SortOrder
+    pages?: SortOrder
     tags?: SortOrder
     bytes?: SortOrder
     type?: SortOrder
@@ -20021,6 +21964,7 @@ export namespace Prisma {
     version?: SortOrder
     width?: SortOrder
     height?: SortOrder
+    pages?: SortOrder
     bytes?: SortOrder
     IdProductArtikel?: SortOrder
   }
@@ -20039,6 +21983,7 @@ export namespace Prisma {
     format?: SortOrder
     resource_type?: SortOrder
     created_at?: SortOrder
+    pages?: SortOrder
     bytes?: SortOrder
     type?: SortOrder
     etag?: SortOrder
@@ -20066,6 +22011,7 @@ export namespace Prisma {
     format?: SortOrder
     resource_type?: SortOrder
     created_at?: SortOrder
+    pages?: SortOrder
     bytes?: SortOrder
     type?: SortOrder
     etag?: SortOrder
@@ -20084,6 +22030,7 @@ export namespace Prisma {
     version?: SortOrder
     width?: SortOrder
     height?: SortOrder
+    pages?: SortOrder
     bytes?: SortOrder
     IdProductArtikel?: SortOrder
   }
@@ -20182,6 +22129,7 @@ export namespace Prisma {
   export type cartCountOrderByAggregateInput = {
     IDCart?: SortOrder
     email?: SortOrder
+    clerkUserId?: SortOrder
     name?: SortOrder
     avatar?: SortOrder
     id?: SortOrder
@@ -20196,6 +22144,7 @@ export namespace Prisma {
   export type cartMaxOrderByAggregateInput = {
     IDCart?: SortOrder
     email?: SortOrder
+    clerkUserId?: SortOrder
     name?: SortOrder
     avatar?: SortOrder
     id?: SortOrder
@@ -20206,6 +22155,7 @@ export namespace Prisma {
   export type cartMinOrderByAggregateInput = {
     IDCart?: SortOrder
     email?: SortOrder
+    clerkUserId?: SortOrder
     name?: SortOrder
     avatar?: SortOrder
     id?: SortOrder
@@ -20582,6 +22532,12 @@ export namespace Prisma {
     connect?: cartItemWhereUniqueInput | cartItemWhereUniqueInput[]
   }
 
+  export type imageProductUtamaCreateNestedOneWithoutUserInput = {
+    create?: XOR<imageProductUtamaCreateWithoutUserInput, imageProductUtamaUncheckedCreateWithoutUserInput>
+    connectOrCreate?: imageProductUtamaCreateOrConnectWithoutUserInput
+    connect?: imageProductUtamaWhereUniqueInput
+  }
+
   export type imageProductUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<imageProductCreateWithoutUserInput, imageProductUncheckedCreateWithoutUserInput> | imageProductCreateWithoutUserInput[] | imageProductUncheckedCreateWithoutUserInput[]
     connectOrCreate?: imageProductCreateOrConnectWithoutUserInput | imageProductCreateOrConnectWithoutUserInput[]
@@ -20600,6 +22556,12 @@ export namespace Prisma {
     connectOrCreate?: cartItemCreateOrConnectWithoutProductInput | cartItemCreateOrConnectWithoutProductInput[]
     createMany?: cartItemCreateManyProductInputEnvelope
     connect?: cartItemWhereUniqueInput | cartItemWhereUniqueInput[]
+  }
+
+  export type imageProductUtamaUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<imageProductUtamaCreateWithoutUserInput, imageProductUtamaUncheckedCreateWithoutUserInput>
+    connectOrCreate?: imageProductUtamaCreateOrConnectWithoutUserInput
+    connect?: imageProductUtamaWhereUniqueInput
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -20668,6 +22630,16 @@ export namespace Prisma {
     deleteMany?: cartItemScalarWhereInput | cartItemScalarWhereInput[]
   }
 
+  export type imageProductUtamaUpdateOneWithoutUserNestedInput = {
+    create?: XOR<imageProductUtamaCreateWithoutUserInput, imageProductUtamaUncheckedCreateWithoutUserInput>
+    connectOrCreate?: imageProductUtamaCreateOrConnectWithoutUserInput
+    upsert?: imageProductUtamaUpsertWithoutUserInput
+    disconnect?: imageProductUtamaWhereInput | boolean
+    delete?: imageProductUtamaWhereInput | boolean
+    connect?: imageProductUtamaWhereUniqueInput
+    update?: XOR<XOR<imageProductUtamaUpdateToOneWithWhereWithoutUserInput, imageProductUtamaUpdateWithoutUserInput>, imageProductUtamaUncheckedUpdateWithoutUserInput>
+  }
+
   export type imageProductUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<imageProductCreateWithoutUserInput, imageProductUncheckedCreateWithoutUserInput> | imageProductCreateWithoutUserInput[] | imageProductUncheckedCreateWithoutUserInput[]
     connectOrCreate?: imageProductCreateOrConnectWithoutUserInput | imageProductCreateOrConnectWithoutUserInput[]
@@ -20706,6 +22678,16 @@ export namespace Prisma {
     deleteMany?: cartItemScalarWhereInput | cartItemScalarWhereInput[]
   }
 
+  export type imageProductUtamaUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<imageProductUtamaCreateWithoutUserInput, imageProductUtamaUncheckedCreateWithoutUserInput>
+    connectOrCreate?: imageProductUtamaCreateOrConnectWithoutUserInput
+    upsert?: imageProductUtamaUpsertWithoutUserInput
+    disconnect?: imageProductUtamaWhereInput | boolean
+    delete?: imageProductUtamaWhereInput | boolean
+    connect?: imageProductUtamaWhereUniqueInput
+    update?: XOR<XOR<imageProductUtamaUpdateToOneWithWhereWithoutUserInput, imageProductUtamaUpdateWithoutUserInput>, imageProductUtamaUncheckedUpdateWithoutUserInput>
+  }
+
   export type listProductCreateNestedOneWithoutSpec_productInput = {
     create?: XOR<listProductCreateWithoutSpec_productInput, listProductUncheckedCreateWithoutSpec_productInput>
     connectOrCreate?: listProductCreateOrConnectWithoutSpec_productInput
@@ -20720,14 +22702,28 @@ export namespace Prisma {
     update?: XOR<XOR<listProductUpdateToOneWithWhereWithoutSpec_productInput, listProductUpdateWithoutSpec_productInput>, listProductUncheckedUpdateWithoutSpec_productInput>
   }
 
-  export type listProductCreateNestedOneWithoutUrl_image_productInput = {
-    create?: XOR<listProductCreateWithoutUrl_image_productInput, listProductUncheckedCreateWithoutUrl_image_productInput>
-    connectOrCreate?: listProductCreateOrConnectWithoutUrl_image_productInput
+  export type listProductCreateNestedOneWithoutImageProductUtamaInput = {
+    create?: XOR<listProductCreateWithoutImageProductUtamaInput, listProductUncheckedCreateWithoutImageProductUtamaInput>
+    connectOrCreate?: listProductCreateOrConnectWithoutImageProductUtamaInput
     connect?: listProductWhereUniqueInput
   }
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
+  }
+
+  export type listProductUpdateOneRequiredWithoutImageProductUtamaNestedInput = {
+    create?: XOR<listProductCreateWithoutImageProductUtamaInput, listProductUncheckedCreateWithoutImageProductUtamaInput>
+    connectOrCreate?: listProductCreateOrConnectWithoutImageProductUtamaInput
+    upsert?: listProductUpsertWithoutImageProductUtamaInput
+    connect?: listProductWhereUniqueInput
+    update?: XOR<XOR<listProductUpdateToOneWithWhereWithoutImageProductUtamaInput, listProductUpdateWithoutImageProductUtamaInput>, listProductUncheckedUpdateWithoutImageProductUtamaInput>
+  }
+
+  export type listProductCreateNestedOneWithoutUrl_image_productInput = {
+    create?: XOR<listProductCreateWithoutUrl_image_productInput, listProductUncheckedCreateWithoutUrl_image_productInput>
+    connectOrCreate?: listProductCreateOrConnectWithoutUrl_image_productInput
+    connect?: listProductWhereUniqueInput
   }
 
   export type listProductUpdateOneRequiredWithoutUrl_image_productNestedInput = {
@@ -21413,6 +23409,7 @@ export namespace Prisma {
     url_image_product?: imageProductCreateNestedManyWithoutUserInput
     spec_product?: specProductCreateNestedOneWithoutUserInput
     cartItem?: cartItemCreateNestedManyWithoutProductInput
+    imageProductUtama?: imageProductUtamaCreateNestedOneWithoutUserInput
   }
 
   export type listProductUncheckedCreateWithoutUserInput = {
@@ -21436,6 +23433,7 @@ export namespace Prisma {
     url_image_product?: imageProductUncheckedCreateNestedManyWithoutUserInput
     spec_product?: specProductUncheckedCreateNestedOneWithoutUserInput
     cartItem?: cartItemUncheckedCreateNestedManyWithoutProductInput
+    imageProductUtama?: imageProductUtamaUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type listProductCreateOrConnectWithoutUserInput = {
@@ -21533,6 +23531,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -21560,6 +23559,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -21649,6 +23649,66 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type imageProductUtamaCreateWithoutUserInput = {
+    start?: Date | string
+    end?: Date | string
+    asset_id?: string | null
+    public_id?: string | null
+    version?: number | null
+    version_id?: string | null
+    signature?: string | null
+    width?: number | null
+    height?: number | null
+    format?: string | null
+    resource_type?: string | null
+    created_at?: Date | string
+    pages?: number | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    bytes?: number | null
+    type?: string | null
+    etag?: string | null
+    placeholder?: boolean | null
+    url?: string | null
+    secure_url?: string | null
+    asset_folder?: string | null
+    display_name?: string | null
+    original_filename?: string | null
+    api_key?: string | null
+  }
+
+  export type imageProductUtamaUncheckedCreateWithoutUserInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
+    asset_id?: string | null
+    public_id?: string | null
+    version?: number | null
+    version_id?: string | null
+    signature?: string | null
+    width?: number | null
+    height?: number | null
+    format?: string | null
+    resource_type?: string | null
+    created_at?: Date | string
+    pages?: number | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    bytes?: number | null
+    type?: string | null
+    etag?: string | null
+    placeholder?: boolean | null
+    url?: string | null
+    secure_url?: string | null
+    asset_folder?: string | null
+    display_name?: string | null
+    original_filename?: string | null
+    api_key?: string | null
+  }
+
+  export type imageProductUtamaCreateOrConnectWithoutUserInput = {
+    where: imageProductUtamaWhereUniqueInput
+    create: XOR<imageProductUtamaCreateWithoutUserInput, imageProductUtamaUncheckedCreateWithoutUserInput>
+  }
+
   export type categoryProductUpsertWithoutListProductsInput = {
     update: XOR<categoryProductUpdateWithoutListProductsInput, categoryProductUncheckedUpdateWithoutListProductsInput>
     create: XOR<categoryProductCreateWithoutListProductsInput, categoryProductUncheckedCreateWithoutListProductsInput>
@@ -21720,6 +23780,7 @@ export namespace Prisma {
     format?: StringNullableFilter<"imageProduct"> | string | null
     resource_type?: StringNullableFilter<"imageProduct"> | string | null
     created_at?: DateTimeFilter<"imageProduct"> | Date | string
+    pages?: IntNullableFilter<"imageProduct"> | number | null
     tags?: JsonNullableFilter<"imageProduct">
     bytes?: IntNullableFilter<"imageProduct"> | number | null
     type?: StringNullableFilter<"imageProduct"> | string | null
@@ -21807,6 +23868,72 @@ export namespace Prisma {
     note?: StringNullableFilter<"cartItem"> | string | null
   }
 
+  export type imageProductUtamaUpsertWithoutUserInput = {
+    update: XOR<imageProductUtamaUpdateWithoutUserInput, imageProductUtamaUncheckedUpdateWithoutUserInput>
+    create: XOR<imageProductUtamaCreateWithoutUserInput, imageProductUtamaUncheckedCreateWithoutUserInput>
+    where?: imageProductUtamaWhereInput
+  }
+
+  export type imageProductUtamaUpdateToOneWithWhereWithoutUserInput = {
+    where?: imageProductUtamaWhereInput
+    data: XOR<imageProductUtamaUpdateWithoutUserInput, imageProductUtamaUncheckedUpdateWithoutUserInput>
+  }
+
+  export type imageProductUtamaUpdateWithoutUserInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset_id?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    width?: NullableIntFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    format?: NullableStringFieldUpdateOperationsInput | string | null
+    resource_type?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    bytes?: NullableIntFieldUpdateOperationsInput | number | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    etag?: NullableStringFieldUpdateOperationsInput | string | null
+    placeholder?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    secure_url?: NullableStringFieldUpdateOperationsInput | string | null
+    asset_folder?: NullableStringFieldUpdateOperationsInput | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    original_filename?: NullableStringFieldUpdateOperationsInput | string | null
+    api_key?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type imageProductUtamaUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset_id?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
+    width?: NullableIntFieldUpdateOperationsInput | number | null
+    height?: NullableIntFieldUpdateOperationsInput | number | null
+    format?: NullableStringFieldUpdateOperationsInput | string | null
+    resource_type?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    bytes?: NullableIntFieldUpdateOperationsInput | number | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    etag?: NullableStringFieldUpdateOperationsInput | string | null
+    placeholder?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    secure_url?: NullableStringFieldUpdateOperationsInput | string | null
+    asset_folder?: NullableStringFieldUpdateOperationsInput | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    original_filename?: NullableStringFieldUpdateOperationsInput | string | null
+    api_key?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type listProductCreateWithoutSpec_productInput = {
     start?: Date | string
     end?: Date | string
@@ -21827,6 +23954,7 @@ export namespace Prisma {
     user: categoryProductCreateNestedOneWithoutListProductsInput
     url_image_product?: imageProductCreateNestedManyWithoutUserInput
     cartItem?: cartItemCreateNestedManyWithoutProductInput
+    imageProductUtama?: imageProductUtamaCreateNestedOneWithoutUserInput
   }
 
   export type listProductUncheckedCreateWithoutSpec_productInput = {
@@ -21850,6 +23978,7 @@ export namespace Prisma {
     productKategori: number
     url_image_product?: imageProductUncheckedCreateNestedManyWithoutUserInput
     cartItem?: cartItemUncheckedCreateNestedManyWithoutProductInput
+    imageProductUtama?: imageProductUtamaUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type listProductCreateOrConnectWithoutSpec_productInput = {
@@ -21888,6 +24017,7 @@ export namespace Prisma {
     user?: categoryProductUpdateOneRequiredWithoutListProductsNestedInput
     url_image_product?: imageProductUpdateManyWithoutUserNestedInput
     cartItem?: cartItemUpdateManyWithoutProductNestedInput
+    imageProductUtama?: imageProductUtamaUpdateOneWithoutUserNestedInput
   }
 
   export type listProductUncheckedUpdateWithoutSpec_productInput = {
@@ -21911,6 +24041,117 @@ export namespace Prisma {
     productKategori?: IntFieldUpdateOperationsInput | number
     url_image_product?: imageProductUncheckedUpdateManyWithoutUserNestedInput
     cartItem?: cartItemUncheckedUpdateManyWithoutProductNestedInput
+    imageProductUtama?: imageProductUtamaUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type listProductCreateWithoutImageProductUtamaInput = {
+    start?: Date | string
+    end?: Date | string
+    slugProduct: string
+    saveDraf?: boolean
+    descProduct?: string | null
+    productName?: string | null
+    stockProduct?: number | null
+    descMetaProduct?: string | null
+    viewProduct?: number | null
+    subKategoriProduct?: string | null
+    productType?: string | null
+    tagProduct?: NullableJsonNullValueInput | InputJsonValue
+    productPrice?: bigint | number | null
+    productDiscount?: number | null
+    productPriceFinal?: bigint | number | null
+    urlYoutube?: string | null
+    user: categoryProductCreateNestedOneWithoutListProductsInput
+    url_image_product?: imageProductCreateNestedManyWithoutUserInput
+    spec_product?: specProductCreateNestedOneWithoutUserInput
+    cartItem?: cartItemCreateNestedManyWithoutProductInput
+  }
+
+  export type listProductUncheckedCreateWithoutImageProductUtamaInput = {
+    id?: number
+    start?: Date | string
+    end?: Date | string
+    slugProduct: string
+    saveDraf?: boolean
+    descProduct?: string | null
+    productName?: string | null
+    stockProduct?: number | null
+    descMetaProduct?: string | null
+    viewProduct?: number | null
+    subKategoriProduct?: string | null
+    productType?: string | null
+    tagProduct?: NullableJsonNullValueInput | InputJsonValue
+    productPrice?: bigint | number | null
+    productDiscount?: number | null
+    productPriceFinal?: bigint | number | null
+    urlYoutube?: string | null
+    productKategori: number
+    url_image_product?: imageProductUncheckedCreateNestedManyWithoutUserInput
+    spec_product?: specProductUncheckedCreateNestedOneWithoutUserInput
+    cartItem?: cartItemUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type listProductCreateOrConnectWithoutImageProductUtamaInput = {
+    where: listProductWhereUniqueInput
+    create: XOR<listProductCreateWithoutImageProductUtamaInput, listProductUncheckedCreateWithoutImageProductUtamaInput>
+  }
+
+  export type listProductUpsertWithoutImageProductUtamaInput = {
+    update: XOR<listProductUpdateWithoutImageProductUtamaInput, listProductUncheckedUpdateWithoutImageProductUtamaInput>
+    create: XOR<listProductCreateWithoutImageProductUtamaInput, listProductUncheckedCreateWithoutImageProductUtamaInput>
+    where?: listProductWhereInput
+  }
+
+  export type listProductUpdateToOneWithWhereWithoutImageProductUtamaInput = {
+    where?: listProductWhereInput
+    data: XOR<listProductUpdateWithoutImageProductUtamaInput, listProductUncheckedUpdateWithoutImageProductUtamaInput>
+  }
+
+  export type listProductUpdateWithoutImageProductUtamaInput = {
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    slugProduct?: StringFieldUpdateOperationsInput | string
+    saveDraf?: BoolFieldUpdateOperationsInput | boolean
+    descProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    productName?: NullableStringFieldUpdateOperationsInput | string | null
+    stockProduct?: NullableIntFieldUpdateOperationsInput | number | null
+    descMetaProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    viewProduct?: NullableIntFieldUpdateOperationsInput | number | null
+    subKategoriProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    productType?: NullableStringFieldUpdateOperationsInput | string | null
+    tagProduct?: NullableJsonNullValueInput | InputJsonValue
+    productPrice?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    productDiscount?: NullableIntFieldUpdateOperationsInput | number | null
+    productPriceFinal?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: categoryProductUpdateOneRequiredWithoutListProductsNestedInput
+    url_image_product?: imageProductUpdateManyWithoutUserNestedInput
+    spec_product?: specProductUpdateOneWithoutUserNestedInput
+    cartItem?: cartItemUpdateManyWithoutProductNestedInput
+  }
+
+  export type listProductUncheckedUpdateWithoutImageProductUtamaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start?: DateTimeFieldUpdateOperationsInput | Date | string
+    end?: DateTimeFieldUpdateOperationsInput | Date | string
+    slugProduct?: StringFieldUpdateOperationsInput | string
+    saveDraf?: BoolFieldUpdateOperationsInput | boolean
+    descProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    productName?: NullableStringFieldUpdateOperationsInput | string | null
+    stockProduct?: NullableIntFieldUpdateOperationsInput | number | null
+    descMetaProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    viewProduct?: NullableIntFieldUpdateOperationsInput | number | null
+    subKategoriProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    productType?: NullableStringFieldUpdateOperationsInput | string | null
+    tagProduct?: NullableJsonNullValueInput | InputJsonValue
+    productPrice?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    productDiscount?: NullableIntFieldUpdateOperationsInput | number | null
+    productPriceFinal?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    urlYoutube?: NullableStringFieldUpdateOperationsInput | string | null
+    productKategori?: IntFieldUpdateOperationsInput | number
+    url_image_product?: imageProductUncheckedUpdateManyWithoutUserNestedInput
+    spec_product?: specProductUncheckedUpdateOneWithoutUserNestedInput
+    cartItem?: cartItemUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type listProductCreateWithoutUrl_image_productInput = {
@@ -21933,6 +24174,7 @@ export namespace Prisma {
     user: categoryProductCreateNestedOneWithoutListProductsInput
     spec_product?: specProductCreateNestedOneWithoutUserInput
     cartItem?: cartItemCreateNestedManyWithoutProductInput
+    imageProductUtama?: imageProductUtamaCreateNestedOneWithoutUserInput
   }
 
   export type listProductUncheckedCreateWithoutUrl_image_productInput = {
@@ -21956,6 +24198,7 @@ export namespace Prisma {
     productKategori: number
     spec_product?: specProductUncheckedCreateNestedOneWithoutUserInput
     cartItem?: cartItemUncheckedCreateNestedManyWithoutProductInput
+    imageProductUtama?: imageProductUtamaUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type listProductCreateOrConnectWithoutUrl_image_productInput = {
@@ -21994,6 +24237,7 @@ export namespace Prisma {
     user?: categoryProductUpdateOneRequiredWithoutListProductsNestedInput
     spec_product?: specProductUpdateOneWithoutUserNestedInput
     cartItem?: cartItemUpdateManyWithoutProductNestedInput
+    imageProductUtama?: imageProductUtamaUpdateOneWithoutUserNestedInput
   }
 
   export type listProductUncheckedUpdateWithoutUrl_image_productInput = {
@@ -22017,6 +24261,7 @@ export namespace Prisma {
     productKategori?: IntFieldUpdateOperationsInput | number
     spec_product?: specProductUncheckedUpdateOneWithoutUserNestedInput
     cartItem?: cartItemUncheckedUpdateManyWithoutProductNestedInput
+    imageProductUtama?: imageProductUtamaUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type imageProductArtikelCreateWithoutUserdInput = {
@@ -22032,6 +24277,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -22059,6 +24305,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -22147,6 +24394,7 @@ export namespace Prisma {
     format?: StringNullableFilter<"imageProductArtikel"> | string | null
     resource_type?: StringNullableFilter<"imageProductArtikel"> | string | null
     created_at?: DateTimeFilter<"imageProductArtikel"> | Date | string
+    pages?: IntNullableFilter<"imageProductArtikel"> | number | null
     tags?: JsonNullableFilter<"imageProductArtikel">
     bytes?: IntNullableFilter<"imageProductArtikel"> | number | null
     type?: StringNullableFilter<"imageProductArtikel"> | string | null
@@ -22546,6 +24794,7 @@ export namespace Prisma {
   export type cartCreateWithoutItemsInput = {
     IDCart: string
     email: string
+    clerkUserId: string
     name?: string | null
     avatar?: string | null
     id?: number
@@ -22559,6 +24808,7 @@ export namespace Prisma {
   export type cartUncheckedCreateWithoutItemsInput = {
     IDCart: string
     email: string
+    clerkUserId: string
     name?: string | null
     avatar?: string | null
     id?: number
@@ -22594,6 +24844,7 @@ export namespace Prisma {
     user: categoryProductCreateNestedOneWithoutListProductsInput
     url_image_product?: imageProductCreateNestedManyWithoutUserInput
     spec_product?: specProductCreateNestedOneWithoutUserInput
+    imageProductUtama?: imageProductUtamaCreateNestedOneWithoutUserInput
   }
 
   export type listProductUncheckedCreateWithoutCartItemInput = {
@@ -22617,6 +24868,7 @@ export namespace Prisma {
     productKategori: number
     url_image_product?: imageProductUncheckedCreateNestedManyWithoutUserInput
     spec_product?: specProductUncheckedCreateNestedOneWithoutUserInput
+    imageProductUtama?: imageProductUtamaUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type listProductCreateOrConnectWithoutCartItemInput = {
@@ -22638,6 +24890,7 @@ export namespace Prisma {
   export type cartUpdateWithoutItemsInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -22651,6 +24904,7 @@ export namespace Prisma {
   export type cartUncheckedUpdateWithoutItemsInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -22692,6 +24946,7 @@ export namespace Prisma {
     user?: categoryProductUpdateOneRequiredWithoutListProductsNestedInput
     url_image_product?: imageProductUpdateManyWithoutUserNestedInput
     spec_product?: specProductUpdateOneWithoutUserNestedInput
+    imageProductUtama?: imageProductUtamaUpdateOneWithoutUserNestedInput
   }
 
   export type listProductUncheckedUpdateWithoutCartItemInput = {
@@ -22715,11 +24970,13 @@ export namespace Prisma {
     productKategori?: IntFieldUpdateOperationsInput | number
     url_image_product?: imageProductUncheckedUpdateManyWithoutUserNestedInput
     spec_product?: specProductUncheckedUpdateOneWithoutUserNestedInput
+    imageProductUtama?: imageProductUtamaUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type cartCreateWithoutFormDataInput = {
     IDCart: string
     email: string
+    clerkUserId: string
     name?: string | null
     avatar?: string | null
     id?: number
@@ -22733,6 +24990,7 @@ export namespace Prisma {
   export type cartUncheckedCreateWithoutFormDataInput = {
     IDCart: string
     email: string
+    clerkUserId: string
     name?: string | null
     avatar?: string | null
     id?: number
@@ -22762,6 +25020,7 @@ export namespace Prisma {
   export type cartUpdateWithoutFormDataInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -22775,6 +25034,7 @@ export namespace Prisma {
   export type cartUncheckedUpdateWithoutFormDataInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -22788,6 +25048,7 @@ export namespace Prisma {
   export type cartCreateWithoutOngkosKirimInput = {
     IDCart: string
     email: string
+    clerkUserId: string
     name?: string | null
     avatar?: string | null
     id?: number
@@ -22801,6 +25062,7 @@ export namespace Prisma {
   export type cartUncheckedCreateWithoutOngkosKirimInput = {
     IDCart: string
     email: string
+    clerkUserId: string
     name?: string | null
     avatar?: string | null
     id?: number
@@ -22830,6 +25092,7 @@ export namespace Prisma {
   export type cartUpdateWithoutOngkosKirimInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -22843,6 +25106,7 @@ export namespace Prisma {
   export type cartUncheckedUpdateWithoutOngkosKirimInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -22953,6 +25217,7 @@ export namespace Prisma {
   export type cartCreateWithoutDataPesananInput = {
     IDCart: string
     email: string
+    clerkUserId: string
     name?: string | null
     avatar?: string | null
     id?: number
@@ -22966,6 +25231,7 @@ export namespace Prisma {
   export type cartUncheckedCreateWithoutDataPesananInput = {
     IDCart: string
     email: string
+    clerkUserId: string
     name?: string | null
     avatar?: string | null
     id?: number
@@ -23032,6 +25298,7 @@ export namespace Prisma {
   export type cartUpdateWithoutDataPesananInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -23045,6 +25312,7 @@ export namespace Prisma {
   export type cartUncheckedUpdateWithoutDataPesananInput = {
     IDCart?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    clerkUserId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     id?: IntFieldUpdateOperationsInput | number
@@ -23095,6 +25363,7 @@ export namespace Prisma {
     url_image_product?: imageProductUpdateManyWithoutUserNestedInput
     spec_product?: specProductUpdateOneWithoutUserNestedInput
     cartItem?: cartItemUpdateManyWithoutProductNestedInput
+    imageProductUtama?: imageProductUtamaUpdateOneWithoutUserNestedInput
   }
 
   export type listProductUncheckedUpdateWithoutUserInput = {
@@ -23118,6 +25387,7 @@ export namespace Prisma {
     url_image_product?: imageProductUncheckedUpdateManyWithoutUserNestedInput
     spec_product?: specProductUncheckedUpdateOneWithoutUserNestedInput
     cartItem?: cartItemUncheckedUpdateManyWithoutProductNestedInput
+    imageProductUtama?: imageProductUtamaUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type listProductUncheckedUpdateManyWithoutUserInput = {
@@ -23154,6 +25424,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -23190,6 +25461,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23217,6 +25489,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23244,6 +25517,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23300,6 +25574,7 @@ export namespace Prisma {
     format?: string | null
     resource_type?: string | null
     created_at?: Date | string
+    pages?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: number | null
     type?: string | null
@@ -23326,6 +25601,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23353,6 +25629,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23380,6 +25657,7 @@ export namespace Prisma {
     format?: NullableStringFieldUpdateOperationsInput | string | null
     resource_type?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    pages?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     bytes?: NullableIntFieldUpdateOperationsInput | number | null
     type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23626,6 +25904,10 @@ export namespace Prisma {
      * @deprecated Use specProductDefaultArgs instead
      */
     export type specProductArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = specProductDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use imageProductUtamaDefaultArgs instead
+     */
+    export type imageProductUtamaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = imageProductUtamaDefaultArgs<ExtArgs>
     /**
      * @deprecated Use imageProductDefaultArgs instead
      */

@@ -2,7 +2,7 @@ import { ResponseData } from '@/components/api/ResponseData'
 import { prisma } from "@/controllers/prisma"
 
 export async function POST(req) {
-    const { IDCart, email, name, avatar } = await req.json()
+    const { IDCart, email, name, avatar, clerkUserId } = await req.json()
 
     BigInt.prototype.toJSON = function () {
         return this.toString();
@@ -18,6 +18,7 @@ export async function POST(req) {
                 avatar
             },
             create: {
+                clerkUserId,
                 email,
                 IDCart,
                 name,

@@ -171,6 +171,35 @@ exports.Prisma.SpecProductScalarFieldEnum = {
   IdProduct: 'IdProduct'
 };
 
+exports.Prisma.ImageProductUtamaScalarFieldEnum = {
+  id: 'id',
+  start: 'start',
+  end: 'end',
+  asset_id: 'asset_id',
+  public_id: 'public_id',
+  version: 'version',
+  version_id: 'version_id',
+  signature: 'signature',
+  width: 'width',
+  height: 'height',
+  format: 'format',
+  resource_type: 'resource_type',
+  created_at: 'created_at',
+  pages: 'pages',
+  tags: 'tags',
+  bytes: 'bytes',
+  type: 'type',
+  etag: 'etag',
+  placeholder: 'placeholder',
+  url: 'url',
+  secure_url: 'secure_url',
+  asset_folder: 'asset_folder',
+  display_name: 'display_name',
+  original_filename: 'original_filename',
+  api_key: 'api_key',
+  IdProduct: 'IdProduct'
+};
+
 exports.Prisma.ImageProductScalarFieldEnum = {
   id: 'id',
   start: 'start',
@@ -185,6 +214,7 @@ exports.Prisma.ImageProductScalarFieldEnum = {
   format: 'format',
   resource_type: 'resource_type',
   created_at: 'created_at',
+  pages: 'pages',
   tags: 'tags',
   bytes: 'bytes',
   type: 'type',
@@ -226,6 +256,7 @@ exports.Prisma.ImageProductArtikelScalarFieldEnum = {
   format: 'format',
   resource_type: 'resource_type',
   created_at: 'created_at',
+  pages: 'pages',
   tags: 'tags',
   bytes: 'bytes',
   type: 'type',
@@ -257,6 +288,7 @@ exports.Prisma.CategoryArtikelScalarFieldEnum = {
 exports.Prisma.CartScalarFieldEnum = {
   IDCart: 'IDCart',
   email: 'email',
+  clerkUserId: 'clerkUserId',
   name: 'name',
   avatar: 'avatar',
   id: 'id',
@@ -356,6 +388,7 @@ exports.Prisma.ModelName = {
   categoryProduct: 'categoryProduct',
   listProduct: 'listProduct',
   specProduct: 'specProduct',
+  imageProductUtama: 'imageProductUtama',
   imageProduct: 'imageProduct',
   postArtikel: 'postArtikel',
   imageProductArtikel: 'imageProductArtikel',

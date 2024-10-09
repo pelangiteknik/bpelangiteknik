@@ -10,8 +10,7 @@ export async function GET(req) {
         },
         include: {
             spec_product: true,
-            url_image_product: true
-        }
+            url_image_product: true        }
     })
 
     const authorization = req.headers.get('authorization')

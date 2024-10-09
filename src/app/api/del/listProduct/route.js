@@ -12,6 +12,11 @@ export async function DELETE(req) {
                 IdProduct: id
             }
         })
+        const imageProductUtama = prisma.imageProductUtama.deleteMany({
+            where: {
+                IdProduct: id
+            }
+        })
         const specProduct = prisma.specProduct.deleteMany({
             where: {
                 IdProduct: id
@@ -25,7 +30,7 @@ export async function DELETE(req) {
             }
         )
 
-        const data = await prisma.$transaction([imageProduct, specProduct, listProduct])
+        const data = await prisma.$transaction([imageProduct, imageProductUtama, specProduct, listProduct])
         const res = await ResponseData(data, authorization)
         return res
     } else return Response.json({ status: 500, isCreated: false, contact: 'natanael rio wijaya 08971041460' })
