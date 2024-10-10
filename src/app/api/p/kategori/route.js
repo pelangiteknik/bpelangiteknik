@@ -30,6 +30,14 @@ export async function GET(req) {
                     productPrice: true,
                     productDiscount: true,
                     productPriceFinal: true,
+                    imageProductUtama: {
+                        select: {
+                            url: true,
+                            secure_url: true,
+                            asset_id: true,
+                            public_id: true,
+                        }
+                    }
                 }
             }
         }
